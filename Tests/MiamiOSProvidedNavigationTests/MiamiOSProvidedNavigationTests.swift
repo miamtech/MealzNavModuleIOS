@@ -1,6 +1,7 @@
 import XCTest
 @testable import MiamiOSProvidedNavigation
 
+@available(iOS 14, *)
 final class MiamiOSProvidedNavigationTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
