@@ -12,7 +12,7 @@ public struct MiamiOSProvidedNavigation {
     }
     
     public func present(in viewController: UIViewController) {
-        let yourVC = CatalogViewController(useMealPlanner: useMealPlanner)
+        let yourVC = CatalogViewController()
         let navVC = UINavigationController(rootViewController: yourVC)
         viewController.present(navVC, animated: true, completion: nil)
     }
@@ -28,7 +28,7 @@ public struct CatalogViewControllerWrapper: UIViewControllerRepresentable {
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        let catalogVC = CatalogViewController(useMealPlanner: useMealPlanner)
+        let catalogVC = CatalogViewController()
         let navController = UINavigationController(rootViewController: catalogVC)
         return navController
     }

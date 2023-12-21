@@ -14,15 +14,15 @@ import miamCore
 @available(iOS 14, *)
 // simple function to share navigation between CatalogView & CatalogResultsView
 public func sharedCatalogViewParams(
-    navigationController: UINavigationController?,
-    useMealPlanner: Bool = false
+    useMealPlanner: Bool = false,
+    navigationController: UINavigationController?
 ) -> CatalogParameters {
     return CatalogParameters(
-        onFiltersTapped: { filterVM in
-            navigationController?.pushViewController(FiltersViewController(filterVM), animated: true)
+        onFiltersTapped: { filterInstance in
+            navigationController?.pushViewController(FiltersViewController(filterInstance), animated: true)
         },
-        onSearchTapped: {
-            navigationController?.pushViewController(CatalogSearchViewController(), animated: true)
+        onSearchTapped: { filterInstance in
+            navigationController?.pushViewController(CatalogSearchViewController(filterInstance), animated: true)
         },
         onFavoritesTapped: {
             navigationController?.pushViewController(CatalogResultsViewController(), animated: true)
@@ -35,15 +35,17 @@ public func sharedCatalogViewParams(
         },
         onMealsInBasketButtonTapped: {
             navigationController?.pushViewController(MyMealsViewController(), animated: true)
-        }, viewOptions: CatalogParametersViewOptions(useMealPlanner: useMealPlanner)
+        },
+        viewOptions: CatalogViewOptions(useMealPlanner: useMealPlanner)
     )
 }
 
 @available(iOS 14, *)
-public class CatalogViewController: UIViewController {
+class CatalogViewController: UIViewController {
+    deinit { print("deinit: CatalogViewController") }
     public let useMealPlanner: Bool
     
-    init(useMealPlanner: Bool) {
+    init(useMealPlanner: Bool = false) {
         self.useMealPlanner = useMealPlanner
         super.init(nibName: nil, bundle: nil)
     }
@@ -51,16 +53,14 @@ public class CatalogViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit { print("deinit: CatalogViewController") }
     // Your SwiftUI View
     var swiftUIView: CatalogView<
         CatalogParameters,
         CatalogPackageRowParameters> {
             return CatalogView.init(
                 params: sharedCatalogViewParams(
-                    navigationController: self.navigationController,
-                    useMealPlanner: useMealPlanner
+                    useMealPlanner: useMealPlanner,
+                    navigationController: self.navigationController
                 ),
                 catalogPackageRowParams: CatalogPackageRowParameters(
                     onSeeAllRecipes: { [weak self] categoryId, categoryTitle in
@@ -77,7 +77,11 @@ public class CatalogViewController: UIViewController {
                     }, onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
                         strongSelf.navigationController?.pushViewController(MyMealsViewController(), animated: true)
-                    }),
+                    }
+//                    ,
+//                    viewOptions: CatalogPackageRowViewOptions(recipeCard: TypeSafeCatalogRecipeCard(DemoCatalogRecipeCardView()))
+                ),
+                usesPreferences: true,
                 gridConfig: localRecipesListViewConfig
             )
         }

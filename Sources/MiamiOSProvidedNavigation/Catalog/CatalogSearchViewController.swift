@@ -12,12 +12,22 @@ import MiamNeutraliOSFramework
 import miamCore
 
 @available(iOS 14, *)
-public class CatalogSearchViewController: UIViewController {
+class CatalogSearchViewController: UIViewController {
+    public let filterInstance: FilterInstance
+    
+    init(_ filterInstance: FilterInstance) {
+        self.filterInstance = filterInstance
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     deinit { print("deinit: CatalogSearchViewController") }
     // Your SwiftUI View
-    var swiftUIView: CatalogSearchViewTemplate<
+    var swiftUIView: CatalogSearch<
         CatalogSearchParameters> {
-        return CatalogSearchViewTemplate.init(
+        return CatalogSearch.init(
             params: CatalogSearchParameters(
                 onApplied: { [weak self] in
                     // complex to remove this view from stack after redirecting to Results page so Results can directly navigate back to CatalogView
@@ -26,11 +36,11 @@ public class CatalogSearchViewController: UIViewController {
                     strongSelf.navigationController?.setViewControllers([viewA, viewB], animated: true)
                 }
             ),
-            singletonFilterViewModel: MiamDI.shared.recipeFilterViewModel
+            filterInstance: filterInstance
         )
     }
     // The hosting controller for your SwiftUI view
-    private var hostingController: UIHostingController<CatalogSearchViewTemplate<
+    private var hostingController: UIHostingController<CatalogSearch<
         CatalogSearchParameters>>?
 
     public override func viewDidLoad() {

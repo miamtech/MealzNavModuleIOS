@@ -13,10 +13,8 @@ import miamCore
 
 @available(iOS 14, *)
 var myMealsBasketViewConfig = BasketRecipesGridConfig(
-    recipeHorizontalSpacing: 6.0,
-    recipeVerticalSpacing: 6.0,
-    productHorizontalSpacing: 6.0,
-    productVerticalSpacing: 6.0,
+    recipeSpacing: CGSize(width: 5, height: 5),
+    productSpacing: CGSize(width: 6, height: 6),
     recipeOverviewDimensions: CGSize(width: 300, height: 150),
     isExpandable: true)
 

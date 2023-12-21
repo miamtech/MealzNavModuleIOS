@@ -12,10 +12,8 @@ import MiamNeutraliOSFramework
 
 @available(iOS 14, *)
 public var localBasketGridConfig = BasketRecipesGridConfig(
-    recipeHorizontalSpacing: 6,
-    recipeVerticalSpacing: 6,
-    productHorizontalSpacing: 6,
-    productVerticalSpacing: 6,
+    recipeSpacing: CGSize(width: 5, height: 5),
+    productSpacing: CGSize(width: 6, height: 6),
     recipeOverviewDimensions: CGSize(width: 300, height: 150),
     isExpandable: true)
 

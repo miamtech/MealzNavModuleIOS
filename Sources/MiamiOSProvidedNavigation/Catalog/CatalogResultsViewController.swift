@@ -12,18 +12,17 @@ import MiamNeutraliOSFramework
 
 @available(iOS 14, *)
 public var localRecipesListViewConfig = CatalogRecipesListGridConfig(
-    columns: 2,
-    horizontalSpacing: 6,
-    verticalSpacing: 6,
-    recipeCardDimensions: CGSize(width: 300, height: 380),
+    numberOfColumns: 2,
+    spacing: CGSize(width: 6, height: 6),
+    recipeCardDimensions: CGSize(width: 300, height: 340),
     recipeCardFillMaxWidth: true)
 
 @available(iOS 14, *)
-public class CatalogResultsViewController: UIViewController {
+class CatalogResultsViewController: UIViewController {
     public let categoryId: String?
     public let categoryTitle: String?
     
-    public init(_ categoryId: String? = nil, categoryTitle: String? = nil) {
+    init(_ categoryId: String? = nil, categoryTitle: String? = nil) {
         self.categoryId = categoryId
         self.categoryTitle = categoryTitle
         super.init(nibName: nil, bundle: nil)
@@ -40,7 +39,6 @@ public class CatalogResultsViewController: UIViewController {
             return CatalogResults(
                 params: sharedCatalogViewParams(navigationController: self.navigationController),
                 recipesListParams: CatalogRecipesListParameters(
-                    onShowRecipes: { [weak self] _ in },
                     onNoResultsRedirect: { [weak self] in },
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
