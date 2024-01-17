@@ -1,63 +1,66 @@
 //
-//  RecipeDetailsViewController.swift
+//  CatalogSearchViewController.swift
 //  SampleMiamUIKitIntegration
 //
-//  Created by didi on 05/10/2023.
+//  Created by didi on 21/09/2023.
 //
 
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-class RecipeDetailsViewController: UIViewController {
-    public let recipeId: String
-    public let isForMealPlanner: Bool
+class CatalogSearchViewController: UIViewController {
+    private let filterInstance: FilterInstance
+    private let catalogSearchViewOptions: CatalogSearchViewOptions
+    private let baseViews: BaseViewParameters
+    weak var coordinator: CatalogFeatureNavCoordinator?
     
-    init(_ recipeId: String, isForMealPlanner: Bool = false) {
-        self.recipeId = recipeId
-        self.isForMealPlanner = isForMealPlanner
+    init(
+        _ filterInstance: FilterInstance,
+        catalogSearchViewOptions: CatalogSearchViewOptions,
+        baseViews: BaseViewParameters, 
+        coordinator: CatalogFeatureNavCoordinator
+    ) {
+        self.filterInstance = filterInstance
+        self.catalogSearchViewOptions = catalogSearchViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit { print("deinit: RecipeDetailsViewController") }
-    
+    deinit { print("deinit: CatalogSearchViewController") }
     // Your SwiftUI View
-    var swiftUIView: RecipeDetails<
-        RecipeDetailParameters
+    var swiftUIView: CatalogSearch<
+        CatalogSearchParameters,
+        BaseViewParameters
     > {
-        return RecipeDetails.init(
-            params: RecipeDetailParameters(
-                onClosed: { [weak self] in
+        return CatalogSearch.init(
+            params: CatalogSearchParameters(
+                onApplied: { [weak self] in
                     guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.popViewController(animated: true)
+                    strongSelf.coordinator?.showCatalogResults()
                 },
-                onSponsorDetailsTapped: { [weak self] sponsor in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.pushViewController(SponsorDetailsViewController(sponsor: sponsor), animated: true)
-                },
-                onContinueToBasket: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.pushViewController(MyMealsViewController(), animated: true)
-                }),
-            recipeId: recipeId,
-            isForMealPlanner: isForMealPlanner)
+                viewOptions: catalogSearchViewOptions
+            ),
+            baseViews: baseViews,
+            filterInstance: filterInstance
+        )
     }
-    
     // The hosting controller for your SwiftUI view
-    private var hostingController: UIHostingController<RecipeDetails<
-        RecipeDetailParameters
->>?
+    private var hostingController: UIHostingController<CatalogSearch<
+        CatalogSearchParameters,
+        BaseViewParameters
+    >>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Mon assistant Budget repas"
+        navigationItem.title = "Search"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: nil, action: nil)
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)

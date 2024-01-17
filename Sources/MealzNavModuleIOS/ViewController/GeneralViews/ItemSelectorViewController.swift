@@ -8,14 +8,25 @@
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 
 @available(iOS 14, *)
 class ItemSelectorViewController: UIViewController {
-    public let recipeId: String
+    private let ingredientId: String
+    private let itemSelectorViewOptions: ItemSelectorViewOptions
+    private let baseViews: BaseViewParameters
+    weak var coordinator: MealzBaseNavCoordinator?
     
-    init(_ recipeId: String) {
-        self.recipeId = recipeId
+    init(
+        ingredientId: String,
+        itemSelectorViewOptions: ItemSelectorViewOptions,
+        baseViews: BaseViewParameters,
+        coordinator: MealzBaseNavCoordinator?
+    ) {
+        self.ingredientId = ingredientId
+        self.itemSelectorViewOptions = itemSelectorViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,22 +37,30 @@ class ItemSelectorViewController: UIViewController {
     deinit { print("deinit: ItemSelectorViewController")}
 
     // Your SwiftUI View
-    var swiftUIView: ItemSelector<ItemSelectorParameters> {
+    var swiftUIView: ItemSelector<
+        ItemSelectorParameters,
+        BaseViewParameters
+    > {
         return ItemSelector(
             params: ItemSelectorParameters(onItemSelected: { [weak self] in
                 // added small delay to ensure image reloads
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
                     guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.popViewController(animated: true)
+                    strongSelf.coordinator?.goBack()
                 }
-            }), recipeId: recipeId)
+            }), 
+            baseViews: baseViews,
+            ingredientId: ingredientId)
     }
     // The hosting controller for your SwiftUI view
-    private var hostingController: UIHostingController<ItemSelector<ItemSelectorParameters>>?
+    private var hostingController: UIHostingController<ItemSelector<
+        ItemSelectorParameters,
+        BaseViewParameters
+    >>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Mon assistant Budget repas"
+        navigationItem.title = "Mon assistant Budget repas"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: nil, action: nil)
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)

@@ -1,42 +1,52 @@
 //
-//  FavoritesViewController.swift
+//  SponsorDetailsViewController.swift
 //  SampleMiamUIKitIntegration
 //
-//  Created by didi on 25/09/2023.
+//  Created by didi on 03/10/2023.
 //
 
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-class FavoritesViewController: UIViewController {
-    deinit { print("deinit: FavoritesViewController") }
+class SponsorDetailsViewController: UIViewController {
+    private let sponsor: Sponsor
+    private let baseViews: BaseViewParameters
+    weak var coordinator: MealzBaseNavCoordinator?
+    
+    init(
+        sponsor: Sponsor,
+        baseViews: BaseViewParameters,
+        coordinator: MealzBaseNavCoordinator?
+    ) {
+        self.sponsor = sponsor
+        self.baseViews = baseViews
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    deinit { print("deinit: SponsorDetailsViewController") }
     // Your SwiftUI View
-    var swiftUIView: Favorites<
-        FavoritesParameters> {
-        return Favorites.init(
-            params: FavoritesParameters(
-                onNoResultsRedirect: { [weak self] in },
-                onShowRecipeDetails: { [weak self] recipeId in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
-                }, onRecipeCallToActionTapped: { [weak self] recipeId in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.pushViewController(MyMealsViewController(), animated: true)
-                }),
-            gridConfig: localRecipesListViewConfig
+    var swiftUIView: SponsorDetails<
+        BaseViewParameters
+    > {
+        return SponsorDetails.init(
+            baseViews: baseViews,
+            sponsor: sponsor
         )
     }
     // The hosting controller for your SwiftUI view
-    private var hostingController: UIHostingController<Favorites<
-        FavoritesParameters>>?
+    private var hostingController: UIHostingController<SponsorDetails<
+        BaseViewParameters>>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Favorites"
+        self.title = "\(sponsor.name)"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: nil, action: nil)
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)

@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 
 @available(iOS 14, *)
 public var localRecipesListViewConfig = CatalogRecipesListGridConfig(
@@ -19,12 +19,24 @@ public var localRecipesListViewConfig = CatalogRecipesListGridConfig(
 
 @available(iOS 14, *)
 class CatalogResultsViewController: UIViewController {
-    public let categoryId: String?
-    public let categoryTitle: String?
+    private let categoryId: String?
+    private let categoryTitle: String?
+    private let catalogViewOptions: CatalogViewOptions
+    private let baseViews: BaseViewParameters
+    weak var coordinator: CatalogFeatureNavCoordinator?
     
-    init(_ categoryId: String? = nil, categoryTitle: String? = nil) {
+    init(
+        categoryId: String? = nil,
+        categoryTitle: String? = nil,
+        catalogViewOptions: CatalogViewOptions,
+        baseViews: BaseViewParameters, 
+        coordinator: CatalogFeatureNavCoordinator
+    ) {
         self.categoryId = categoryId
         self.categoryTitle = categoryTitle
+        self.catalogViewOptions = catalogViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,20 +47,23 @@ class CatalogResultsViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: CatalogResults<
         CatalogParameters,
-        CatalogRecipesListParameters> {
+        CatalogRecipesListParameters,
+        BaseViewParameters
+    > {
             return CatalogResults(
-                params: sharedCatalogViewParams(navigationController: self.navigationController),
+                params: sharedCatalogViewParams(catalogViewOptions: catalogViewOptions, coordinator: coordinator),
                 recipesListParams: CatalogRecipesListParameters(
                     onNoResultsRedirect: { [weak self] in },
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
                     },
                     onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.navigationController?.pushViewController(MyMealsViewController(), animated: true)
+//                        strongSelf.coordinator?.showMyMeals()
                     }
                 ),
+                baseViews: baseViews,
                 categoryId: categoryId,
                 title: categoryTitle,
                 gridConfig: localRecipesListViewConfig
@@ -57,11 +72,13 @@ class CatalogResultsViewController: UIViewController {
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<CatalogResults<
         CatalogParameters,
-        CatalogRecipesListParameters>>?
+        CatalogRecipesListParameters,
+        BaseViewParameters
+    >>?
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Results"
+        navigationItem.title = "Results"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: nil, action: nil)
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)
@@ -80,5 +97,3 @@ class CatalogResultsViewController: UIViewController {
         hostingController.didMove(toParent: self)
     }
 }
-
-

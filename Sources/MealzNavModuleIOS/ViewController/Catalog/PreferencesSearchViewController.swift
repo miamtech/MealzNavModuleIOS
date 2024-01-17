@@ -8,26 +8,50 @@
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
 class PreferencesSearchViewController: UIViewController {
+    private let preferencesSearchViewOptions: PreferencesSearchViewOptions
+    private let baseViews: BaseViewParameters
+    weak var coordinator: MealzBaseNavCoordinator?
+    
+    init(
+        preferencesSearchViewOptions: PreferencesSearchViewOptions,
+        baseViews: BaseViewParameters, 
+        coordinator: MealzBaseNavCoordinator? = nil
+    ) {
+        self.preferencesSearchViewOptions = preferencesSearchViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     deinit { print("deinit: PreferencesSearchViewController") }
     // Your SwiftUI View
     var swiftUIView: PreferencesSearch<
-        PreferencesSearchParameters> {
+        PreferencesSearchParameters,
+        BaseViewParameters
+    > {
         return PreferencesSearch.init(
             params: PreferencesSearchParameters(
                 onClosed: { [weak self] in
                     guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.popViewController(animated: true)
-                })
+                    strongSelf.coordinator?.goBack()
+                }, 
+                viewOptions: preferencesSearchViewOptions
+            ),
+            baseViews: baseViews
         )
     }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<PreferencesSearch<
-        PreferencesSearchParameters>>?
+        PreferencesSearchParameters,
+        BaseViewParameters
+    >>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
