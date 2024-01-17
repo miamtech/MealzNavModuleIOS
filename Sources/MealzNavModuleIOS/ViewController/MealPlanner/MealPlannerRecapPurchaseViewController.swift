@@ -1,48 +1,33 @@
 //
-//  SponsorDetailsViewController.swift
-//  SampleMiamUIKitIntegration
+//  RecapPurchaseViewController.swift
+//  SampleUIKitIntegration
 //
-//  Created by didi on 03/10/2023.
+//  Created by didi on 6/21/23.
 //
 
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
-import miamCore
+import MealzUIModuleIOS
 
 @available(iOS 14, *)
-class SponsorDetailsViewController: UIViewController {
-    public let sponsor: Sponsor
-    
-    init(sponsor: Sponsor) {
-        self.sponsor = sponsor
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit { print("deinit: SponsorDetailsViewController") }
-    // Your SwiftUI View
-    var swiftUIView: SponsorDetails<
-        SponsorDetailsParameters
-    > {
-        return SponsorDetails.init(
-            params: SponsorDetailsParameters(),
-            sponsor: sponsor
-        )
+class MealPlannerRecapPurchaseViewController: UIViewController {
+    var swiftUIView: MealPlannerRecap<MealPlannerRecapParameters> {
+        return MealPlannerRecap(
+            params: MealPlannerRecapParameters(
+                onNavigateAwayFromMealPlanner: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.navigationController?.popToRootViewController(animated: true)
+                }
+            ))
     }
     // The hosting controller for your SwiftUI view
-    private var hostingController: UIHostingController<SponsorDetails<
-        SponsorDetailsParameters>>?
+    private var hostingController: UIHostingController<MealPlannerRecap<MealPlannerRecapParameters>>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "\(sponsor.name)"
+        self.title = "Mon assistant Budget repas"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: nil, action: nil)
-        // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)
         guard let hostingController = hostingController, let hcView = hostingController.view
         else { return }

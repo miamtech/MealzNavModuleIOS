@@ -8,32 +8,54 @@
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
 class PreferencesViewController: UIViewController {
+    private let preferencesViewOptions: PreferencesViewOptions
+    private let baseViews: BaseViewParameters
+    weak var coordinator: MealzBaseNavCoordinator?
+    
+    init(
+        preferencesViewOptions: PreferencesViewOptions,
+        baseViews: BaseViewParameters, 
+        coordinator: MealzBaseNavCoordinator? = nil
+    ) {
+        self.preferencesViewOptions = preferencesViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     deinit { print("deinit: PreferencesViewController") }
     // Your SwiftUI View
     var swiftUIView: Preferences<
-        PreferencesParameters
+        PreferencesParameters,
+        BaseViewParameters
     > {
             return Preferences.init(
                 params: PreferencesParameters(
                     onClosed: { [weak self] in
                         guard let strongSelf = self else { return }
-                        strongSelf.navigationController?.popViewController(animated: true)
+                        strongSelf.coordinator?.goBack()
                     },
                     onGoToSearch: { [weak self] in
                         guard let strongSelf = self else { return }
-                        strongSelf.navigationController?.pushViewController(PreferencesSearchViewController(), animated: true)
-                    })
+//                        strongSelf.coordinator?.showPreferencesSearch()
+                    },
+                    viewOptions: preferencesViewOptions
+                ),
+                baseViews: baseViews
             )
         }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<
-        Preferences<PreferencesParameters>
-    >?
+        Preferences<PreferencesParameters,
+        BaseViewParameters
+    >>?
     
     override func viewDidLoad() {
         super.viewDidLoad()

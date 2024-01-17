@@ -7,26 +7,30 @@
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
 class FiltersViewController: UIViewController {
     public let filterInstance: FilterInstance
-    private let isForMealPlanner: Bool
+    public let isForMealPlanner: Bool
+    public let filtersViewOptions: FiltersViewOptions
+    weak var coordinator: CatalogFeatureNavCoordinator?
     
     init(
         _ filterInstance: FilterInstance,
-        isForMealPlanner: Bool = false
+        isForMealPlanner: Bool = false,
+        filtersViewOptions: FiltersViewOptions,
+        coordinator: CatalogFeatureNavCoordinator?
     ) {
         self.filterInstance = filterInstance
         self.isForMealPlanner = isForMealPlanner
+        self.filtersViewOptions = filtersViewOptions
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     deinit { print("deinit: FiltersViewController")}
     // Your SwiftUI View
@@ -36,19 +40,16 @@ class FiltersViewController: UIViewController {
             params: FiltersParameters(
                 onApplied: { [weak self] in
                     guard let strongSelf = self else { return }
-                    if strongSelf.isForMealPlanner {
-                        strongSelf.navigationController?.popViewController(animated: true)
-                    } else {
-                        // this is overly complex so that when the user taps the apply button,
-                        // the next return will take them to Catalog, instead of back to filters
-                        guard let viewA = strongSelf.navigationController?.viewControllers.first else { return }
-                        let viewB = CatalogResultsViewController()
-                        strongSelf.navigationController?.setViewControllers([viewA, viewB], animated: true)
-                    }
+                    //  if strongSelf.isForMealPlanner {
+                    //      strongSelf.navigationController?.popViewController(animated: true)
+                    //  } else {
+                    strongSelf.coordinator?.showCatalogResults()
+                    //  }
                 }, onClosed: { [weak self] in
                     guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.popViewController(animated: true)
-                }
+                    strongSelf.coordinator?.goBack()
+                },
+                viewOptions: filtersViewOptions
             ),
             filterInstance: filterInstance
         )

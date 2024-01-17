@@ -8,87 +8,97 @@
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
 // simple function to share navigation between CatalogView & CatalogResultsView
 public func sharedCatalogViewParams(
-    useMealPlanner: Bool = false,
-    navigationController: UINavigationController?
+    catalogViewOptions: CatalogViewOptions,
+    coordinator: CatalogFeatureNavCoordinator?
 ) -> CatalogParameters {
     return CatalogParameters(
         onFiltersTapped: { filterInstance in
-            navigationController?.pushViewController(FiltersViewController(filterInstance), animated: true)
+            coordinator?.showFilters(filterInstance: filterInstance)
         },
         onSearchTapped: { filterInstance in
-            navigationController?.pushViewController(CatalogSearchViewController(filterInstance), animated: true)
+            coordinator?.showCatalogSearch(filterInstance: filterInstance)
         },
         onFavoritesTapped: {
-            navigationController?.pushViewController(CatalogResultsViewController(), animated: true)
+            coordinator?.showCatalogResults()
         },
         onPreferencesTapped: {
-            navigationController?.pushViewController(PreferencesViewController(), animated: true)
+            coordinator?.showPreferences()
         },
         onLaunchMealPlanner: {
-            navigationController?.pushViewController(MealPlannerFormViewController(), animated: true)
+//            coordinator?.launchMealPlanner()
         },
         onMealsInBasketButtonTapped: {
-            navigationController?.pushViewController(MyMealsViewController(), animated: true)
+            coordinator?.showMyMeals()
         },
-        viewOptions: CatalogViewOptions(useMealPlanner: useMealPlanner)
+        viewOptions: catalogViewOptions
     )
 }
 
 @available(iOS 14, *)
-class CatalogViewController: UIViewController {
-    deinit { print("deinit: CatalogViewController") }
-    public let useMealPlanner: Bool
+public class CatalogViewController: UIViewController {
+    private let catalogViewOptions: CatalogViewOptions
+    private let baseViews: BaseViewParameters
+    weak var coordinator: CatalogFeatureNavCoordinator?
     
-    init(useMealPlanner: Bool = false) {
-        self.useMealPlanner = useMealPlanner
+    public init(
+        catalogViewOptions: CatalogViewOptions,
+        baseViews: BaseViewParameters, 
+        coordinator: CatalogFeatureNavCoordinator
+    ) {
+        self.catalogViewOptions = catalogViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit { print("deinit: CatalogViewController") }
     // Your SwiftUI View
     var swiftUIView: CatalogView<
         CatalogParameters,
-        CatalogPackageRowParameters> {
+        CatalogPackageRowParameters,
+        BaseViewParameters
+    > {
             return CatalogView.init(
                 params: sharedCatalogViewParams(
-                    useMealPlanner: useMealPlanner,
-                    navigationController: self.navigationController
+                    catalogViewOptions: catalogViewOptions,
+                    coordinator: coordinator
                 ),
                 catalogPackageRowParams: CatalogPackageRowParameters(
                     onSeeAllRecipes: { [weak self] categoryId, categoryTitle in
                         guard let strongSelf = self else { return }
-                        strongSelf.navigationController?.pushViewController(
-                            CatalogResultsViewController(
-                                categoryId,
-                                categoryTitle: categoryTitle
-                            ), animated: true)
+                        strongSelf.coordinator?.showCatalogResults(
+                            catalogId: categoryId,
+                            categoryTitle: categoryTitle
+                        )
                     },
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
                     }, onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.navigationController?.pushViewController(MyMealsViewController(), animated: true)
+                        strongSelf.coordinator?.showMyMeals()
                     }
-//                    ,
-//                    viewOptions: CatalogPackageRowViewOptions(recipeCard: TypeSafeCatalogRecipeCard(DemoCatalogRecipeCardView()))
                 ),
-                usesPreferences: true,
+                baseViews: baseViews,
                 gridConfig: localRecipesListViewConfig
             )
         }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<CatalogView<
         CatalogParameters,
-        CatalogPackageRowParameters>>?
+        CatalogPackageRowParameters,
+        BaseViewParameters
+    >>?
     
     public override func viewDidLoad() {
         super.viewDidLoad()

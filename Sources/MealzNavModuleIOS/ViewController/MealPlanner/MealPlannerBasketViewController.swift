@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 
 @available(iOS 14, *)
 public var localBasketGridConfig = BasketRecipesGridConfig(
@@ -23,7 +23,8 @@ class MealPlannerBasketViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: MealPlannerBasket<
         MealPlannerBasketParameters,
-        BasketRecipeParameters
+        BasketRecipeParameters,
+        BaseViewParameters
     > {
         return MealPlannerBasket(
             params: MealPlannerBasketParameters(
@@ -33,14 +34,15 @@ class MealPlannerBasketViewController: UIViewController {
                 },
                 onNavigateToBasket: { [weak self] in }),
             basketRecipesParams: BasketRecipeParameters(
-                onReplaceProduct: { [weak self] recipeId in
+                onReplaceProduct: { [weak self] ingredientId in
                     guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.pushViewController(ItemSelectorViewController(recipeId), animated: true)
+//                    strongS elf.navigationController?.pushViewController(ItemSelectorViewController(ingredientId: ingredientId), animated: true)
                 },
                 onShowRecipeDetails: { [weak self] recipeId in
                     guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
+//                    strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
                 }),
+            baseViews: BaseViewParameters(),
             gridConfig: localBasketGridConfig
         )
     }
@@ -48,7 +50,8 @@ class MealPlannerBasketViewController: UIViewController {
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<MealPlannerBasket<
         MealPlannerBasketParameters,
-        BasketRecipeParameters
+        BasketRecipeParameters,
+        BaseViewParameters
 >>?
 
     override func viewDidLoad() {

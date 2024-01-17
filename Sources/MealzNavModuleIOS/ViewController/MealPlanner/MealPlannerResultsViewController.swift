@@ -8,23 +8,24 @@
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 
 @available(iOS 14, *)
 class MealPlannerResultsViewController: UIViewController {
     deinit { print("deinit: MealPlannerResultsViewController") }
     // Your SwiftUI View
     var swiftUIView: MealPlannerResults<
-        MealPlannerResultsParameters
+        MealPlannerResultsParameters,
+        BaseViewParameters
     > {
         return MealPlannerResults(
             params:
                 MealPlannerResultsParameters(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        DispatchQueue.main.async {
-                            strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
-                        }
+//                        DispatchQueue.main.async {
+//                            strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
+//                        }
                     },
                     onOpenReplaceRecipe: { [weak self] indexOfRecipe in
                         DispatchQueue.main.async {
@@ -38,6 +39,7 @@ class MealPlannerResultsViewController: UIViewController {
                             strongSelf.navigationController?.pushViewController(MealPlannerBasketViewController(), animated: true)
                         }
                     }),
+            baseViews: BaseViewParameters(),
             gridConfig: MealPlannerRecipesListGridConfig(
                 spacing: CGSize(width: 0, height: 0),
                 recipeCardDimensions: CGSize(width: 300, height: 200)))
@@ -45,7 +47,8 @@ class MealPlannerResultsViewController: UIViewController {
     
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<MealPlannerResults<
-        MealPlannerResultsParameters
+        MealPlannerResultsParameters,
+        BaseViewParameters
 >>?
 
     override func viewDidLoad() {

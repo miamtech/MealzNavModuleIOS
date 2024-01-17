@@ -1,33 +1,46 @@
 //
-//  RecapPurchaseViewController.swift
+//  MealViewController.swift
 //  SampleUIKitIntegration
 //
-//  Created by didi on 6/21/23.
+//  Created by Vincent Kergonna on 12/07/2022.
 //
 
 import UIKit
 import SwiftUI
 import MiamIOSFramework
-import MiamNeutraliOSFramework
+import MealzUIModuleIOS
 
 @available(iOS 14, *)
-class MealPlannerRecapPurchaseViewController: UIViewController {
-    var swiftUIView: MealPlannerRecap<MealPlannerRecapParameters> {
-        return MealPlannerRecap(
-            params: MealPlannerRecapParameters(
-                onNavigateAwayFromMealPlanner: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.popToRootViewController(animated: true)
-                }
-            ))
+class MealPlannerFormViewController: UIViewController {
+    deinit { print("deinit: MealPlannerFormViewController") }
+    // Your SwiftUI View
+    var swiftUIView: MealPlannerForm<
+        MealPlannerFormParameters,
+        BaseViewParameters
+    > {
+        return MealPlannerForm(
+            params: MealPlannerFormParameters(
+                onNavigateToMealPlannerResults: { [weak self] recipes in
+                guard let strongSelf = self else { return }
+                strongSelf.navigationController?.pushViewController(MealPlannerResultsViewController(), animated: true)
+                }),
+            baseViews: BaseViewParameters()
+        )
+           
     }
     // The hosting controller for your SwiftUI view
-    private var hostingController: UIHostingController<MealPlannerRecap<MealPlannerRecapParameters>>?
-
+    private var hostingController: UIHostingController<MealPlannerForm<
+        MealPlannerFormParameters,
+        BaseViewParameters
+    >>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Mon assistant Budget repas"
+        navigationItem.title = "Mon assistant Budget repas"
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: nil, action: nil)
+
+        // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)
         guard let hostingController = hostingController, let hcView = hostingController.view
         else { return }
