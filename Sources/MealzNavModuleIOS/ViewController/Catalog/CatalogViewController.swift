@@ -15,7 +15,8 @@ import miamCore
 // simple function to share navigation between CatalogView & CatalogResultsView
 public func sharedCatalogViewParams(
     catalogViewOptions: CatalogViewOptions,
-    coordinator: CatalogFeatureNavCoordinator?
+    coordinator: CatalogFeatureNavCoordinator?,
+    navigateToMealPlanner: (() -> Void)? = nil
 ) -> CatalogParameters {
     return CatalogParameters(
         onFiltersTapped: { filterInstance in
@@ -31,7 +32,9 @@ public func sharedCatalogViewParams(
             coordinator?.showPreferences()
         },
         onLaunchMealPlanner: {
-//            coordinator?.launchMealPlanner()
+            if let navigateToMealPlanner {
+                navigateToMealPlanner()
+            }
         },
         onMealsInBasketButtonTapped: {
             coordinator?.showMyMeals()
@@ -44,15 +47,18 @@ public func sharedCatalogViewParams(
 public class CatalogViewController: UIViewController {
     private let catalogViewOptions: CatalogViewOptions
     private let baseViews: BasePageViewParameters
+    private let navigateToMealPlanner: (() -> Void)?
     weak var coordinator: CatalogFeatureNavCoordinator?
     
     public init(
         catalogViewOptions: CatalogViewOptions,
         baseViews: BasePageViewParameters, 
+        navigateToMealPlanner: (() -> Void)? = nil,
         coordinator: CatalogFeatureNavCoordinator
     ) {
         self.catalogViewOptions = catalogViewOptions
         self.baseViews = baseViews
+        self.navigateToMealPlanner = navigateToMealPlanner
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -71,7 +77,8 @@ public class CatalogViewController: UIViewController {
             return CatalogView.init(
                 params: sharedCatalogViewParams(
                     catalogViewOptions: catalogViewOptions,
-                    coordinator: coordinator
+                    coordinator: coordinator,
+                    navigateToMealPlanner: navigateToMealPlanner
                 ),
                 catalogPackageRowParams: CatalogPackageRowParameters(
                     onSeeAllRecipes: { [weak self] categoryId, categoryTitle in

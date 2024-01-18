@@ -15,18 +15,21 @@ public struct CatalogFeatureConstructor {
     let filtersViewOptions: FiltersViewOptions
     let preferencesViewOptions: PreferencesViewOptions
     let preferencesSearchViewOptions: PreferencesSearchViewOptions
+    let navigateToMealPlanner: (() -> Void)?
     
     public init(
         catalogViewOptions: CatalogViewOptions = CatalogViewOptions(),
-         catalogSearchViewOptions: CatalogSearchViewOptions = CatalogSearchViewOptions(),
+        catalogSearchViewOptions: CatalogSearchViewOptions = CatalogSearchViewOptions(),
         filtersViewOptions: FiltersViewOptions = FiltersViewOptions(),
         preferencesViewOptions: PreferencesViewOptions = PreferencesViewOptions(),
-        preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions()
+        preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions(),
+        navigateToMealPlanner: (() -> Void)? = nil
     ) {
         self.catalogViewOptions = catalogViewOptions
         self.catalogSearchViewOptions = catalogSearchViewOptions
         self.filtersViewOptions = filtersViewOptions
         self.preferencesViewOptions = preferencesViewOptions
         self.preferencesSearchViewOptions = preferencesSearchViewOptions
+        self.navigateToMealPlanner = navigateToMealPlanner
     }
 }
