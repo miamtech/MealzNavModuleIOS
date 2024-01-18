@@ -19,6 +19,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
     public var preferencesSearchViewOptions: PreferencesSearchViewOptions
     public var myMealsViewOptions: MyMealsViewOptions
     public var navigateToCatalog: () -> Void
+    public var navigateToMealPlanner: (() -> Void)?
     
     init(
         baseConstructor: Constructor,
@@ -43,6 +44,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
         let catalogVC = CatalogViewController(
             catalogViewOptions: catalogViewOptions,
             baseViews: baseViews,
+            navigateToMealPlanner: navigateToMealPlanner,
             coordinator: self)
         navigationController.pushViewController(catalogVC, animated: false)
     }

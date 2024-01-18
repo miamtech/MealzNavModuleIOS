@@ -17,6 +17,8 @@ public protocol CatalogFeatureNavCoordinatorProtocol {
     var preferencesViewOptions: PreferencesViewOptions { get set }
     var preferencesSearchViewOptions: PreferencesSearchViewOptions { get set }
     
+    var navigateToMealPlanner: (() -> Void)? { get set }
+    
     func showCatalog()
     func showCatalogResults(catalogId: String?, categoryTitle: String?)
     func showPreferences()
