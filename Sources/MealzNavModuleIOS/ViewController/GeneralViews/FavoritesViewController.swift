@@ -15,15 +15,18 @@ import miamCore
 class FavoritesViewController: UIViewController {
     public let favoritesViewOptions: FavoritesViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealzBaseNavCoordinator?
+    private let navigateToTheCatalog: () -> Void
+    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         favoritesViewOptions: FavoritesViewOptions,
         baseViews: BasePageViewParameters, 
-        coordinator: MealzBaseNavCoordinator?
+        navigateToTheCatalog: @escaping () -> Void,
+        coordinator: RecipeDetailsFeatureNavCoordinator?
     ) {
         self.favoritesViewOptions = favoritesViewOptions
         self.baseViews = baseViews
+        self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,6 +42,8 @@ class FavoritesViewController: UIViewController {
         return Favorites.init(
             params: FavoritesParameters(
                 onNoResultsRedirect: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.navigateToTheCatalog()
                 },
                 onShowRecipeDetails: { [weak self] recipeId in
                     guard let strongSelf = self else { return }

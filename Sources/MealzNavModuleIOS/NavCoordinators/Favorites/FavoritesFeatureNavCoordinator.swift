@@ -31,6 +31,7 @@ public class FavoritesFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator,
         let favoritesVC = FavoritesViewController(
             favoritesViewOptions: favoritesViewOptions,
             baseViews: baseViews,
+            navigateToTheCatalog: navigateToCatalog,
             coordinator: self)
         navigationController.pushViewController(favoritesVC, animated: false)
     }

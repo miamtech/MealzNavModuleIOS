@@ -17,7 +17,8 @@ public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
     public init(
         baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        favoritesFeatureConstructor: FavoritesFeatureConstructor = FavoritesFeatureConstructor()
+        favoritesViewOptions: FavoritesViewOptions = FavoritesViewOptions(),
+        navigateToCatalog: @escaping () -> Void
     ) {
         let navController = UINavigationController()
         
@@ -32,8 +33,8 @@ public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
                 itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
             ),
             favoritesFeatureConstructor: FavoritesFeatureConstructor(
-                favoritesViewOptions: favoritesFeatureConstructor.favoritesViewOptions,
-                navigateToCatalog: favoritesFeatureConstructor.navigateToCatalog)
+                favoritesViewOptions: favoritesViewOptions,
+                navigateToCatalog: navigateToCatalog)
         )
     }
     

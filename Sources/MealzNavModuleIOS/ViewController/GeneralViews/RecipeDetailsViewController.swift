@@ -18,7 +18,7 @@ class RecipeDetailsViewController: UIViewController {
     private let recipeDetailsViewOptions: RecipeDetailsViewOptions
     private let recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealzBaseNavCoordinator?
+    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         _ recipeId: String,
@@ -26,7 +26,7 @@ class RecipeDetailsViewController: UIViewController {
         recipeDetailsViewOptions: RecipeDetailsViewOptions,
         recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealzBaseNavCoordinator?
+        coordinator: RecipeDetailsFeatureNavCoordinator?
     ) {
         self.recipeId = recipeId
         self.isForMealPlanner = isForMealPlanner

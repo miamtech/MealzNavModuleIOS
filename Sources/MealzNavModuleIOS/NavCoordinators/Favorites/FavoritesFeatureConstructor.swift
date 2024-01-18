@@ -15,7 +15,7 @@ public struct FavoritesFeatureConstructor {
     
     public init(
         favoritesViewOptions: FavoritesViewOptions = FavoritesViewOptions(),
-        navigateToCatalog: @escaping () -> Void = {}
+        navigateToCatalog: @escaping () -> Void
     ) {
         self.favoritesViewOptions = favoritesViewOptions
         self.navigateToCatalog = navigateToCatalog

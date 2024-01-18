@@ -15,7 +15,7 @@ public struct MyMealsFeatureConstructor {
     
     public init(
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
-        navigateToCatalog: @escaping () -> Void = {}
+        navigateToCatalog: @escaping () -> Void
     ) {
         self.myMealsViewOptions = myMealsViewOptions
         self.navigateToCatalog = navigateToCatalog
