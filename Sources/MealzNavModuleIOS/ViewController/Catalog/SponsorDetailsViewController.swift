@@ -14,12 +14,12 @@ import miamCore
 @available(iOS 14, *)
 class SponsorDetailsViewController: UIViewController {
     private let sponsor: Sponsor
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
         sponsor: Sponsor,
-        baseViews: BaseViewParameters,
+        baseViews: BasePageViewParameters,
         coordinator: MealzBaseNavCoordinator?
     ) {
         self.sponsor = sponsor
@@ -33,7 +33,7 @@ class SponsorDetailsViewController: UIViewController {
     deinit { print("deinit: SponsorDetailsViewController") }
     // Your SwiftUI View
     var swiftUIView: SponsorDetails<
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return SponsorDetails.init(
             baseViews: baseViews,
@@ -42,7 +42,7 @@ class SponsorDetailsViewController: UIViewController {
     }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<SponsorDetails<
-        BaseViewParameters>>?
+        BasePageViewParameters>>?
 
     override func viewDidLoad() {
         super.viewDidLoad()

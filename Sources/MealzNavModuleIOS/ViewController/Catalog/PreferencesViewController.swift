@@ -14,12 +14,12 @@ import miamCore
 @available(iOS 14, *)
 class PreferencesViewController: UIViewController {
     private let preferencesViewOptions: PreferencesViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
         preferencesViewOptions: PreferencesViewOptions,
-        baseViews: BaseViewParameters, 
+        baseViews: BasePageViewParameters, 
         coordinator: MealzBaseNavCoordinator? = nil
     ) {
         self.preferencesViewOptions = preferencesViewOptions
@@ -34,7 +34,7 @@ class PreferencesViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: Preferences<
         PreferencesParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
             return Preferences.init(
                 params: PreferencesParameters(
@@ -54,7 +54,7 @@ class PreferencesViewController: UIViewController {
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<
         Preferences<PreferencesParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
     
     override func viewDidLoad() {

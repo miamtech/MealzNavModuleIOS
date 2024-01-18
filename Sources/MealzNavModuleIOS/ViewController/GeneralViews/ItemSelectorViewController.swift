@@ -14,13 +14,13 @@ import MealzUIModuleIOS
 class ItemSelectorViewController: UIViewController {
     private let ingredientId: String
     private let itemSelectorViewOptions: ItemSelectorViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
         ingredientId: String,
         itemSelectorViewOptions: ItemSelectorViewOptions,
-        baseViews: BaseViewParameters,
+        baseViews: BasePageViewParameters,
         coordinator: MealzBaseNavCoordinator?
     ) {
         self.ingredientId = ingredientId
@@ -39,7 +39,7 @@ class ItemSelectorViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: ItemSelector<
         ItemSelectorParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return ItemSelector(
             params: ItemSelectorParameters(onItemSelected: { [weak self] in
@@ -55,7 +55,7 @@ class ItemSelectorViewController: UIViewController {
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<ItemSelector<
         ItemSelectorParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
 
     override func viewDidLoad() {

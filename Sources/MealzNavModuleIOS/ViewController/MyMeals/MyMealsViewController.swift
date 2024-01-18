@@ -21,16 +21,19 @@ var myMealsBasketViewConfig = BasketRecipesGridConfig(
 @available(iOS 14, *)
 class MyMealsViewController: UIViewController {
     private let myMealsViewOptions: MyMealsViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
+    private let navigateToTheCatalog: () -> Void
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
         myMealsViewOptions: MyMealsViewOptions,
-        baseViews: BaseViewParameters,
+        baseViews: BasePageViewParameters,
+        navigateToTheCatalog: @escaping () -> Void,
         coordinator: MealzBaseNavCoordinator? = nil
     ) {
         self.baseViews = baseViews
         self.myMealsViewOptions = myMealsViewOptions
+        self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,12 +44,13 @@ class MyMealsViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: MyMeals<
         MyMealsParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return MyMeals.init(
             params: MyMealsParameters(
                 onNoResultsRedirect: { [weak self] in
-                    // nav to the Catalog Page
+                    guard let strongSelf = self else { return }
+                    strongSelf.navigateToTheCatalog()
                 }, onShowRecipeDetails: { [weak self] recipeId in
                     guard let strongSelf = self else { return }
                     strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
@@ -60,7 +64,7 @@ class MyMealsViewController: UIViewController {
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<MyMeals<
         MyMealsParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
   
     override func viewDidLoad() {

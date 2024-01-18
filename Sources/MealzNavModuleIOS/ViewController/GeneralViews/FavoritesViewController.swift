@@ -14,12 +14,12 @@ import miamCore
 @available(iOS 14, *)
 class FavoritesViewController: UIViewController {
     public let favoritesViewOptions: FavoritesViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
         favoritesViewOptions: FavoritesViewOptions,
-        baseViews: BaseViewParameters, 
+        baseViews: BasePageViewParameters, 
         coordinator: MealzBaseNavCoordinator?
     ) {
         self.favoritesViewOptions = favoritesViewOptions
@@ -34,7 +34,7 @@ class FavoritesViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: Favorites<
         FavoritesParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return Favorites.init(
             params: FavoritesParameters(
@@ -56,7 +56,7 @@ class FavoritesViewController: UIViewController {
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<Favorites<
         FavoritesParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
 
     override func viewDidLoad() {

@@ -17,7 +17,7 @@ class RecipeDetailsViewController: UIViewController {
     private let isForMealPlanner: Bool
     private let recipeDetailsViewOptions: RecipeDetailsViewOptions
     private let recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
@@ -25,7 +25,7 @@ class RecipeDetailsViewController: UIViewController {
         isForMealPlanner: Bool = false,
         recipeDetailsViewOptions: RecipeDetailsViewOptions,
         recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions,
-        baseViews: BaseViewParameters,
+        baseViews: BasePageViewParameters,
         coordinator: MealzBaseNavCoordinator?
     ) {
         self.recipeId = recipeId
@@ -47,7 +47,7 @@ class RecipeDetailsViewController: UIViewController {
     var swiftUIView: RecipeDetails<
         RecipeDetailParameters,
         RecipeDetailsProductParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return RecipeDetails.init(
             params: RecipeDetailParameters(
@@ -81,7 +81,7 @@ class RecipeDetailsViewController: UIViewController {
     private var hostingController: UIHostingController<RecipeDetails<
         RecipeDetailParameters,
         RecipeDetailsProductParameters,
-        BaseViewParameters
+        BasePageViewParameters
 >>?
 
     override func viewDidLoad() {

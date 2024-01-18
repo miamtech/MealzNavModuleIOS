@@ -1,8 +1,8 @@
 //
-//  MealzCatalogFeatureSwiftUI.swift
+//  MealzFavoritesFeatureSwiftUI.swift
 //
 //
-//  Created by Diarmuid McGonagle on 17/01/2024.
+//  Created by Diarmuid McGonagle on 18/01/2024.
 //
 
 import UIKit
@@ -11,18 +11,17 @@ import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
-    private let coordinator: CatalogFeatureNavCoordinator
+public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
+    private let coordinator: MyMealsFeatureNavCoordinator
     
     public init(
         baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
-        myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions()
+        myMealsFeatureConstructor: MyMealsFeatureConstructor = MyMealsFeatureConstructor()
     ) {
         let navController = UINavigationController()
         
-        self.coordinator = CatalogFeatureNavCoordinator(
+        self.coordinator = MyMealsFeatureNavCoordinator(
             baseConstructor: MealzBaseNavCoordinator.Constructor(
                 navigationController: navController,
                 baseViews: baseViews
@@ -32,19 +31,14 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
                 recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
                 itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
             ),
-            catalogFeatureConstructor: CatalogFeatureConstructor(
-                catalogViewOptions: catalogFeatureConstructor.catalogViewOptions,
-                catalogSearchViewOptions: catalogFeatureConstructor.catalogSearchViewOptions,
-                filtersViewOptions: catalogFeatureConstructor.filtersViewOptions,
-                preferencesViewOptions: catalogFeatureConstructor.preferencesViewOptions,
-                preferencesSearchViewOptions: catalogFeatureConstructor.preferencesSearchViewOptions
-            ),
-            myMealsViewOptions: myMealsViewOptions
+            myMealsViewOptions: MyMealsFeatureConstructor(
+                myMealsViewOptions: myMealsFeatureConstructor.myMealsViewOptions,
+                navigateToCatalog: myMealsFeatureConstructor.navigateToCatalog)
         )
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        coordinator.showCatalog()
+        coordinator.showMyMeals()
         return coordinator.navigationController
     }
     

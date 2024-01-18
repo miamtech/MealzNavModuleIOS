@@ -10,25 +10,33 @@ import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatureNavCoordinatorProtocol {
+public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, CatalogFeatureNavCoordinatorProtocol, MyMealsFeatureNavCoordinatorProtocol {
+    
     public var catalogViewOptions: CatalogViewOptions
     public var catalogSearchViewOptions: CatalogSearchViewOptions
     public var filtersViewOptions: FiltersViewOptions
     public var preferencesViewOptions: PreferencesViewOptions
     public var preferencesSearchViewOptions: PreferencesSearchViewOptions
     public var myMealsViewOptions: MyMealsViewOptions
+    public var navigateToCatalog: () -> Void
     
     init(
         baseConstructor: Constructor,
-        catalogFeatureConstructor: CatalogFeatureConstructor
+        recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
+        catalogFeatureConstructor: CatalogFeatureConstructor,
+        myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions()
     ) {
         self.catalogViewOptions = catalogFeatureConstructor.catalogViewOptions
         self.catalogSearchViewOptions = catalogFeatureConstructor.catalogSearchViewOptions
         self.filtersViewOptions = catalogFeatureConstructor.filtersViewOptions
         self.preferencesViewOptions = catalogFeatureConstructor.preferencesViewOptions
         self.preferencesSearchViewOptions = catalogFeatureConstructor.preferencesSearchViewOptions
-        self.myMealsViewOptions = catalogFeatureConstructor.myMealsViewOptions
-        super.init(constructor: baseConstructor)
+        self.myMealsViewOptions = myMealsViewOptions
+        self.navigateToCatalog = {}
+        super.init(
+            baseConstructor: baseConstructor,
+            recipeDetailsFeatureConstructor: recipeDetailsConstructor
+        )
     }
     
     public func showCatalog() {
@@ -61,7 +69,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     }
     
     
-    func showPreferences() {
+    public func showPreferences() {
         let preferencesVC = PreferencesViewController(
             preferencesViewOptions: preferencesViewOptions,
             baseViews: baseViews,
@@ -70,7 +78,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         navigationController.pushViewController(preferencesVC, animated: true)
     }
     
-    func showPreferencesSearch() {
+    public func showPreferencesSearch() {
         let preferencesSearchVC = PreferencesSearchViewController(
             preferencesSearchViewOptions: preferencesSearchViewOptions,
             baseViews: baseViews,
@@ -79,7 +87,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         navigationController.pushViewController(preferencesSearchVC, animated: true)
     }
     
-    func showFilters(filterInstance: FilterInstance) {
+    public func showFilters(filterInstance: FilterInstance) {
         let filtersVC = FiltersViewController(
             filterInstance,
             filtersViewOptions: filtersViewOptions,
@@ -88,7 +96,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         navigationController.pushViewController(filtersVC, animated: true)
     }
     
-    func showCatalogSearch(filterInstance: FilterInstance) {
+    public func showCatalogSearch(filterInstance: FilterInstance) {
         let catalogSearchVC = CatalogSearchViewController(
             filterInstance,
             catalogSearchViewOptions: catalogSearchViewOptions,
@@ -98,10 +106,11 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         navigationController.pushViewController(catalogSearchVC, animated: true)
     }
     
-    func showMyMeals() {
+    public func showMyMeals() {
         let myMealsVC = MyMealsViewController(
             myMealsViewOptions: myMealsViewOptions,
-            baseViews: baseViews,
+            baseViews: baseViews, 
+            navigateToTheCatalog: self.goBack,
             coordinator: self
         )
         navigationController.pushViewController(myMealsVC, animated: true)

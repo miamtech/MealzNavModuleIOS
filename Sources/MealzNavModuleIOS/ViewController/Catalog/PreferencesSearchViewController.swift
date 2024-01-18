@@ -14,12 +14,12 @@ import miamCore
 @available(iOS 14, *)
 class PreferencesSearchViewController: UIViewController {
     private let preferencesSearchViewOptions: PreferencesSearchViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
         preferencesSearchViewOptions: PreferencesSearchViewOptions,
-        baseViews: BaseViewParameters, 
+        baseViews: BasePageViewParameters, 
         coordinator: MealzBaseNavCoordinator? = nil
     ) {
         self.preferencesSearchViewOptions = preferencesSearchViewOptions
@@ -34,7 +34,7 @@ class PreferencesSearchViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: PreferencesSearch<
         PreferencesSearchParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return PreferencesSearch.init(
             params: PreferencesSearchParameters(
@@ -50,7 +50,7 @@ class PreferencesSearchViewController: UIViewController {
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<PreferencesSearch<
         PreferencesSearchParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
 
     override func viewDidLoad() {

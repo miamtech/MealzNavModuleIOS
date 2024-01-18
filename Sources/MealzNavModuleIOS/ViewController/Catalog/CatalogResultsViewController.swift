@@ -22,14 +22,14 @@ class CatalogResultsViewController: UIViewController {
     private let categoryId: String?
     private let categoryTitle: String?
     private let catalogViewOptions: CatalogViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: CatalogFeatureNavCoordinator?
     
     init(
         categoryId: String? = nil,
         categoryTitle: String? = nil,
         catalogViewOptions: CatalogViewOptions,
-        baseViews: BaseViewParameters, 
+        baseViews: BasePageViewParameters, 
         coordinator: CatalogFeatureNavCoordinator
     ) {
         self.categoryId = categoryId
@@ -48,7 +48,7 @@ class CatalogResultsViewController: UIViewController {
     var swiftUIView: CatalogResults<
         CatalogParameters,
         CatalogRecipesListParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
             return CatalogResults(
                 params: sharedCatalogViewParams(catalogViewOptions: catalogViewOptions, coordinator: coordinator),
@@ -73,7 +73,7 @@ class CatalogResultsViewController: UIViewController {
     private var hostingController: UIHostingController<CatalogResults<
         CatalogParameters,
         CatalogRecipesListParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
     
     override func viewDidLoad() {

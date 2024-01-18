@@ -15,13 +15,13 @@ import miamCore
 class CatalogSearchViewController: UIViewController {
     private let filterInstance: FilterInstance
     private let catalogSearchViewOptions: CatalogSearchViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: CatalogFeatureNavCoordinator?
     
     init(
         _ filterInstance: FilterInstance,
         catalogSearchViewOptions: CatalogSearchViewOptions,
-        baseViews: BaseViewParameters, 
+        baseViews: BasePageViewParameters, 
         coordinator: CatalogFeatureNavCoordinator
     ) {
         self.filterInstance = filterInstance
@@ -38,7 +38,7 @@ class CatalogSearchViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: CatalogSearch<
         CatalogSearchParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return CatalogSearch.init(
             params: CatalogSearchParameters(
@@ -55,7 +55,7 @@ class CatalogSearchViewController: UIViewController {
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<CatalogSearch<
         CatalogSearchParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
 
     override func viewDidLoad() {

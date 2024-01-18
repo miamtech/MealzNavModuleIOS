@@ -43,12 +43,12 @@ public func sharedCatalogViewParams(
 @available(iOS 14, *)
 public class CatalogViewController: UIViewController {
     private let catalogViewOptions: CatalogViewOptions
-    private let baseViews: BaseViewParameters
+    private let baseViews: BasePageViewParameters
     weak var coordinator: CatalogFeatureNavCoordinator?
     
     public init(
         catalogViewOptions: CatalogViewOptions,
-        baseViews: BaseViewParameters, 
+        baseViews: BasePageViewParameters, 
         coordinator: CatalogFeatureNavCoordinator
     ) {
         self.catalogViewOptions = catalogViewOptions
@@ -66,7 +66,7 @@ public class CatalogViewController: UIViewController {
     var swiftUIView: CatalogView<
         CatalogParameters,
         CatalogPackageRowParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
             return CatalogView.init(
                 params: sharedCatalogViewParams(
@@ -97,7 +97,7 @@ public class CatalogViewController: UIViewController {
     private var hostingController: UIHostingController<CatalogView<
         CatalogParameters,
         CatalogPackageRowParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
     
     public override func viewDidLoad() {
