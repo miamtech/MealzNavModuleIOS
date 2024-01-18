@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MealzUIModuleIOS
+import miamCore
 
 @available(iOS 14, *)
 public protocol CatalogFeatureNavCoordinatorProtocol {
@@ -15,7 +16,13 @@ public protocol CatalogFeatureNavCoordinatorProtocol {
     var filtersViewOptions: FiltersViewOptions { get set }
     var preferencesViewOptions: PreferencesViewOptions { get set }
     var preferencesSearchViewOptions: PreferencesSearchViewOptions { get set }
-    var myMealsViewOptions: MyMealsViewOptions { get set }
+    
+    var navigateToMealPlanner: (() -> Void)? { get set }
     
     func showCatalog()
+    func showCatalogResults(catalogId: String?, categoryTitle: String?)
+    func showPreferences()
+    func showPreferencesSearch()
+    func showFilters(filterInstance: FilterInstance)
+    func showCatalogSearch(filterInstance: FilterInstance)
 }

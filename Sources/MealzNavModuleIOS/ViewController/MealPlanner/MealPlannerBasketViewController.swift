@@ -24,7 +24,7 @@ class MealPlannerBasketViewController: UIViewController {
     var swiftUIView: MealPlannerBasket<
         MealPlannerBasketParameters,
         BasketRecipeParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return MealPlannerBasket(
             params: MealPlannerBasketParameters(
@@ -42,7 +42,7 @@ class MealPlannerBasketViewController: UIViewController {
                     guard let strongSelf = self else { return }
 //                    strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
                 }),
-            baseViews: BaseViewParameters(),
+            baseViews: BasePageViewParameters(),
             gridConfig: localBasketGridConfig
         )
     }
@@ -51,7 +51,7 @@ class MealPlannerBasketViewController: UIViewController {
     private var hostingController: UIHostingController<MealPlannerBasket<
         MealPlannerBasketParameters,
         BasketRecipeParameters,
-        BaseViewParameters
+        BasePageViewParameters
 >>?
 
     override func viewDidLoad() {

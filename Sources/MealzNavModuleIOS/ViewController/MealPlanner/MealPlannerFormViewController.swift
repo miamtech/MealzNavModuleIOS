@@ -16,7 +16,7 @@ class MealPlannerFormViewController: UIViewController {
     // Your SwiftUI View
     var swiftUIView: MealPlannerForm<
         MealPlannerFormParameters,
-        BaseViewParameters
+        BasePageViewParameters
     > {
         return MealPlannerForm(
             params: MealPlannerFormParameters(
@@ -24,14 +24,14 @@ class MealPlannerFormViewController: UIViewController {
                 guard let strongSelf = self else { return }
                 strongSelf.navigationController?.pushViewController(MealPlannerResultsViewController(), animated: true)
                 }),
-            baseViews: BaseViewParameters()
+            baseViews: BasePageViewParameters()
         )
            
     }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<MealPlannerForm<
         MealPlannerFormParameters,
-        BaseViewParameters
+        BasePageViewParameters
     >>?
     
     override func viewDidLoad() {
