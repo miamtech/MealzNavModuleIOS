@@ -18,7 +18,7 @@ class RecipeDetailsViewController: UIViewController {
     private let recipeDetailsViewOptions: RecipeDetailsViewOptions
     private let recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealzBaseNavCoordinator?
+    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         _ recipeId: String,
@@ -26,7 +26,7 @@ class RecipeDetailsViewController: UIViewController {
         recipeDetailsViewOptions: RecipeDetailsViewOptions,
         recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealzBaseNavCoordinator?
+        coordinator: RecipeDetailsFeatureNavCoordinator?
     ) {
         self.recipeId = recipeId
         self.isForMealPlanner = isForMealPlanner
@@ -51,6 +51,7 @@ class RecipeDetailsViewController: UIViewController {
     > {
         return RecipeDetails.init(
             params: RecipeDetailParameters(
+                actions: RecipeDetailsActions(
                 onClosed: { [weak self] in
                     guard let strongSelf = self else { return }
                     strongSelf.coordinator?.goBack()
@@ -66,7 +67,8 @@ class RecipeDetailsViewController: UIViewController {
                 onReplaceProduct: { [weak self] ingredientId in
                     guard let strongSelf = self else { return }
                     strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId)
-                },
+                }
+                ),
                 viewOptions: recipeDetailsViewOptions
                ),
             productParams: RecipeDetailsProductParameters(

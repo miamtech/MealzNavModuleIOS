@@ -49,7 +49,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
         navigationController.pushViewController(catalogVC, animated: false)
     }
     
-    public func showCatalogResults(
+    public func showCatalogResultsFromSideView(
         catalogId: String? = nil,
         categoryTitle: String? = nil
     ) {
@@ -68,6 +68,20 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
             // Handle the case where viewA is nil, if necessary
             self.navigationController.setViewControllers([resultsVC], animated: true)
         }
+    }
+    
+    public func showCatalogResults(
+        catalogId: String? = nil,
+        categoryTitle: String? = nil
+    ) {
+        let resultsVC = CatalogResultsViewController(
+            categoryId: catalogId,
+            categoryTitle: categoryTitle,
+            catalogViewOptions: catalogViewOptions,
+            baseViews: baseViews,
+            coordinator: self
+        )
+        navigationController.pushViewController(resultsVC, animated: true)
     }
     
     
@@ -93,7 +107,8 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
         let filtersVC = FiltersViewController(
             filterInstance,
             filtersViewOptions: filtersViewOptions,
-            coordinator: self
+            coordinator: self,
+            nextNavigationEvent: { self.showCatalogResultsFromSideView() }
         )
         navigationController.pushViewController(filtersVC, animated: true)
     }
@@ -111,9 +126,9 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
     public func showMyMeals() {
         let myMealsVC = MyMealsViewController(
             myMealsViewOptions: myMealsViewOptions,
-            baseViews: baseViews, 
-            navigateToTheCatalog: self.goBack,
-            coordinator: self
+            baseViews: baseViews,
+            coordinator: self,
+            navigateToTheCatalog: self.goBack
         )
         navigationController.pushViewController(myMealsVC, animated: true)
     }

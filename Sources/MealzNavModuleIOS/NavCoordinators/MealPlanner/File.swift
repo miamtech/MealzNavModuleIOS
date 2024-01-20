@@ -1,8 +1,8 @@
 //
-//  MealzFavoritesFeatureSwiftUI.swift
+//  File.swift
 //
 //
-//  Created by Diarmuid McGonagle on 18/01/2024.
+//  Created by Diarmuid McGonagle on 20/01/2024.
 //
 
 import UIKit
@@ -11,18 +11,17 @@ import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
-    private let coordinator: FavoritesFeatureNavCoordinator
+public struct MealzMealPlannerFeatureSwiftUI: UIViewControllerRepresentable {
+    private let coordinator: MealPlannerFeatureNavCoordinator
     
     public init(
         baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        favoritesViewOptions: FavoritesViewOptions = FavoritesViewOptions(),
-        navigateToCatalog: @escaping () -> Void
+        mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         let navController = UINavigationController()
         
-        self.coordinator = FavoritesFeatureNavCoordinator(
+        self.coordinator = MealPlannerFeatureNavCoordinator(
             baseConstructor: MealzBaseNavCoordinator.Constructor(
                 navigationController: navController,
                 baseViews: baseViews
@@ -32,14 +31,19 @@ public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
                 recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
                 itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
             ),
-            favoritesFeatureConstructor: FavoritesFeatureConstructor(
-                favoritesViewOptions: favoritesViewOptions,
-                navigateToCatalog: navigateToCatalog)
+            mealPlannerFeatureConstructor: MealPlannerFeatureConstructor(
+                mealPlannerFormViewOptions: mealPlannerFeatureConstructor.mealPlannerFormViewOptions,
+                mealPlannerResultsViewOptions: mealPlannerFeatureConstructor.mealPlannerResultsViewOptions,
+                mealPlannerRecipePickerViewOptions: mealPlannerFeatureConstructor.mealPlannerRecipePickerViewOptions,
+                mealPlannerBasketViewOptions: mealPlannerFeatureConstructor.mealPlannerBasketViewOptions,
+                mealPlannerRecapViewOptions: mealPlannerFeatureConstructor.mealPlannerRecapViewOptions,
+                filtersViewOptions: mealPlannerFeatureConstructor.filtersViewOptions
+            )
         )
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        coordinator.showFavorites()
+        coordinator.showMealPlannerForm()
         return coordinator.navigationController
     }
     

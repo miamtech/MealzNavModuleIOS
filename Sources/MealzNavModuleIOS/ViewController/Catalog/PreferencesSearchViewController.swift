@@ -38,10 +38,12 @@ class PreferencesSearchViewController: UIViewController {
     > {
         return PreferencesSearch.init(
             params: PreferencesSearchParameters(
-                onClosed: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.goBack()
-                }, 
+                actions: PreferencesSearchActions(
+                    onClosed: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.goBack()
+                    }
+                ), 
                 viewOptions: preferencesSearchViewOptions
             ),
             baseViews: baseViews
@@ -52,7 +54,7 @@ class PreferencesSearchViewController: UIViewController {
         PreferencesSearchParameters,
         BasePageViewParameters
     >>?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Search"

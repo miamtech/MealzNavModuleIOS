@@ -12,10 +12,21 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 class MealPlannerRecipePickerViewController: UIViewController {
-    public let indexOfRecipe: Int
+    private let indexOfRecipe: Int
+    private let mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions
+    private let baseViews: BasePageViewParameters
+    weak var coordinator: MealPlannerFeatureNavCoordinator?
     
-    init(_ indexOfRecipe: Int) {
+    public init(
+        indexOfRecipe: Int,
+        mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions,
+        baseViews: BasePageViewParameters,
+        coordinator: MealPlannerFeatureNavCoordinator?
+    ) {
         self.indexOfRecipe = indexOfRecipe
+        self.mealPlannerRecipePickerViewOptions = mealPlannerRecipePickerViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,23 +42,22 @@ class MealPlannerRecipePickerViewController: UIViewController {
         return MealPlannerRecipePicker(
             params:
                 MealPlannerRecipePickerParameters(
+                    actions: MealPlannerRecipePickerActions(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-//                        strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(
-//                            recipeId,
-//                            isForMealPlanner: true
-//                        ), animated: true)
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
                     },
                     onSelectRecipeForMealPlanner: { [weak self] _ in
                         guard let strongSelf = self else { return }
-                        strongSelf.navigationController?.popViewController(animated: true)
+                        strongSelf.coordinator?.goBack()
                 },
                     onOpenFiltersOptions: { [weak self] filtersInstance in
                         guard let strongSelf = self else { return }
-//                        strongSelf.navigationController?.pushViewController(
-//                            FiltersViewController(filtersInstance), animated: true)
+                        strongSelf.coordinator?.showFilters(filterInstance: filtersInstance)
                 }),
-            baseViews: BasePageViewParameters(),
+                    viewOptions: mealPlannerRecipePickerViewOptions
+                    ),
+            baseViews: baseViews,
             gridConfig: localRecipesListViewConfig,
             indexOfReplacedRecipe: indexOfRecipe)
             

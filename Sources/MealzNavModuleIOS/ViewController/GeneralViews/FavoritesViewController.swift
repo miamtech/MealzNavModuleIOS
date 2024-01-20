@@ -15,16 +15,19 @@ import miamCore
 class FavoritesViewController: UIViewController {
     public let favoritesViewOptions: FavoritesViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealzBaseNavCoordinator?
+    private let navigateToTheCatalog: () -> Void
+    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         favoritesViewOptions: FavoritesViewOptions,
         baseViews: BasePageViewParameters, 
-        coordinator: MealzBaseNavCoordinator?
+        coordinator: RecipeDetailsFeatureNavCoordinator?,
+        navigateToTheCatalog: @escaping () -> Void
     ) {
         self.favoritesViewOptions = favoritesViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
+        self.navigateToTheCatalog = navigateToTheCatalog
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,15 +41,20 @@ class FavoritesViewController: UIViewController {
     > {
         return Favorites.init(
             params: FavoritesParameters(
-                onNoResultsRedirect: { [weak self] in
-                },
-                onShowRecipeDetails: { [weak self] recipeId in
-                    guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
-                }, onRecipeCallToActionTapped: { [weak self] recipeId in
+                actions: FavoritesActions(
+                    onShowRecipeDetails: { [weak self] recipeId in
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                    }, 
+                    onNoResultsRedirect: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.navigateToTheCatalog()
+                    },
+                    onRecipeCallToActionTapped: { [weak self] recipeId in
                     guard let strongSelf = self else { return }
 //                    strongSelf.coordinator?.showMyMeals()
-                },
+                }
+                ),
                 viewOptions: favoritesViewOptions
             ),
             baseViews: baseViews,

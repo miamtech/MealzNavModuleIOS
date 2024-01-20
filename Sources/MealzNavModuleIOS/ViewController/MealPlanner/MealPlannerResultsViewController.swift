@@ -12,6 +12,25 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 class MealPlannerResultsViewController: UIViewController {
+    private let mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
+    private let baseViews: BasePageViewParameters
+    weak var coordinator: MealPlannerFeatureNavCoordinator?
+    
+    public init(
+        mealPlannerResultsViewOptions: MealPlannerResultsViewOptions,
+        baseViews: BasePageViewParameters,
+        coordinator: MealPlannerFeatureNavCoordinator?
+    ) {
+        self.mealPlannerResultsViewOptions = mealPlannerResultsViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     deinit { print("deinit: MealPlannerResultsViewController") }
     // Your SwiftUI View
     var swiftUIView: MealPlannerResults<
@@ -21,25 +40,22 @@ class MealPlannerResultsViewController: UIViewController {
         return MealPlannerResults(
             params:
                 MealPlannerResultsParameters(
-                    onShowRecipeDetails: { [weak self] recipeId in
-                        guard let strongSelf = self else { return }
-//                        DispatchQueue.main.async {
-//                            strongSelf.navigationController?.pushViewController(RecipeDetailsViewController(recipeId), animated: true)
-//                        }
-                    },
-                    onOpenReplaceRecipe: { [weak self] indexOfRecipe in
-                        DispatchQueue.main.async {
+                    actions: MealPlannerResultsActions(
+                        onShowRecipeDetails: { [weak self] recipeId in
                             guard let strongSelf = self else { return }
-                            strongSelf.navigationController?.pushViewController(MealPlannerRecipePickerViewController(indexOfRecipe), animated: true)
-                        }
-                    },
-                    onNavigateToBasket: {[weak self] in
-                        DispatchQueue.main.async {
+                            strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
+                        },
+                        onOpenReplaceRecipe: { [weak self] indexOfRecipe in
                             guard let strongSelf = self else { return }
-                            strongSelf.navigationController?.pushViewController(MealPlannerBasketViewController(), animated: true)
-                        }
-                    }),
-            baseViews: BasePageViewParameters(),
+                            strongSelf.coordinator?.showMealPlannerRecipePicker(indexOfRecipe: indexOfRecipe)
+                        },
+                        onNavigateToBasket: {[weak self] in
+                            guard let strongSelf = self else { return }
+                            strongSelf.coordinator?.showMealPlannerBasket()
+                        }),
+                    viewOptions: mealPlannerResultsViewOptions
+                ),
+            baseViews: baseViews,
             gridConfig: MealPlannerRecipesListGridConfig(
                 spacing: CGSize(width: 0, height: 0),
                 recipeCardDimensions: CGSize(width: 300, height: 200)))
@@ -49,8 +65,8 @@ class MealPlannerResultsViewController: UIViewController {
     private var hostingController: UIHostingController<MealPlannerResults<
         MealPlannerResultsParameters,
         BasePageViewParameters
->>?
-
+    >>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Mon assistant Budget repas"

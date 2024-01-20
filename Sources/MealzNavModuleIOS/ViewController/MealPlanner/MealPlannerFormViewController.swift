@@ -12,6 +12,25 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 class MealPlannerFormViewController: UIViewController {
+    private let mealPlannerFormViewOptions: MealPlannerFormViewOptions
+    private let baseViews: BasePageViewParameters
+    weak var coordinator: MealPlannerFeatureNavCoordinator?
+    
+    public init(
+        mealPlannerFormViewOptions: MealPlannerFormViewOptions,
+        baseViews: BasePageViewParameters,
+        coordinator: MealPlannerFeatureNavCoordinator?
+    ) {
+        self.mealPlannerFormViewOptions = mealPlannerFormViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     deinit { print("deinit: MealPlannerFormViewController") }
     // Your SwiftUI View
     var swiftUIView: MealPlannerForm<
@@ -20,13 +39,16 @@ class MealPlannerFormViewController: UIViewController {
     > {
         return MealPlannerForm(
             params: MealPlannerFormParameters(
-                onNavigateToMealPlannerResults: { [weak self] recipes in
-                guard let strongSelf = self else { return }
-                strongSelf.navigationController?.pushViewController(MealPlannerResultsViewController(), animated: true)
-                }),
-            baseViews: BasePageViewParameters()
+                actions: MealPlannerFormActions(
+                    onNavigateToMealPlannerResults: { [weak self] recipes in
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.showMealPlannerResults()
+                    }),
+                viewOptions: mealPlannerFormViewOptions
+            ),
+            baseViews: baseViews
         )
-           
+        
     }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<MealPlannerForm<
@@ -39,7 +61,7 @@ class MealPlannerFormViewController: UIViewController {
         navigationItem.title = "Mon assistant Budget repas"
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Retour", style: .plain, target: nil, action: nil)
-
+        
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)
         guard let hostingController = hostingController, let hcView = hostingController.view
