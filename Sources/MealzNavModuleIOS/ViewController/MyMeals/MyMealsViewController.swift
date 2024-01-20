@@ -23,13 +23,13 @@ class MyMealsViewController: UIViewController {
     private let myMealsViewOptions: MyMealsViewOptions
     private let baseViews: BasePageViewParameters
     private let navigateToTheCatalog: () -> Void
-    weak var coordinator: MealzBaseNavCoordinator?
+    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         myMealsViewOptions: MyMealsViewOptions,
         baseViews: BasePageViewParameters,
         navigateToTheCatalog: @escaping () -> Void,
-        coordinator: MealzBaseNavCoordinator? = nil
+        coordinator: RecipeDetailsFeatureNavCoordinator? = nil
     ) {
         self.baseViews = baseViews
         self.myMealsViewOptions = myMealsViewOptions
