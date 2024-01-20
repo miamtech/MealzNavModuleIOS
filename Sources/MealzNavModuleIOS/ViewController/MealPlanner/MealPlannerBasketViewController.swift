@@ -20,15 +20,18 @@ public var localBasketGridConfig = BasketRecipesGridConfig(
 @available(iOS 14, *)
 class MealPlannerBasketViewController: UIViewController {
     private let mealPlannerBasketViewOptions: MealPlannerBasketViewOptions
+    private let basketRecipeViewOptions: BasketRecipeViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: MealPlannerFeatureNavCoordinator?
     
     public init(
         mealPlannerBasketViewOptions: MealPlannerBasketViewOptions,
+        basketRecipeViewOptions: BasketRecipeViewOptions,
         baseViews: BasePageViewParameters,
         coordinator: MealPlannerFeatureNavCoordinator?
     ) {
         self.mealPlannerBasketViewOptions = mealPlannerBasketViewOptions
+        self.basketRecipeViewOptions = basketRecipeViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -63,7 +66,8 @@ class MealPlannerBasketViewController: UIViewController {
                     }, onReplaceProduct: { [weak self] ingredientId in
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId)
-                    })
+                    }),
+                viewOptions: basketRecipeViewOptions
             ),
             baseViews: baseViews,
             gridConfig: localBasketGridConfig

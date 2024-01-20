@@ -13,26 +13,37 @@ import miamCore
 public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, CatalogFeatureNavCoordinatorProtocol, MyMealsFeatureNavCoordinatorProtocol {
     
     public var catalogViewOptions: CatalogViewOptions
+    public var recipesListViewOptions: CatalogRecipesListViewOptions
+    public var packageRowViewOptions: CatalogPackageRowViewOptions
     public var catalogSearchViewOptions: CatalogSearchViewOptions
     public var filtersViewOptions: FiltersViewOptions
     public var preferencesViewOptions: PreferencesViewOptions
     public var preferencesSearchViewOptions: PreferencesSearchViewOptions
     public var myMealsViewOptions: MyMealsViewOptions
     public var navigateToCatalog: () -> Void
-    public var navigateToMealPlanner: (() -> Void)?
+    
+    public var mealPlannerCoordinator: MealPlannerFeatureNavCoordinator?
     
     init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
         catalogFeatureConstructor: CatalogFeatureConstructor,
-        myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions()
+        myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
+        mealPlannerCoordinator: MealPlannerFeatureNavCoordinator
     ) {
         self.catalogViewOptions = catalogFeatureConstructor.catalogViewOptions
         self.catalogSearchViewOptions = catalogFeatureConstructor.catalogSearchViewOptions
+        self.recipesListViewOptions = catalogFeatureConstructor.recipesListViewOptions
+        self.packageRowViewOptions = catalogFeatureConstructor.packageRowViewOptions
         self.filtersViewOptions = catalogFeatureConstructor.filtersViewOptions
         self.preferencesViewOptions = catalogFeatureConstructor.preferencesViewOptions
         self.preferencesSearchViewOptions = catalogFeatureConstructor.preferencesSearchViewOptions
         self.myMealsViewOptions = myMealsViewOptions
+
+        if catalogFeatureConstructor.useMealPlanner {
+            self.mealPlannerCoordinator = mealPlannerCoordinator
+        } else { self.mealPlannerCoordinator = nil }
+        
         self.navigateToCatalog = {}
         super.init(
             baseConstructor: baseConstructor,
@@ -42,10 +53,12 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
     
     public func showCatalog() {
         let catalogVC = CatalogViewController(
-            catalogViewOptions: catalogViewOptions,
+            catalogViewOptions: catalogViewOptions, 
+            packageRowViewOptions: packageRowViewOptions,
             baseViews: baseViews,
-            navigateToMealPlanner: navigateToMealPlanner,
-            coordinator: self)
+            coordinator: self,
+            navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
+        )
         navigationController.pushViewController(catalogVC, animated: false)
     }
     
@@ -56,7 +69,8 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
         let resultsVC = CatalogResultsViewController(
             categoryId: catalogId,
             categoryTitle: categoryTitle,
-            catalogViewOptions: catalogViewOptions,
+            catalogViewOptions: catalogViewOptions, 
+            recipesListViewOptions: recipesListViewOptions,
             baseViews: baseViews,
             coordinator: self
         )
@@ -77,7 +91,8 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
         let resultsVC = CatalogResultsViewController(
             categoryId: catalogId,
             categoryTitle: categoryTitle,
-            catalogViewOptions: catalogViewOptions,
+            catalogViewOptions: catalogViewOptions, 
+            recipesListViewOptions: recipesListViewOptions,
             baseViews: baseViews,
             coordinator: self
         )

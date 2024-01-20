@@ -51,9 +51,9 @@ class FavoritesViewController: UIViewController {
                         strongSelf.navigateToTheCatalog()
                     },
                     onRecipeCallToActionTapped: { [weak self] recipeId in
-                    guard let strongSelf = self else { return }
-//                    strongSelf.coordinator?.showMyMeals()
-                }
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                    }
                 ),
                 viewOptions: favoritesViewOptions
             ),

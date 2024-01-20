@@ -16,6 +16,7 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
     public var mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
     public var mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions
     public var mealPlannerBasketViewOptions: MealPlannerBasketViewOptions
+    public var basketRecipeViewOptions: BasketRecipeViewOptions
     public var mealPlannerRecapViewOptions: MealPlannerRecapViewOptions
     
     public var filtersViewOptions: FiltersViewOptions
@@ -29,6 +30,7 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
         self.mealPlannerResultsViewOptions = mealPlannerFeatureConstructor.mealPlannerResultsViewOptions
         self.mealPlannerRecipePickerViewOptions = mealPlannerFeatureConstructor.mealPlannerRecipePickerViewOptions
         self.mealPlannerBasketViewOptions = mealPlannerFeatureConstructor.mealPlannerBasketViewOptions
+        self.basketRecipeViewOptions = mealPlannerFeatureConstructor.basketRecipeViewOptions
         self.mealPlannerRecapViewOptions = mealPlannerFeatureConstructor.mealPlannerRecapViewOptions
         
         self.filtersViewOptions = mealPlannerFeatureConstructor.filtersViewOptions
@@ -67,6 +69,7 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
     public func showMealPlannerBasket() {
         let basketVC = MealPlannerBasketViewController(
             mealPlannerBasketViewOptions: mealPlannerBasketViewOptions,
+            basketRecipeViewOptions: basketRecipeViewOptions,
             baseViews: baseViews,
             coordinator: self)
         navigationController.pushViewController(basketVC, animated: false)

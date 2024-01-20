@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MealzMealPlannerFeatureSwiftUI.swift
 //
 //
 //  Created by Diarmuid McGonagle on 20/01/2024.
@@ -12,7 +12,7 @@ import miamCore
 
 @available(iOS 14, *)
 public struct MealzMealPlannerFeatureSwiftUI: UIViewControllerRepresentable {
-    private let coordinator: MealPlannerFeatureNavCoordinator
+    public let coordinator: MealPlannerFeatureNavCoordinator
     
     public init(
         baseViews: BasePageViewParameters = BasePageViewParameters(),
@@ -36,6 +36,7 @@ public struct MealzMealPlannerFeatureSwiftUI: UIViewControllerRepresentable {
                 mealPlannerResultsViewOptions: mealPlannerFeatureConstructor.mealPlannerResultsViewOptions,
                 mealPlannerRecipePickerViewOptions: mealPlannerFeatureConstructor.mealPlannerRecipePickerViewOptions,
                 mealPlannerBasketViewOptions: mealPlannerFeatureConstructor.mealPlannerBasketViewOptions,
+                basketRecipeViewOptions: mealPlannerFeatureConstructor.basketRecipeViewOptions,
                 mealPlannerRecapViewOptions: mealPlannerFeatureConstructor.mealPlannerRecapViewOptions,
                 filtersViewOptions: mealPlannerFeatureConstructor.filtersViewOptions
             )

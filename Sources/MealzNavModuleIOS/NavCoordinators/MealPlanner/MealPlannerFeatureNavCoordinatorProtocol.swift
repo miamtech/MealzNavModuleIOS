@@ -16,6 +16,7 @@ public protocol MealPlannerFeatureNavCoordinatorProtocol {
     var mealPlannerResultsViewOptions: MealPlannerResultsViewOptions { get set }
     var mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions { get set }
     var mealPlannerBasketViewOptions: MealPlannerBasketViewOptions { get set }
+    var basketRecipeViewOptions: BasketRecipeViewOptions { get set }
     var mealPlannerRecapViewOptions: MealPlannerRecapViewOptions { get set }
     
     var filtersViewOptions: FiltersViewOptions { get set }

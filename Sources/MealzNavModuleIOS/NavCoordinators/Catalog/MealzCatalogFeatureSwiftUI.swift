@@ -15,31 +15,42 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
     private let coordinator: CatalogFeatureNavCoordinator
     
     public init(
+        useMealPlanner: Bool = false,
         baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
-        myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions()
+        myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
+        mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         let navController = UINavigationController()
-        
+        let baseConstructor = MealzBaseNavCoordinator.Constructor(
+            navigationController: navController,
+            baseViews: baseViews
+        )
+        let recipeDetailsConstructor = RecipeDetailsFeatureConstructor(
+            recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,
+            recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
+            itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
+        )
         self.coordinator = CatalogFeatureNavCoordinator(
-            baseConstructor: MealzBaseNavCoordinator.Constructor(
-                navigationController: navController,
-                baseViews: baseViews
-            ),
-            recipeDetailsConstructor: RecipeDetailsFeatureConstructor(
-                recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,
-                recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
-                itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
-            ),
+            baseConstructor: baseConstructor,
+            recipeDetailsConstructor: recipeDetailsConstructor,
             catalogFeatureConstructor: CatalogFeatureConstructor(
+                useMealPlanner: useMealPlanner,
                 catalogViewOptions: catalogFeatureConstructor.catalogViewOptions,
+                recipesListViewOptions: catalogFeatureConstructor.recipesListViewOptions,
+                packageRowViewOptions: catalogFeatureConstructor.packageRowViewOptions,
                 catalogSearchViewOptions: catalogFeatureConstructor.catalogSearchViewOptions,
                 filtersViewOptions: catalogFeatureConstructor.filtersViewOptions,
                 preferencesViewOptions: catalogFeatureConstructor.preferencesViewOptions,
                 preferencesSearchViewOptions: catalogFeatureConstructor.preferencesSearchViewOptions
             ),
-            myMealsViewOptions: myMealsViewOptions
+            myMealsViewOptions: myMealsViewOptions,
+            mealPlannerCoordinator: MealPlannerFeatureNavCoordinator(
+                baseConstructor: baseConstructor,
+                recipeDetailsConstructor: recipeDetailsConstructor,
+                mealPlannerFeatureConstructor: mealPlannerFeatureConstructor
+            )
         )
     }
     

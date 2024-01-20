@@ -31,11 +31,7 @@ public func sharedCatalogActions(
         onPreferencesTapped: {
             coordinator?.showPreferences()
         },
-        onLaunchMealPlanner: {
-            if let navigateToMealPlanner {
-                navigateToMealPlanner()
-            }
-        },
+        onLaunchMealPlanner: navigateToMealPlanner,
         onMealsInBasketButtonTapped: {
             coordinator?.showMyMeals()
         }
@@ -45,17 +41,20 @@ public func sharedCatalogActions(
 @available(iOS 14, *)
 public class CatalogViewController: UIViewController {
     private let catalogViewOptions: CatalogViewOptions
+    private let packageRowViewOptions: CatalogPackageRowViewOptions
     private let baseViews: BasePageViewParameters
     private let navigateToMealPlanner: (() -> Void)?
     weak var coordinator: CatalogFeatureNavCoordinator?
     
     public init(
         catalogViewOptions: CatalogViewOptions,
+        packageRowViewOptions: CatalogPackageRowViewOptions,
         baseViews: BasePageViewParameters,
-        navigateToMealPlanner: (() -> Void)? = nil,
-        coordinator: CatalogFeatureNavCoordinator
+        coordinator: CatalogFeatureNavCoordinator,
+        navigateToMealPlanner: (() -> Void)? = nil
     ) {
         self.catalogViewOptions = catalogViewOptions
+        self.packageRowViewOptions = packageRowViewOptions
         self.baseViews = baseViews
         self.navigateToMealPlanner = navigateToMealPlanner
         self.coordinator = coordinator
@@ -96,7 +95,8 @@ public class CatalogViewController: UIViewController {
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.showMyMeals()
                     }
-                )
+                ),
+                viewOptions: packageRowViewOptions
             ),
             baseViews: baseViews,
             gridConfig: localRecipesListViewConfig

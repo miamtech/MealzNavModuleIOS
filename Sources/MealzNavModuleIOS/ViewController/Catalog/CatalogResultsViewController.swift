@@ -22,6 +22,7 @@ class CatalogResultsViewController: UIViewController {
     private let categoryId: String?
     private let categoryTitle: String?
     private let catalogViewOptions: CatalogViewOptions
+    private let recipesListViewOptions: CatalogRecipesListViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: CatalogFeatureNavCoordinator?
     
@@ -29,12 +30,14 @@ class CatalogResultsViewController: UIViewController {
         categoryId: String? = nil,
         categoryTitle: String? = nil,
         catalogViewOptions: CatalogViewOptions,
+        recipesListViewOptions: CatalogRecipesListViewOptions,
         baseViews: BasePageViewParameters,
         coordinator: CatalogFeatureNavCoordinator
     ) {
         self.categoryId = categoryId
         self.categoryTitle = categoryTitle
         self.catalogViewOptions = catalogViewOptions
+        self.recipesListViewOptions = recipesListViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -64,9 +67,10 @@ class CatalogResultsViewController: UIViewController {
                     }, onNoResultsRedirect: { [weak self] in },
                     onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        //                        strongSelf.coordinator?.showMyMeals()
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
                     }
-                )
+                ),
+                viewOptions: recipesListViewOptions
             ),
             baseViews: baseViews,
             categoryId: categoryId,
