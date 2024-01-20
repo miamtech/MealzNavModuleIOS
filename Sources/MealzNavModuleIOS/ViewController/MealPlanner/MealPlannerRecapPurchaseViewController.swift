@@ -12,18 +12,40 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 class MealPlannerRecapPurchaseViewController: UIViewController {
+    private let mealPlannerRecapViewOptions: MealPlannerRecapViewOptions
+    private let baseViews: BasePageViewParameters
+    weak var coordinator: MealPlannerFeatureNavCoordinator?
+    
+    public init(
+        mealPlannerRecapViewOptions: MealPlannerRecapViewOptions,
+        baseViews: BasePageViewParameters,
+        coordinator: MealPlannerFeatureNavCoordinator?
+    ) {
+        self.mealPlannerRecapViewOptions = mealPlannerRecapViewOptions
+        self.baseViews = baseViews
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var swiftUIView: MealPlannerRecap<MealPlannerRecapParameters> {
         return MealPlannerRecap(
             params: MealPlannerRecapParameters(
-                onNavigateAwayFromMealPlanner: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigationController?.popToRootViewController(animated: true)
-                }
+                actions: MealPlannerRecapActions(
+                    onNavigateAwayFromMealPlanner: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.goBack()
+                    }
+                ),
+                viewOptions: mealPlannerRecapViewOptions
             ))
     }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<MealPlannerRecap<MealPlannerRecapParameters>>?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Mon assistant Budget repas"

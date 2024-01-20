@@ -51,6 +51,7 @@ class RecipeDetailsViewController: UIViewController {
     > {
         return RecipeDetails.init(
             params: RecipeDetailParameters(
+                actions: RecipeDetailsActions(
                 onClosed: { [weak self] in
                     guard let strongSelf = self else { return }
                     strongSelf.coordinator?.goBack()
@@ -66,7 +67,8 @@ class RecipeDetailsViewController: UIViewController {
                 onReplaceProduct: { [weak self] ingredientId in
                     guard let strongSelf = self else { return }
                     strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId)
-                },
+                }
+                ),
                 viewOptions: recipeDetailsViewOptions
                ),
             productParams: RecipeDetailsProductParameters(

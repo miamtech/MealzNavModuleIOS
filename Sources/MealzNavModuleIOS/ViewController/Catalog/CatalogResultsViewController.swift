@@ -22,6 +22,7 @@ class CatalogResultsViewController: UIViewController {
     private let categoryId: String?
     private let categoryTitle: String?
     private let catalogViewOptions: CatalogViewOptions
+    private let recipesListViewOptions: CatalogRecipesListViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: CatalogFeatureNavCoordinator?
     
@@ -29,12 +30,14 @@ class CatalogResultsViewController: UIViewController {
         categoryId: String? = nil,
         categoryTitle: String? = nil,
         catalogViewOptions: CatalogViewOptions,
-        baseViews: BasePageViewParameters, 
+        recipesListViewOptions: CatalogRecipesListViewOptions,
+        baseViews: BasePageViewParameters,
         coordinator: CatalogFeatureNavCoordinator
     ) {
         self.categoryId = categoryId
         self.categoryTitle = categoryTitle
         self.catalogViewOptions = catalogViewOptions
+        self.recipesListViewOptions = recipesListViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -50,25 +53,31 @@ class CatalogResultsViewController: UIViewController {
         CatalogRecipesListParameters,
         BasePageViewParameters
     > {
-            return CatalogResults(
-                params: sharedCatalogViewParams(catalogViewOptions: catalogViewOptions, coordinator: coordinator),
-                recipesListParams: CatalogRecipesListParameters(
-                    onNoResultsRedirect: { [weak self] in },
+        return CatalogResults(
+            params: CatalogParameters(
+                actions: sharedCatalogActions(
+                    coordinator: coordinator),
+                viewOptions: catalogViewOptions
+            ),
+            recipesListParams: CatalogRecipesListParameters(
+                actions: CatalogRecipesListActions(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
-                    },
+                    }, onNoResultsRedirect: { [weak self] in },
                     onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-//                        strongSelf.coordinator?.showMyMeals()
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
                     }
                 ),
-                baseViews: baseViews,
-                categoryId: categoryId,
-                title: categoryTitle,
-                gridConfig: localRecipesListViewConfig
-            )
-        }
+                viewOptions: recipesListViewOptions
+            ),
+            baseViews: baseViews,
+            categoryId: categoryId,
+            title: categoryTitle,
+            gridConfig: localRecipesListViewConfig
+        )
+    }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<CatalogResults<
         CatalogParameters,

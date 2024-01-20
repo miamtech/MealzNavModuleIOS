@@ -31,8 +31,9 @@ public class MyMealsFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, M
         let myMealsVC = MyMealsViewController(
             myMealsViewOptions: myMealsViewOptions,
             baseViews: baseViews,
-            navigateToTheCatalog: navigateToCatalog,
-            coordinator: self)
+            coordinator: self,
+            navigateToTheCatalog: navigateToCatalog
+        )
         navigationController.pushViewController(myMealsVC, animated: false)
     }
 }

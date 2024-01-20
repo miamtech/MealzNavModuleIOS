@@ -35,20 +35,23 @@ class ItemSelectorViewController: UIViewController {
     }
     
     deinit { print("deinit: ItemSelectorViewController")}
-
+    
     // Your SwiftUI View
     var swiftUIView: ItemSelector<
         ItemSelectorParameters,
         BasePageViewParameters
     > {
         return ItemSelector(
-            params: ItemSelectorParameters(onItemSelected: { [weak self] in
-                // added small delay to ensure image reloads
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
-                    guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.goBack()
-                }
-            }), 
+            params: ItemSelectorParameters(
+                actions: ItemSelectorActions(
+                    onItemSelected: { [weak self] in
+                        // added small delay to ensure image reloads
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+                            guard let strongSelf = self else { return }
+                            strongSelf.coordinator?.goBack()
+                        }
+                    }, onSeeProductDetails: { _ in })
+            ),
             baseViews: baseViews,
             ingredientId: ingredientId)
     }
@@ -57,7 +60,7 @@ class ItemSelectorViewController: UIViewController {
         ItemSelectorParameters,
         BasePageViewParameters
     >>?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Mon assistant Budget repas"

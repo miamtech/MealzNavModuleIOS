@@ -13,12 +13,12 @@ import miamCore
 
 @available(iOS 14, *)
 // simple function to share navigation between CatalogView & CatalogResultsView
-public func sharedCatalogViewParams(
-    catalogViewOptions: CatalogViewOptions,
+public func sharedCatalogActions(
     coordinator: CatalogFeatureNavCoordinator?,
     navigateToMealPlanner: (() -> Void)? = nil
-) -> CatalogParameters {
-    return CatalogParameters(
+) -> CatalogActions {
+    return CatalogActions(
+        
         onFiltersTapped: { filterInstance in
             coordinator?.showFilters(filterInstance: filterInstance)
         },
@@ -31,32 +31,30 @@ public func sharedCatalogViewParams(
         onPreferencesTapped: {
             coordinator?.showPreferences()
         },
-        onLaunchMealPlanner: {
-            if let navigateToMealPlanner {
-                navigateToMealPlanner()
-            }
-        },
+        onLaunchMealPlanner: navigateToMealPlanner,
         onMealsInBasketButtonTapped: {
             coordinator?.showMyMeals()
-        },
-        viewOptions: catalogViewOptions
+        }
     )
 }
 
 @available(iOS 14, *)
 public class CatalogViewController: UIViewController {
     private let catalogViewOptions: CatalogViewOptions
+    private let packageRowViewOptions: CatalogPackageRowViewOptions
     private let baseViews: BasePageViewParameters
     private let navigateToMealPlanner: (() -> Void)?
     weak var coordinator: CatalogFeatureNavCoordinator?
     
     public init(
         catalogViewOptions: CatalogViewOptions,
-        baseViews: BasePageViewParameters, 
-        navigateToMealPlanner: (() -> Void)? = nil,
-        coordinator: CatalogFeatureNavCoordinator
+        packageRowViewOptions: CatalogPackageRowViewOptions,
+        baseViews: BasePageViewParameters,
+        coordinator: CatalogFeatureNavCoordinator,
+        navigateToMealPlanner: (() -> Void)? = nil
     ) {
         self.catalogViewOptions = catalogViewOptions
+        self.packageRowViewOptions = packageRowViewOptions
         self.baseViews = baseViews
         self.navigateToMealPlanner = navigateToMealPlanner
         self.coordinator = coordinator
@@ -74,13 +72,15 @@ public class CatalogViewController: UIViewController {
         CatalogPackageRowParameters,
         BasePageViewParameters
     > {
-            return CatalogView.init(
-                params: sharedCatalogViewParams(
-                    catalogViewOptions: catalogViewOptions,
+        return CatalogView.init(
+            params: CatalogParameters(
+                actions: sharedCatalogActions(
                     coordinator: coordinator,
-                    navigateToMealPlanner: navigateToMealPlanner
-                ),
-                catalogPackageRowParams: CatalogPackageRowParameters(
+                    navigateToMealPlanner: navigateToMealPlanner),
+                viewOptions: catalogViewOptions
+            ),
+            catalogPackageRowParams: CatalogPackageRowParameters(
+                actions: CatalogPackageRowActions(
                     onSeeAllRecipes: { [weak self] categoryId, categoryTitle in
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.showCatalogResults(
@@ -96,10 +96,12 @@ public class CatalogViewController: UIViewController {
                         strongSelf.coordinator?.showMyMeals()
                     }
                 ),
-                baseViews: baseViews,
-                gridConfig: localRecipesListViewConfig
-            )
-        }
+                viewOptions: packageRowViewOptions
+            ),
+            baseViews: baseViews,
+            gridConfig: localRecipesListViewConfig
+        )
+    }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<CatalogView<
         CatalogParameters,

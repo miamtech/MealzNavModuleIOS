@@ -28,8 +28,8 @@ class MyMealsViewController: UIViewController {
     init(
         myMealsViewOptions: MyMealsViewOptions,
         baseViews: BasePageViewParameters,
-        navigateToTheCatalog: @escaping () -> Void,
-        coordinator: RecipeDetailsFeatureNavCoordinator? = nil
+        coordinator: RecipeDetailsFeatureNavCoordinator? = nil,
+        navigateToTheCatalog: @escaping () -> Void
     ) {
         self.baseViews = baseViews
         self.myMealsViewOptions = myMealsViewOptions
@@ -48,15 +48,17 @@ class MyMealsViewController: UIViewController {
     > {
         return MyMeals.init(
             params: MyMealsParameters(
+                actions: MyMealsActions(
                 onNoResultsRedirect: { [weak self] in
                     guard let strongSelf = self else { return }
                     strongSelf.navigateToTheCatalog()
                 }, onShowRecipeDetails: { [weak self] recipeId in
                     guard let strongSelf = self else { return }
                     strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
-                },
-                viewOptions: myMealsViewOptions
+                }
             ),
+                viewOptions: myMealsViewOptions
+                ),
             baseViews: baseViews,
             gridConfig: myMealsBasketViewConfig
         )

@@ -21,7 +21,7 @@ class CatalogSearchViewController: UIViewController {
     init(
         _ filterInstance: FilterInstance,
         catalogSearchViewOptions: CatalogSearchViewOptions,
-        baseViews: BasePageViewParameters, 
+        baseViews: BasePageViewParameters,
         coordinator: CatalogFeatureNavCoordinator
     ) {
         self.filterInstance = filterInstance
@@ -42,10 +42,12 @@ class CatalogSearchViewController: UIViewController {
     > {
         return CatalogSearch.init(
             params: CatalogSearchParameters(
-                onApplied: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.showCatalogResults()
-                },
+                actions: CatalogSearchActions(
+                    onApplied: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.showCatalogResultsFromSideView()
+                    }
+                ),
                 viewOptions: catalogSearchViewOptions
             ),
             baseViews: baseViews,
@@ -57,7 +59,7 @@ class CatalogSearchViewController: UIViewController {
         CatalogSearchParameters,
         BasePageViewParameters
     >>?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Search"

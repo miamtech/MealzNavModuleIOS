@@ -12,19 +12,19 @@ import miamCore
 
 @available(iOS 14, *)
 class FiltersViewController: UIViewController {
-    public let filterInstance: FilterInstance
-    public let isForMealPlanner: Bool
-    public let filtersViewOptions: FiltersViewOptions
-    weak var coordinator: CatalogFeatureNavCoordinator?
+    private let filterInstance: FilterInstance
+    private let filtersViewOptions: FiltersViewOptions
+    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
+    private let nextNavigationEvent: () -> Void
     
     init(
         _ filterInstance: FilterInstance,
-        isForMealPlanner: Bool = false,
         filtersViewOptions: FiltersViewOptions,
-        coordinator: CatalogFeatureNavCoordinator?
+        coordinator: RecipeDetailsFeatureNavCoordinator?,
+        nextNavigationEvent: @escaping () -> Void
     ) {
         self.filterInstance = filterInstance
-        self.isForMealPlanner = isForMealPlanner
+        self.nextNavigationEvent = nextNavigationEvent
         self.filtersViewOptions = filtersViewOptions
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -38,17 +38,15 @@ class FiltersViewController: UIViewController {
         FiltersParameters> {
         return Filters.init(
             params: FiltersParameters(
-                onApplied: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    //  if strongSelf.isForMealPlanner {
-                    //      strongSelf.navigationController?.popViewController(animated: true)
-                    //  } else {
-                    strongSelf.coordinator?.showCatalogResults()
-                    //  }
-                }, onClosed: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.goBack()
-                },
+                actions: FiltersActions(
+                    onClosed: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.goBack()
+                    }, onApplied: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.nextNavigationEvent()
+                    }
+                ),
                 viewOptions: filtersViewOptions
             ),
             filterInstance: filterInstance

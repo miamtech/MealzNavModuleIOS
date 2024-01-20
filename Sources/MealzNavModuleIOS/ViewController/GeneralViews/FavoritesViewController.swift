@@ -21,13 +21,14 @@ class FavoritesViewController: UIViewController {
     init(
         favoritesViewOptions: FavoritesViewOptions,
         baseViews: BasePageViewParameters, 
-        navigateToTheCatalog: @escaping () -> Void,
-        coordinator: RecipeDetailsFeatureNavCoordinator?
+        coordinator: RecipeDetailsFeatureNavCoordinator?,
+        navigateToTheCatalog: @escaping () -> Void
     ) {
         self.favoritesViewOptions = favoritesViewOptions
         self.baseViews = baseViews
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
+        self.navigateToTheCatalog = navigateToTheCatalog
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,17 +42,20 @@ class FavoritesViewController: UIViewController {
     > {
         return Favorites.init(
             params: FavoritesParameters(
-                onNoResultsRedirect: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigateToTheCatalog()
-                },
-                onShowRecipeDetails: { [weak self] recipeId in
-                    guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
-                }, onRecipeCallToActionTapped: { [weak self] recipeId in
-                    guard let strongSelf = self else { return }
-//                    strongSelf.coordinator?.showMyMeals()
-                },
+                actions: FavoritesActions(
+                    onShowRecipeDetails: { [weak self] recipeId in
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                    }, 
+                    onNoResultsRedirect: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.navigateToTheCatalog()
+                    },
+                    onRecipeCallToActionTapped: { [weak self] recipeId in
+                        guard let strongSelf = self else { return }
+                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                    }
+                ),
                 viewOptions: favoritesViewOptions
             ),
             baseViews: baseViews,

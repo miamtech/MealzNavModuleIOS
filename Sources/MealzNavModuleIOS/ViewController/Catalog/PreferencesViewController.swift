@@ -19,7 +19,7 @@ class PreferencesViewController: UIViewController {
     
     init(
         preferencesViewOptions: PreferencesViewOptions,
-        baseViews: BasePageViewParameters, 
+        baseViews: BasePageViewParameters,
         coordinator: MealzBaseNavCoordinator? = nil
     ) {
         self.preferencesViewOptions = preferencesViewOptions
@@ -36,26 +36,28 @@ class PreferencesViewController: UIViewController {
         PreferencesParameters,
         BasePageViewParameters
     > {
-            return Preferences.init(
-                params: PreferencesParameters(
+        return Preferences.init(
+            params: PreferencesParameters(
+                actions: PreferencesActions(
                     onClosed: { [weak self] in
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.goBack()
                     },
                     onGoToSearch: { [weak self] in
                         guard let strongSelf = self else { return }
-//                        strongSelf.coordinator?.showPreferencesSearch()
-                    },
-                    viewOptions: preferencesViewOptions
+                        //                        strongSelf.coordinator?.showPreferencesSearch()
+                    }
                 ),
-                baseViews: baseViews
-            )
-        }
+                viewOptions: preferencesViewOptions
+            ),
+            baseViews: baseViews
+        )
+    }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<
         Preferences<PreferencesParameters,
-        BasePageViewParameters
-    >>?
+                    BasePageViewParameters
+        >>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
