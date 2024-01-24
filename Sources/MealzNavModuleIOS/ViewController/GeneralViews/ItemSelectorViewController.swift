@@ -15,13 +15,13 @@ class ItemSelectorViewController: UIViewController {
     private let ingredientId: String
     private let itemSelectorViewOptions: ItemSelectorViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealzBaseNavCoordinator?
+    weak var coordinator: ItemSelectorNavCoordinator?
     
     init(
         ingredientId: String,
         itemSelectorViewOptions: ItemSelectorViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealzBaseNavCoordinator?
+        coordinator: ItemSelectorNavCoordinator?
     ) {
         self.ingredientId = ingredientId
         self.itemSelectorViewOptions = itemSelectorViewOptions

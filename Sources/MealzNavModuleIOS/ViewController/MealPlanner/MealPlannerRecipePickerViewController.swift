@@ -15,13 +15,13 @@ class MealPlannerRecipePickerViewController: UIViewController {
     private let indexOfRecipe: Int
     private let mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealPlannerFeatureNavCoordinator?
+    weak var coordinator: MealPlannerRecipePickerNavCoordinator?
     
     public init(
         indexOfRecipe: Int,
         mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealPlannerFeatureNavCoordinator?
+        coordinator: MealPlannerRecipePickerNavCoordinator?
     ) {
         self.indexOfRecipe = indexOfRecipe
         self.mealPlannerRecipePickerViewOptions = mealPlannerRecipePickerViewOptions

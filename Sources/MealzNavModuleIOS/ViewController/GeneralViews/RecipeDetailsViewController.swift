@@ -18,7 +18,7 @@ class RecipeDetailsViewController: UIViewController {
     private let recipeDetailsViewOptions: RecipeDetailsViewOptions
     private let recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
+    weak var coordinator: RecipeDetailsNavCoordinator?
     
     init(
         _ recipeId: String,
@@ -26,7 +26,7 @@ class RecipeDetailsViewController: UIViewController {
         recipeDetailsViewOptions: RecipeDetailsViewOptions,
         recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: RecipeDetailsFeatureNavCoordinator?
+        coordinator: RecipeDetailsNavCoordinator?
     ) {
         self.recipeId = recipeId
         self.isForMealPlanner = isForMealPlanner
@@ -58,7 +58,7 @@ class RecipeDetailsViewController: UIViewController {
                 },
                 onSponsorDetailsTapped: { [weak self] sponsor in
                     guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.showSponsorDetails(sponsor: sponsor)
+//todo new Nav                    strongSelf.coordinator?.showSponsorDetails(sponsor: sponsor)
                 },
                 onContinueToBasket: { [weak self] in
                     guard let strongSelf = self else { return }

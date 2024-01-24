@@ -8,6 +8,7 @@
 import Foundation
 import MealzUIModuleIOS
 import miamCore
+import UIKit
 
 @available(iOS 14, *)
 public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator {
@@ -20,6 +21,8 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
     public var mealPlannerRecapViewOptions: MealPlannerRecapViewOptions
     
     public var filtersViewOptions: FiltersViewOptions
+    
+    private let navigationControllerDelegate = RootNavigationControllerDelegate()
     
     public init(
         baseConstructor: Constructor,
@@ -35,6 +38,11 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
         
         self.filtersViewOptions = mealPlannerFeatureConstructor.filtersViewOptions
         
+        var delegate = baseConstructor.navigationController.delegate
+        baseConstructor.navigationController.delegate = navigationControllerDelegate
+        
+        
+        
         super.init(
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor
@@ -42,28 +50,34 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
     }
     
     public func showMealPlannerForm() {
-        let formVC = MealPlannerFormViewController(
+        let coordinator  = MealPlannerFormNavCoordinator(navigationController: self.navigationController, mealPlannerFormViewOptions: mealPlannerFormViewOptions,
+                                                         mealPlannerResultsViewOptions: mealPlannerResultsViewOptions, baseViews: baseViews)
+        self.children.append(coordinator)
+        coordinator.parent = self
+        coordinator.start()
+        
+        /*let formVC = MealPlannerFormViewController(
             mealPlannerFormViewOptions: mealPlannerFormViewOptions,
             baseViews: baseViews,
             coordinator: self)
-        navigationController.pushViewController(formVC, animated: false)
+        navigationController.pushViewController(formVC, animated: false)*/
     }
     
     public func showMealPlannerResults() {
         let resultsVC = MealPlannerResultsViewController(
             mealPlannerResultsViewOptions: mealPlannerResultsViewOptions,
-            baseViews: baseViews,
-            coordinator: self)
+            baseViews: baseViews//,
+            /*coordinator: self*/)
         navigationController.pushViewController(resultsVC, animated: false)
     }
     
     public func showMealPlannerRecipePicker(indexOfRecipe: Int) {
-        let recipePickerVC = MealPlannerRecipePickerViewController(
+/*        let recipePickerVC = MealPlannerRecipePickerViewController(
             indexOfRecipe: indexOfRecipe,
             mealPlannerRecipePickerViewOptions: mealPlannerRecipePickerViewOptions,
             baseViews: baseViews,
             coordinator: self)
-        navigationController.pushViewController(recipePickerVC, animated: false)
+        navigationController.pushViewController(recipePickerVC, animated: false)*/
     }
     
     public func showMealPlannerBasket() {
@@ -84,12 +98,19 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
     }
     
     public func showFilters(filterInstance: FilterInstance) {
-        let filtersVC = FiltersViewController(
+       /* let filtersVC = FiltersViewController(
             filterInstance,
             filtersViewOptions: filtersViewOptions,
             coordinator: self,
             nextNavigationEvent: self.goBack
         )
-        navigationController.pushViewController(filtersVC, animated: true)
+        navigationController.pushViewController(filtersVC, animated: true)*/
     }
 }
+
+@available(iOS 14, *)
+class RootNavigationControllerDelegate : NSObject, UINavigationControllerDelegate {
+    
+    
+}
+

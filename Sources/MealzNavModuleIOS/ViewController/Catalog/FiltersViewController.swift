@@ -14,13 +14,13 @@ import miamCore
 class FiltersViewController: UIViewController {
     private let filterInstance: FilterInstance
     private let filtersViewOptions: FiltersViewOptions
-    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
+    weak var coordinator: FilterNavCoordinator?
     private let nextNavigationEvent: () -> Void
     
     init(
         _ filterInstance: FilterInstance,
         filtersViewOptions: FiltersViewOptions,
-        coordinator: RecipeDetailsFeatureNavCoordinator?,
+        coordinator: FilterNavCoordinator?,
         nextNavigationEvent: @escaping () -> Void
     ) {
         self.filterInstance = filterInstance
