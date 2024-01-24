@@ -14,5 +14,11 @@ public protocol BaseNavCoordinatorProtocol {
     var navigationController: UINavigationController { get set }
     var baseViews: BasePageViewParameters { get set }
     
+    var parent: BaseNavCoordinatorProtocol? {get set}
+    var children: [BaseNavCoordinatorProtocol] {get set}
+    
+    func start()
     func goBack()
+    
+    
 }

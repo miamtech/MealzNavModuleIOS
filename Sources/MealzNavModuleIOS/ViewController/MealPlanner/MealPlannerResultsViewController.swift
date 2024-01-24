@@ -14,12 +14,12 @@ import MealzUIModuleIOS
 class MealPlannerResultsViewController: UIViewController {
     private let mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealPlannerFeatureNavCoordinator?
+    weak var coordinator: MealPlannerResultsNavCoordinator?
     
     public init(
         mealPlannerResultsViewOptions: MealPlannerResultsViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealPlannerFeatureNavCoordinator?
+        coordinator: MealPlannerResultsNavCoordinator? = nil
     ) {
         self.mealPlannerResultsViewOptions = mealPlannerResultsViewOptions
         self.baseViews = baseViews
@@ -51,7 +51,7 @@ class MealPlannerResultsViewController: UIViewController {
                         },
                         onNavigateToBasket: {[weak self] in
                             guard let strongSelf = self else { return }
-                            strongSelf.coordinator?.showMealPlannerBasket()
+//todo new Nav                            strongSelf.coordinator?.showMealPlannerBasket()
                         }),
                     viewOptions: mealPlannerResultsViewOptions
                 ),
@@ -86,5 +86,13 @@ class MealPlannerResultsViewController: UIViewController {
             hcView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         hostingController.didMove(toParent: self)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if(self.isMovingFromParent)
+        {
+            self.coordinator?.parent?.children.removeLast()
+        }
+        
     }
 }

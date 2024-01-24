@@ -31,7 +31,7 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
         recipeId: String,
         isForMealPlanner: Bool = false
     ) {
-        let detailVC = RecipeDetailsViewController(
+        /*let detailVC = RecipeDetailsViewController(
             recipeId,
             isForMealPlanner: isForMealPlanner,
             recipeDetailsViewOptions: recipeDetailsViewOptions,
@@ -39,19 +39,19 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
             baseViews: baseViews,
             coordinator: self
         )
-        navigationController.pushViewController(detailVC, animated: true)
+        navigationController.pushViewController(detailVC, animated: true)*/
     }
     
     public func showItemSelector(
         ingredientId: String
     ) {
-        let itemSelectorVC = ItemSelectorViewController(
+        /*let itemSelectorVC = ItemSelectorViewController(
             ingredientId: ingredientId,
             itemSelectorViewOptions: itemSelectorViewOptions,
             baseViews: baseViews,
             coordinator: self
         )
-        navigationController.pushViewController(itemSelectorVC, animated: true)
+        navigationController.pushViewController(itemSelectorVC, animated: true)*/
     }
     
     public func showSponsorDetails(

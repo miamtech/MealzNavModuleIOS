@@ -14,12 +14,14 @@ import MealzUIModuleIOS
 class MealPlannerFormViewController: UIViewController {
     private let mealPlannerFormViewOptions: MealPlannerFormViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealPlannerFeatureNavCoordinator?
+    //weak var coordinator: MealPlannerFeatureNavCoordinator?
+    
+    weak var coordinator: MealPlannerFormNavCoordinator?
     
     public init(
         mealPlannerFormViewOptions: MealPlannerFormViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealPlannerFeatureNavCoordinator?
+        coordinator: MealPlannerFormNavCoordinator?
     ) {
         self.mealPlannerFormViewOptions = mealPlannerFormViewOptions
         self.baseViews = baseViews
@@ -77,5 +79,14 @@ class MealPlannerFormViewController: UIViewController {
             hcView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         hostingController.didMove(toParent: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if(self.isMovingFromParent)
+        {
+            self.coordinator?.parent?.children.removeLast()
+        }
+        
     }
 }

@@ -119,13 +119,13 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
     }
     
     public func showFilters(filterInstance: FilterInstance) {
-        let filtersVC = FiltersViewController(
+       /* let filtersVC = FiltersViewController(
             filterInstance,
             filtersViewOptions: filtersViewOptions,
             coordinator: self,
             nextNavigationEvent: { self.showCatalogResultsFromSideView() }
         )
-        navigationController.pushViewController(filtersVC, animated: true)
+        navigationController.pushViewController(filtersVC, animated: true)*/
     }
     
     public func showCatalogSearch(filterInstance: FilterInstance) {
