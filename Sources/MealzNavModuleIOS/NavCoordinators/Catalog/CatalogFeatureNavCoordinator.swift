@@ -119,7 +119,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
     }
     
     public func showFilters(filterInstance: FilterInstance) {
-       /* let filtersVC = FiltersViewController(
+        /*let filtersVC = FiltersViewController(
             filterInstance,
             filtersViewOptions: filtersViewOptions,
             coordinator: self,

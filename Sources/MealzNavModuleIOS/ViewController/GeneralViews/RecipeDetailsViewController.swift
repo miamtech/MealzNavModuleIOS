@@ -58,7 +58,7 @@ class RecipeDetailsViewController: UIViewController {
                 },
                 onSponsorDetailsTapped: { [weak self] sponsor in
                     guard let strongSelf = self else { return }
-//todo new Nav                    strongSelf.coordinator?.showSponsorDetails(sponsor: sponsor)
+                    strongSelf.coordinator?.showSponsorDetails(sponsor: sponsor)
                 },
                 onContinueToBasket: { [weak self] in
                     guard let strongSelf = self else { return }
@@ -105,5 +105,14 @@ class RecipeDetailsViewController: UIViewController {
             hcView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         hostingController.didMove(toParent: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if(self.isMovingFromParent)
+        {
+            self.coordinator?.parent?.children.removeLast()
+        }
+        
     }
 }

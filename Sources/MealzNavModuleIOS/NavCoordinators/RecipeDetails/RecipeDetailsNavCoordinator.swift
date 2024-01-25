@@ -68,8 +68,18 @@ public class RecipeDetailsNavCoordinator : MealzBaseNavCoordinator, RecipeDetail
         self.children.append(itemSelectorNavCoordinator)
         itemSelectorNavCoordinator.parent = self
         itemSelectorNavCoordinator.showItemSelector(ingredientId: ingredientId)
+    }
+    
+    public func showSponsorDetail(sponsor: Sponsor) {
+        guard let mealPlannerFeatureNavCoordinator = self.findParent(classType: MealPlannerFeatureNavCoordinator.self) else { return }
         
+        let sponsorDetailNavCoordinator = SponsorDetailNavCoordinator(
+            navigationController: navigationController,baseViews: baseViews
+            )
         
+        self.children.append(sponsorDetailNavCoordinator)
+        sponsorDetailNavCoordinator.parent = self
+        sponsorDetailNavCoordinator.showSponsorDetails(sponsor: sponsor)
     }
     
     public func showSponsorDetails(sponsor: Sponsor) {

@@ -81,21 +81,21 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
     }
     
     public func showMealPlannerBasket() {
-        let basketVC = MealPlannerBasketViewController(
+        /*let basketVC = MealPlannerBasketViewController(
             mealPlannerBasketViewOptions: mealPlannerBasketViewOptions,
             basketRecipeViewOptions: basketRecipeViewOptions,
             baseViews: baseViews,
             coordinator: self)
-        navigationController.pushViewController(basketVC, animated: false)
+        navigationController.pushViewController(basketVC, animated: false)*/
     }
     
-    public func showMealPlannerRecap() {
+    /*public func showMealPlannerRecap() {
         let recapVC = MealPlannerRecapPurchaseViewController(
             mealPlannerRecapViewOptions: mealPlannerRecapViewOptions,
             baseViews: baseViews,
             coordinator: self)
         navigationController.pushViewController(recapVC, animated: false)
-    }
+    }£*/
     
     public func showFilters(filterInstance: FilterInstance) {
        /* let filtersVC = FiltersViewController(
