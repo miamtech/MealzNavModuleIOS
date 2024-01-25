@@ -50,13 +50,6 @@ public class MealPlannerFormNavCoordinator : MealPlannerFormNavCoordinatorProtoc
         self.children.append(mealPlannerResultsNavCoordinator)
         mealPlannerResultsNavCoordinator.parent = self
         mealPlannerResultsNavCoordinator.start()
-        
-       /*let resultsVC = MealPlannerResultsViewController(
-            mealPlannerResultsViewOptions: mealPlannerResultsViewOptions,
-            baseViews: baseViews,
-            coordinator: self)
-        navigationController.pushViewController(resultsVC, animated: false)
-        */
     }
     
     public func goBack() {

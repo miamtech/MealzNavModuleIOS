@@ -51,7 +51,7 @@ class MealPlannerResultsViewController: UIViewController {
                         },
                         onNavigateToBasket: {[weak self] in
                             guard let strongSelf = self else { return }
-//todo new Nav                            strongSelf.coordinator?.showMealPlannerBasket()
+                            strongSelf.coordinator?.showMealPlannerBasket()
                         }),
                     viewOptions: mealPlannerResultsViewOptions
                 ),

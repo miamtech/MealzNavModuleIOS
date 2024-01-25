@@ -1,40 +1,30 @@
 //
 //  File.swift
+//  
 //
-//
-//  Created by Damien Walerowicz on 24/01/2024.
+//  Created by Damien Walerowicz on 25/01/2024.
 //
 
 import Foundation
-import UIKit
 import MealzUIModuleIOS
 import miamCore
+import UIKit
 
 @available(iOS 14, *)
-public class MealPlannerRecipePickerNavCoordinator : MealzBaseNavCoordinator, MealPlannerRecipePickerNavCoordinatorProtocol {
-    public var mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions
+public class CatalogResultsCoordinator : MealzBaseNavCoordinator {
     
-    init(
-        mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions,
-         navigationController: UINavigationController,
+    
+    public init(
+        navigationController: UINavigationController,
         baseViews: BasePageViewParameters
     ) {
-        self.mealPlannerRecipePickerViewOptions = mealPlannerRecipePickerViewOptions
         super.init(constructor: Constructor(navigationController: navigationController, baseViews: baseViews))
     }
     
     public override func start() {
         
     }
-    
-    public func showMealPlannerRecipePicker(indexOfRecipe: Int) {
-        let recipePickerVC = MealPlannerRecipePickerViewController(
-            indexOfRecipe: indexOfRecipe,
-            mealPlannerRecipePickerViewOptions: mealPlannerRecipePickerViewOptions,
-            baseViews: baseViews,
-            coordinator: self)
-        navigationController.pushViewController(recipePickerVC, animated: false)
-    }
+ 
     
     public func showRecipeDetails(
         recipeId: String,
@@ -63,10 +53,22 @@ public class MealPlannerRecipePickerNavCoordinator : MealzBaseNavCoordinator, Me
         coordinator.showFilters(filterInstance: filterInstance)
     }
     
-    public override func goBack() {
-        navigationController.popViewController(animated: true)
+    public func showCatalogSearch(filterInstance: FilterInstance) {
+        
+        
     }
     
+    public func showCatalogResults(
+        catalogId: String? = nil,
+        categoryTitle: String? = nil
+    ) {
+    }
     
+    public func showPreferences() {
+        
+    }
     
+    public func showMyMeals() {
+        
+    }
 }

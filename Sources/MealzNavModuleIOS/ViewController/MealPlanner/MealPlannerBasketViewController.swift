@@ -22,13 +22,13 @@ class MealPlannerBasketViewController: UIViewController {
     private let mealPlannerBasketViewOptions: MealPlannerBasketViewOptions
     private let basketRecipeViewOptions: BasketRecipeViewOptions
     private let baseViews: BasePageViewParameters
-    weak var coordinator: MealPlannerFeatureNavCoordinator?
+    weak var coordinator: MealPlannerBasketNavCoordinator?
     
     public init(
         mealPlannerBasketViewOptions: MealPlannerBasketViewOptions,
         basketRecipeViewOptions: BasketRecipeViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealPlannerFeatureNavCoordinator?
+        coordinator: MealPlannerBasketNavCoordinator?
     ) {
         self.mealPlannerBasketViewOptions = mealPlannerBasketViewOptions
         self.basketRecipeViewOptions = basketRecipeViewOptions
@@ -53,7 +53,7 @@ class MealPlannerBasketViewController: UIViewController {
                 actions: MealPlannerBasketActions(
                     onNavigateToRecap: { [weak self] in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showMealPlannerRecap()
+                         strongSelf.coordinator?.showMealPlannerRecap()
                     },
                     onNavigateToBasket: { [weak self] in }),
                 viewOptions: mealPlannerBasketViewOptions
@@ -65,7 +65,7 @@ class MealPlannerBasketViewController: UIViewController {
                         strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
                     }, onReplaceProduct: { [weak self] ingredientId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId)
+//todo                        strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId)
                     }),
                 viewOptions: basketRecipeViewOptions
             ),
@@ -100,5 +100,14 @@ class MealPlannerBasketViewController: UIViewController {
             hcView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         hostingController.didMove(toParent: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if(self.isMovingFromParent)
+        {
+            self.coordinator?.parent?.children.removeLast()
+        }
+        
     }
 }

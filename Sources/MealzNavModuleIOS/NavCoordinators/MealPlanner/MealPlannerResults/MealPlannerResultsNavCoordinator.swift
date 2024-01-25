@@ -11,15 +11,10 @@ import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-public class MealPlannerResultsNavCoordinator : MealPlannerResultsNavCoordinatorProtocol {
-    public var navigationController: UINavigationController
-    
-    public var parent: BaseNavCoordinatorProtocol?
-    public var children: [BaseNavCoordinatorProtocol] = [BaseNavCoordinatorProtocol] ()
+public class MealPlannerResultsNavCoordinator : MealzBaseNavCoordinator, MealPlannerResultsNavCoordinatorProtocol {
     
     
     public var mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
-    public var baseViews: BasePageViewParameters
     
     var viewCOntrollerRef: UIViewController?
 
@@ -29,14 +24,15 @@ public class MealPlannerResultsNavCoordinator : MealPlannerResultsNavCoordinator
          mealPlannerResultsViewOptions: MealPlannerResultsViewOptions,
          baseViews: BasePageViewParameters
     ) {
-        self.navigationController = navigationController
+//        self.navigationController = navigationController
         self.mealPlannerResultsViewOptions = mealPlannerResultsViewOptions
-        self.baseViews = baseViews
+        super.init(constructor: Constructor(navigationController: navigationController, baseViews: baseViews))
+//        self.baseViews = baseViews
     }
         
     
     
-    public func start() {
+    override public func start() {
         let resultsVC = MealPlannerResultsViewController(
             mealPlannerResultsViewOptions: mealPlannerResultsViewOptions,
             baseViews: baseViews,
@@ -70,18 +66,24 @@ public class MealPlannerResultsNavCoordinator : MealPlannerResultsNavCoordinator
         
         self.children.append(mealPlannerRecipePickerNavCoordinator)
         mealPlannerRecipePickerNavCoordinator.parent = self
-       
         mealPlannerRecipePickerNavCoordinator.showMealPlannerRecipePicker(indexOfRecipe: indexOfRecipe)
-        
-/*        let recipePickerVC = MealPlannerRecipePickerViewController(
-            indexOfRecipe: indexOfRecipe,
-            mealPlannerRecipePickerViewOptions: mealPlannerRecipePickerViewOptions,
-            baseViews: baseViews,
-            coordinator: self)
-        navigationController.pushViewController(recipePickerVC, animated: false)*/
     }
     
-    public func goBack() {
+    public func showMealPlannerBasket() {
+        guard let mealPlannerFeatureNavCoordinator = self.findParent(classType: MealPlannerFeatureNavCoordinator.self) else { return }
+        
+        let mealPlannerBasketNavCoordinator = MealPlannerBasketNavCoordinator(
+            mealPlannerBasketViewOptions: mealPlannerFeatureNavCoordinator.mealPlannerBasketViewOptions,
+            basketRecipeViewOptions: mealPlannerFeatureNavCoordinator.basketRecipeViewOptions,
+            navigationController: navigationController,
+            baseViews: baseViews)
+        
+        self.children.append(mealPlannerBasketNavCoordinator)
+        mealPlannerBasketNavCoordinator.parent = self
+        mealPlannerBasketNavCoordinator.start()
+    }
+    
+    override public func goBack() {
         
     }
     
