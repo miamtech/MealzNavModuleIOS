@@ -46,7 +46,7 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
             mealPlannerFormViewOptions: mealPlannerFormViewOptions,
             baseViews: baseViews,
             coordinator: self)
-        navigationController.pushViewController(formVC, animated: false)
+        navigationController.pushViewController(formVC, animated: true)
     }
     
     public func showMealPlannerResults() {
@@ -54,7 +54,7 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
             mealPlannerResultsViewOptions: mealPlannerResultsViewOptions,
             baseViews: baseViews,
             coordinator: self)
-        navigationController.pushViewController(resultsVC, animated: false)
+        navigationController.pushViewController(resultsVC, animated: true)
     }
     
     public func showMealPlannerRecipePicker(indexOfRecipe: Int) {
@@ -63,7 +63,7 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
             mealPlannerRecipePickerViewOptions: mealPlannerRecipePickerViewOptions,
             baseViews: baseViews,
             coordinator: self)
-        navigationController.pushViewController(recipePickerVC, animated: false)
+        navigationController.pushViewController(recipePickerVC, animated: true)
     }
     
     public func showMealPlannerBasket() {
@@ -72,7 +72,7 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
             basketRecipeViewOptions: basketRecipeViewOptions,
             baseViews: baseViews,
             coordinator: self)
-        navigationController.pushViewController(basketVC, animated: false)
+        navigationController.pushViewController(basketVC, animated: true)
     }
     
     public func showMealPlannerRecap() {
@@ -80,7 +80,7 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
             mealPlannerRecapViewOptions: mealPlannerRecapViewOptions,
             baseViews: baseViews,
             coordinator: self)
-        navigationController.pushViewController(recapVC, animated: false)
+        navigationController.pushViewController(recapVC, animated: true)
     }
     
     public func showFilters(filterInstance: FilterInstance) {

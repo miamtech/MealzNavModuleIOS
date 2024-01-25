@@ -18,9 +18,14 @@ public class MealzBaseNavCoordinator: BaseNavCoordinatorProtocol {
     public struct Constructor {
         let navigationController: UINavigationController
         let baseViews: BasePageViewParameters
+        
+        public init(navigationController: UINavigationController, baseViews: BasePageViewParameters) {
+            self.navigationController = navigationController
+            self.baseViews = baseViews
+        }
     }
 
-    init(
+    public init(
         constructor: Constructor
     ) {
         self.navigationController = constructor.navigationController
