@@ -28,7 +28,6 @@ class FavoritesViewController: UIViewController {
         self.baseViews = baseViews
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
-        self.navigateToTheCatalog = navigateToTheCatalog
         super.init(nibName: nil, bundle: nil)
     }
     
