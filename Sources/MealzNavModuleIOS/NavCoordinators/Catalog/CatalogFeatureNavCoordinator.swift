@@ -24,6 +24,8 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
     
     public var mealPlannerCoordinator: MealPlannerFeatureNavCoordinator?
     
+    private let usesPreferences: Bool
+    
     init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
@@ -44,6 +46,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
             self.mealPlannerCoordinator = mealPlannerCoordinator
         } else { self.mealPlannerCoordinator = nil }
         
+        self.usesPreferences = catalogFeatureConstructor.usesPreferences
         self.navigateToCatalog = {}
         super.init(
             baseConstructor: baseConstructor,
@@ -57,6 +60,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
             packageRowViewOptions: packageRowViewOptions,
             baseViews: baseViews,
             coordinator: self,
+            usesPreferences: usesPreferences,
             navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
         )
         navigationController.pushViewController(catalogVC, animated: false)
