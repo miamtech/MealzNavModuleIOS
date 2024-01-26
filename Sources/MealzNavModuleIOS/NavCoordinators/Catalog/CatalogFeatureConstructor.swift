@@ -19,9 +19,11 @@ public struct CatalogFeatureConstructor {
     let preferencesSearchViewOptions: PreferencesSearchViewOptions
     
     let useMealPlanner: Bool
+    let usesPreferences: Bool
         
     public init(
         useMealPlanner: Bool = false,
+        usesPreferences: Bool = true,
         catalogViewOptions: CatalogViewOptions =  CatalogViewOptions(),
         recipesListViewOptions: CatalogRecipesListViewOptions = CatalogRecipesListViewOptions(),
         packageRowViewOptions: CatalogPackageRowViewOptions = CatalogPackageRowViewOptions(),
@@ -31,6 +33,7 @@ public struct CatalogFeatureConstructor {
         preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions()
     ) {
         self.useMealPlanner = useMealPlanner
+        self.usesPreferences = usesPreferences
         self.catalogViewOptions = catalogViewOptions
         self.recipesListViewOptions = recipesListViewOptions
         self.packageRowViewOptions = packageRowViewOptions

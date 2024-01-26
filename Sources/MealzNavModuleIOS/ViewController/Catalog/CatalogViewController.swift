@@ -43,6 +43,7 @@ public class CatalogViewController: UIViewController {
     private let catalogViewOptions: CatalogViewOptions
     private let packageRowViewOptions: CatalogPackageRowViewOptions
     private let baseViews: BasePageViewParameters
+    private let usesPreferences: Bool
     private let navigateToMealPlanner: (() -> Void)?
     weak var coordinator: CatalogFeatureNavCoordinator?
     
@@ -51,12 +52,14 @@ public class CatalogViewController: UIViewController {
         packageRowViewOptions: CatalogPackageRowViewOptions,
         baseViews: BasePageViewParameters,
         coordinator: CatalogFeatureNavCoordinator,
+        usesPreferences: Bool = true,
         navigateToMealPlanner: (() -> Void)? = nil
     ) {
         self.catalogViewOptions = catalogViewOptions
         self.packageRowViewOptions = packageRowViewOptions
         self.baseViews = baseViews
         self.navigateToMealPlanner = navigateToMealPlanner
+        self.usesPreferences = usesPreferences
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -99,6 +102,7 @@ public class CatalogViewController: UIViewController {
                 viewOptions: packageRowViewOptions
             ),
             baseViews: baseViews,
+            usesPreferences: usesPreferences,
             gridConfig: localRecipesListViewConfig
         )
     }
