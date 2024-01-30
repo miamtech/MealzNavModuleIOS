@@ -15,7 +15,6 @@ public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
     private let coordinator: MyMealsFeatureNavCoordinator
     
     public init(
-        baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
         navigateToCatalog: @escaping () -> Void    

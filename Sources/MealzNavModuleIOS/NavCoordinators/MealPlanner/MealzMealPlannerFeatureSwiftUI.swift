@@ -15,7 +15,6 @@ public struct MealzMealPlannerFeatureSwiftUI: UIViewControllerRepresentable {
     public let coordinator: MealPlannerFeatureNavCoordinator
     
     public init(
-        baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {

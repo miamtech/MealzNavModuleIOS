@@ -15,7 +15,6 @@ public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
     private let coordinator: FavoritesFeatureNavCoordinator
     
     public init(
-        baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         favoritesViewOptions: FavoritesViewOptions = FavoritesViewOptions(),
         navigateToCatalog: @escaping () -> Void
