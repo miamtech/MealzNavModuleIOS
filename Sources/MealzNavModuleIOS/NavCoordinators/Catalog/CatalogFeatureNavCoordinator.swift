@@ -10,8 +10,8 @@ import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, CatalogFeatureNavCoordinatorProtocol, MyMealsFeatureNavCoordinatorProtocol {
-    
+public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatureNavCoordinatorProtocol {
+    public var baseViews: BasePageViewParameters
     public var catalogViewOptions: CatalogViewOptions
     public var recipesListViewOptions: CatalogRecipesListViewOptions
     public var packageRowViewOptions: CatalogPackageRowViewOptions
@@ -23,6 +23,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
     public var navigateToCatalog: () -> Void
     
     public var mealPlannerCoordinator: MealPlannerFeatureNavCoordinator?
+    public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     
     private let usesPreferences: Bool
     
@@ -33,6 +34,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
         mealPlannerCoordinator: MealPlannerFeatureNavCoordinator
     ) {
+        self.baseViews = catalogFeatureConstructor.baseViews
         self.catalogViewOptions = catalogFeatureConstructor.catalogViewOptions
         self.catalogSearchViewOptions = catalogFeatureConstructor.catalogSearchViewOptions
         self.recipesListViewOptions = catalogFeatureConstructor.recipesListViewOptions
@@ -46,12 +48,13 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
             self.mealPlannerCoordinator = mealPlannerCoordinator
         } else { self.mealPlannerCoordinator = nil }
         
+        self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
+            baseConstructor: baseConstructor,
+            recipeDetailsFeatureConstructor: recipeDetailsConstructor)
+        
         self.usesPreferences = catalogFeatureConstructor.usesPreferences
         self.navigateToCatalog = {}
-        super.init(
-            baseConstructor: baseConstructor,
-            recipeDetailsFeatureConstructor: recipeDetailsConstructor
-        )
+        super.init(constructor: baseConstructor)
     }
     
     public func showCatalog() {
@@ -60,6 +63,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
             packageRowViewOptions: packageRowViewOptions,
             baseViews: baseViews,
             coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator,
             usesPreferences: usesPreferences,
             navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
         )
@@ -76,7 +80,8 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
             catalogViewOptions: catalogViewOptions, 
             recipesListViewOptions: recipesListViewOptions,
             baseViews: baseViews,
-            coordinator: self
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator
         )
         // complex to remove this view from stack after redirecting to Results page so Results can directly navigate back to CatalogView
         if let viewA = self.navigationController.viewControllers.first {
@@ -98,7 +103,8 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
             catalogViewOptions: catalogViewOptions, 
             recipesListViewOptions: recipesListViewOptions,
             baseViews: baseViews,
-            coordinator: self
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator
         )
         navigationController.pushViewController(resultsVC, animated: true)
     }
@@ -146,7 +152,7 @@ public class CatalogFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, C
         let myMealsVC = MyMealsViewController(
             myMealsViewOptions: myMealsViewOptions,
             baseViews: baseViews,
-            coordinator: self,
+            coordinator: recipeDetailsCoordinator,
             navigateToTheCatalog: self.goBack
         )
         navigationController.pushViewController(myMealsVC, animated: true)

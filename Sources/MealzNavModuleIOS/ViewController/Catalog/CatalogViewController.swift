@@ -46,12 +46,14 @@ public class CatalogViewController: UIViewController {
     private let usesPreferences: Bool
     private let navigateToMealPlanner: (() -> Void)?
     weak var coordinator: CatalogFeatureNavCoordinator?
+    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     public init(
         catalogViewOptions: CatalogViewOptions,
         packageRowViewOptions: CatalogPackageRowViewOptions,
         baseViews: BasePageViewParameters,
         coordinator: CatalogFeatureNavCoordinator,
+        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
         usesPreferences: Bool = true,
         navigateToMealPlanner: (() -> Void)? = nil
     ) {
@@ -61,6 +63,7 @@ public class CatalogViewController: UIViewController {
         self.navigateToMealPlanner = navigateToMealPlanner
         self.usesPreferences = usesPreferences
         self.coordinator = coordinator
+        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -93,7 +96,7 @@ public class CatalogViewController: UIViewController {
                     },
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
                     }, onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.showMyMeals()

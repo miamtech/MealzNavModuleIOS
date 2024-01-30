@@ -25,6 +25,7 @@ class CatalogResultsViewController: UIViewController {
     private let recipesListViewOptions: CatalogRecipesListViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: CatalogFeatureNavCoordinator?
+    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         categoryId: String? = nil,
@@ -32,7 +33,8 @@ class CatalogResultsViewController: UIViewController {
         catalogViewOptions: CatalogViewOptions,
         recipesListViewOptions: CatalogRecipesListViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: CatalogFeatureNavCoordinator
+        coordinator: CatalogFeatureNavCoordinator,
+        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     ) {
         self.categoryId = categoryId
         self.categoryTitle = categoryTitle
@@ -40,6 +42,7 @@ class CatalogResultsViewController: UIViewController {
         self.recipesListViewOptions = recipesListViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
+        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -63,11 +66,11 @@ class CatalogResultsViewController: UIViewController {
                 actions: CatalogRecipesListActions(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
                     }, onNoResultsRedirect: { [weak self] in },
                     onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
                     }
                 ),
                 viewOptions: recipesListViewOptions

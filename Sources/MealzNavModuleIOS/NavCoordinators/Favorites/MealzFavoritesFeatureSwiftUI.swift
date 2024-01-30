@@ -24,8 +24,7 @@ public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
         
         self.coordinator = FavoritesFeatureNavCoordinator(
             baseConstructor: MealzBaseNavCoordinator.Constructor(
-                navigationController: navController,
-                baseViews: baseViews
+                navigationController: navController
             ),
             recipeDetailsConstructor: RecipeDetailsFeatureConstructor(
                 recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,

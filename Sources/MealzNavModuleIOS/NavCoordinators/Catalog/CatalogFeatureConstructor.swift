@@ -10,6 +10,7 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 public struct CatalogFeatureConstructor {
+    let baseViews: BasePageViewParameters
     let catalogViewOptions: CatalogViewOptions
     let recipesListViewOptions: CatalogRecipesListViewOptions
     let packageRowViewOptions: CatalogPackageRowViewOptions
@@ -24,6 +25,7 @@ public struct CatalogFeatureConstructor {
     public init(
         useMealPlanner: Bool = false,
         usesPreferences: Bool = true,
+        baseViews: BasePageViewParameters = BasePageViewParameters(),
         catalogViewOptions: CatalogViewOptions =  CatalogViewOptions(),
         recipesListViewOptions: CatalogRecipesListViewOptions = CatalogRecipesListViewOptions(),
         packageRowViewOptions: CatalogPackageRowViewOptions = CatalogPackageRowViewOptions(),
@@ -32,6 +34,7 @@ public struct CatalogFeatureConstructor {
         preferencesViewOptions: PreferencesViewOptions = PreferencesViewOptions(),
         preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions()
     ) {
+        self.baseViews = baseViews
         self.useMealPlanner = useMealPlanner
         self.usesPreferences = usesPreferences
         self.catalogViewOptions = catalogViewOptions

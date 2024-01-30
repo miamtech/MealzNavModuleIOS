@@ -11,7 +11,7 @@ import miamCore
 
 @available(iOS 14, *)
 public protocol MealPlannerFeatureNavCoordinatorProtocol {
-//    var mealPlannerCTAViewOptions: MealPlannerCTAViewOptions { get set }
+    var baseViews: BasePageViewParameters { get set }
     var mealPlannerFormViewOptions: MealPlannerFormViewOptions { get set }
     var mealPlannerResultsViewOptions: MealPlannerResultsViewOptions { get set }
     var mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions { get set }

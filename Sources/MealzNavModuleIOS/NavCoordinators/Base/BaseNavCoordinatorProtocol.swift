@@ -12,7 +12,6 @@ import UIKit
 @available(iOS 14, *)
 public protocol BaseNavCoordinatorProtocol {
     var navigationController: UINavigationController { get set }
-    var baseViews: BasePageViewParameters { get set }
     
     func goBack()
 }

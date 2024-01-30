@@ -11,6 +11,7 @@ import miamCore
 
 @available(iOS 14, *)
 public protocol RecipeDetailsNavCoordinatorProtocol {
+    var baseViews: BasePageViewParameters { get set }
     var recipeDetailsViewOptions: RecipeDetailsViewOptions { get set }
     var recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions { get set }
     var itemSelectorViewOptions: ItemSelectorViewOptions { get set }

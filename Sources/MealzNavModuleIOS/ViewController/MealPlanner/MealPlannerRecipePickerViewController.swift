@@ -16,17 +16,20 @@ class MealPlannerRecipePickerViewController: UIViewController {
     private let mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: MealPlannerFeatureNavCoordinator?
+    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     public init(
         indexOfRecipe: Int,
         mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealPlannerFeatureNavCoordinator?
+        coordinator: MealPlannerFeatureNavCoordinator?,
+        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     ) {
         self.indexOfRecipe = indexOfRecipe
         self.mealPlannerRecipePickerViewOptions = mealPlannerRecipePickerViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
+        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -45,7 +48,7 @@ class MealPlannerRecipePickerViewController: UIViewController {
                     actions: MealPlannerRecipePickerActions(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
                     },
                     onSelectRecipeForMealPlanner: { [weak self] _ in
                         guard let strongSelf = self else { return }

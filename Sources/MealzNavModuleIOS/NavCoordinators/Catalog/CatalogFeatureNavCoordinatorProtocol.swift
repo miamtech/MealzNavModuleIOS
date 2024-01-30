@@ -11,6 +11,7 @@ import miamCore
 
 @available(iOS 14, *)
 public protocol CatalogFeatureNavCoordinatorProtocol {
+    var baseViews: BasePageViewParameters { get set }
     var catalogViewOptions: CatalogViewOptions { get set }
     var recipesListViewOptions: CatalogRecipesListViewOptions { get set }
     var packageRowViewOptions: CatalogPackageRowViewOptions { get set }

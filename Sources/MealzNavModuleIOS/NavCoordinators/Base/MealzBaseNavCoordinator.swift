@@ -13,15 +13,12 @@ import miamCore
 @available(iOS 14, *)
 public class MealzBaseNavCoordinator: BaseNavCoordinatorProtocol {
     public var navigationController: UINavigationController
-    public var baseViews: BasePageViewParameters
     
     public struct Constructor {
         let navigationController: UINavigationController
-        let baseViews: BasePageViewParameters
         
-        public init(navigationController: UINavigationController, baseViews: BasePageViewParameters) {
+        public init(navigationController: UINavigationController) {
             self.navigationController = navigationController
-            self.baseViews = baseViews
         }
     }
 
@@ -29,7 +26,6 @@ public class MealzBaseNavCoordinator: BaseNavCoordinatorProtocol {
         constructor: Constructor
     ) {
         self.navigationController = constructor.navigationController
-        self.baseViews = constructor.baseViews
     }
     
     public func goBack() {

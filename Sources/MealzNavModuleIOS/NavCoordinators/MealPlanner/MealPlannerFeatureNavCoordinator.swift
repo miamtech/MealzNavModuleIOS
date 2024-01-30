@@ -10,8 +10,8 @@ import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator {
-    
+public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
+    public var baseViews: BasePageViewParameters
     public var mealPlannerFormViewOptions: MealPlannerFormViewOptions
     public var mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
     public var mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions
@@ -21,11 +21,14 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
     
     public var filtersViewOptions: FiltersViewOptions
     
+    public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
+    
     public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor
     ) {
+        self.baseViews = mealPlannerFeatureConstructor.baseViews
         self.mealPlannerFormViewOptions = mealPlannerFeatureConstructor.mealPlannerFormViewOptions
         self.mealPlannerResultsViewOptions = mealPlannerFeatureConstructor.mealPlannerResultsViewOptions
         self.mealPlannerRecipePickerViewOptions = mealPlannerFeatureConstructor.mealPlannerRecipePickerViewOptions
@@ -34,11 +37,10 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
         self.mealPlannerRecapViewOptions = mealPlannerFeatureConstructor.mealPlannerRecapViewOptions
         
         self.filtersViewOptions = mealPlannerFeatureConstructor.filtersViewOptions
-        
-        super.init(
+        self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
-            recipeDetailsFeatureConstructor: recipeDetailsConstructor
-        )
+            recipeDetailsFeatureConstructor: recipeDetailsConstructor)
+        super.init(constructor: baseConstructor)
     }
     
     public func showMealPlannerForm() {
@@ -53,7 +55,8 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
         let resultsVC = MealPlannerResultsViewController(
             mealPlannerResultsViewOptions: mealPlannerResultsViewOptions,
             baseViews: baseViews,
-            coordinator: self)
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator)
         navigationController.pushViewController(resultsVC, animated: true)
     }
     
@@ -62,7 +65,8 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
             indexOfRecipe: indexOfRecipe,
             mealPlannerRecipePickerViewOptions: mealPlannerRecipePickerViewOptions,
             baseViews: baseViews,
-            coordinator: self)
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator)
         navigationController.pushViewController(recipePickerVC, animated: true)
     }
     
@@ -71,7 +75,8 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
             mealPlannerBasketViewOptions: mealPlannerBasketViewOptions,
             basketRecipeViewOptions: basketRecipeViewOptions,
             baseViews: baseViews,
-            coordinator: self)
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator)
         navigationController.pushViewController(basketVC, animated: true)
     }
     
@@ -91,5 +96,9 @@ public class MealPlannerFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinato
             nextNavigationEvent: self.goBack
         )
         navigationController.pushViewController(filtersVC, animated: true)
+    }
+    
+    public func popEntireFeature() {
+        navigationController.popToRootViewController(animated: true)
     }
 }

@@ -10,6 +10,7 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 public struct MealPlannerFeatureConstructor {
+    let baseViews: BasePageViewParameters
     let mealPlannerFormViewOptions: MealPlannerFormViewOptions
     let mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
     let mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions
@@ -20,6 +21,7 @@ public struct MealPlannerFeatureConstructor {
     let filtersViewOptions: FiltersViewOptions
     
     public init(
+        baseViews: BasePageViewParameters = BasePageViewParameters(),
         mealPlannerFormViewOptions: MealPlannerFormViewOptions = MealPlannerFormViewOptions(),
         mealPlannerResultsViewOptions: MealPlannerResultsViewOptions = MealPlannerResultsViewOptions(),
         mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions = MealPlannerRecipePickerViewOptions(),
@@ -28,6 +30,7 @@ public struct MealPlannerFeatureConstructor {
         mealPlannerRecapViewOptions: MealPlannerRecapViewOptions = MealPlannerRecapViewOptions(),
         filtersViewOptions: FiltersViewOptions = FiltersViewOptions()
     ) {
+        self.baseViews = baseViews
         self.mealPlannerFormViewOptions = mealPlannerFormViewOptions
         self.mealPlannerResultsViewOptions = mealPlannerResultsViewOptions
         self.mealPlannerRecipePickerViewOptions = mealPlannerRecipePickerViewOptions
