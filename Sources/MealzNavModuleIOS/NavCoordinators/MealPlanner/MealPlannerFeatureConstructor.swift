@@ -7,9 +7,11 @@
 
 import Foundation
 import MealzUIModuleIOS
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public struct MealPlannerFeatureConstructor {
+    let baseViews: BasePageViewParameters
     let mealPlannerFormViewOptions: MealPlannerFormViewOptions
     let mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
     let mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions
@@ -19,15 +21,25 @@ public struct MealPlannerFeatureConstructor {
     
     let filtersViewOptions: FiltersViewOptions
     
+    // grid configs
+    public var basketRecipeGridConfig: BasketRecipesGridConfig
+    public var mealPlannerRecipesListGridConfig: MealPlannerRecipesListGridConfig
+    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
+    
     public init(
+        baseViews: BasePageViewParameters = BasePageViewParameters(),
         mealPlannerFormViewOptions: MealPlannerFormViewOptions = MealPlannerFormViewOptions(),
         mealPlannerResultsViewOptions: MealPlannerResultsViewOptions = MealPlannerResultsViewOptions(),
         mealPlannerRecipePickerViewOptions: MealPlannerRecipePickerViewOptions = MealPlannerRecipePickerViewOptions(),
         mealPlannerBasketViewOptions: MealPlannerBasketViewOptions = MealPlannerBasketViewOptions(),
         basketRecipeViewOptions: BasketRecipeViewOptions = BasketRecipeViewOptions(),
         mealPlannerRecapViewOptions: MealPlannerRecapViewOptions = MealPlannerRecapViewOptions(),
-        filtersViewOptions: FiltersViewOptions = FiltersViewOptions()
+        filtersViewOptions: FiltersViewOptions = FiltersViewOptions(),
+        basketRecipeGridConfig: BasketRecipesGridConfig = BasketRecipesGridConfig(),
+        mealPlannerRecipesListGridConfig: MealPlannerRecipesListGridConfig = MealPlannerRecipesListGridConfig(),
+        catalogRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig()
     ) {
+        self.baseViews = baseViews
         self.mealPlannerFormViewOptions = mealPlannerFormViewOptions
         self.mealPlannerResultsViewOptions = mealPlannerResultsViewOptions
         self.mealPlannerRecipePickerViewOptions = mealPlannerRecipePickerViewOptions
@@ -36,5 +48,9 @@ public struct MealPlannerFeatureConstructor {
         self.mealPlannerRecapViewOptions = mealPlannerRecapViewOptions
        
         self.filtersViewOptions = filtersViewOptions
+        
+        self.basketRecipeGridConfig = basketRecipeGridConfig
+        self.mealPlannerRecipesListGridConfig = mealPlannerRecipesListGridConfig
+        self.catalogRecipesListGridConfig = catalogRecipesListGridConfig
     }
 }

@@ -37,7 +37,7 @@ class MealPlannerRecapPurchaseViewController: UIViewController {
                 actions: MealPlannerRecapActions(
                     onNavigateAwayFromMealPlanner: { [weak self] in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.goBack()
+                        strongSelf.coordinator?.popEntireFeature()
                     }
                 ),
                 viewOptions: mealPlannerRecapViewOptions

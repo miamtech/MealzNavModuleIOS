@@ -13,6 +13,7 @@ import miamCore
 
 @available(iOS 14, *)
 public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, RecipeDetailsNavCoordinatorProtocol {
+    public var baseViews: BasePageViewParameters
     public var recipeDetailsViewOptions: RecipeDetailsViewOptions
     public var recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions
     public var itemSelectorViewOptions: ItemSelectorViewOptions
@@ -21,6 +22,7 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
         baseConstructor: Constructor,
         recipeDetailsFeatureConstructor: RecipeDetailsFeatureConstructor
     ) {
+        self.baseViews = recipeDetailsFeatureConstructor.baseViews
         self.recipeDetailsViewOptions = recipeDetailsFeatureConstructor.recipeDetailsViewOptions
         self.recipeDetailsProductViewOptions = recipeDetailsFeatureConstructor.recipeDetailsProductViewOptions
         self.itemSelectorViewOptions = recipeDetailsFeatureConstructor.itemSelectorViewOptions

@@ -7,9 +7,11 @@
 
 import Foundation
 import MealzUIModuleIOS
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public struct CatalogFeatureConstructor {
+    let baseViews: BasePageViewParameters
     let catalogViewOptions: CatalogViewOptions
     let recipesListViewOptions: CatalogRecipesListViewOptions
     let packageRowViewOptions: CatalogPackageRowViewOptions
@@ -20,18 +22,24 @@ public struct CatalogFeatureConstructor {
     
     let useMealPlanner: Bool
     let usesPreferences: Bool
+    
+    // grid configs
+    let catalogRecipesListGridConfig: CatalogRecipesListGridConfig
         
     public init(
         useMealPlanner: Bool = false,
         usesPreferences: Bool = true,
+        baseViews: BasePageViewParameters = BasePageViewParameters(),
         catalogViewOptions: CatalogViewOptions =  CatalogViewOptions(),
         recipesListViewOptions: CatalogRecipesListViewOptions = CatalogRecipesListViewOptions(),
         packageRowViewOptions: CatalogPackageRowViewOptions = CatalogPackageRowViewOptions(),
         catalogSearchViewOptions: CatalogSearchViewOptions = CatalogSearchViewOptions(),
         filtersViewOptions: FiltersViewOptions = FiltersViewOptions(),
         preferencesViewOptions: PreferencesViewOptions = PreferencesViewOptions(),
-        preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions()
+        preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions(),
+        catalogRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig()
     ) {
+        self.baseViews = baseViews
         self.useMealPlanner = useMealPlanner
         self.usesPreferences = usesPreferences
         self.catalogViewOptions = catalogViewOptions
@@ -41,5 +49,6 @@ public struct CatalogFeatureConstructor {
         self.filtersViewOptions = filtersViewOptions
         self.preferencesViewOptions = preferencesViewOptions
         self.preferencesSearchViewOptions = preferencesSearchViewOptions
+        self.catalogRecipesListGridConfig = catalogRecipesListGridConfig
     }
 }

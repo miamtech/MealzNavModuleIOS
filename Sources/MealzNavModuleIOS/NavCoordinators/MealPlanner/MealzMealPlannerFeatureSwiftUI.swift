@@ -15,7 +15,6 @@ public struct MealzMealPlannerFeatureSwiftUI: UIViewControllerRepresentable {
     public let coordinator: MealPlannerFeatureNavCoordinator
     
     public init(
-        baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
@@ -23,10 +22,9 @@ public struct MealzMealPlannerFeatureSwiftUI: UIViewControllerRepresentable {
         
         self.coordinator = MealPlannerFeatureNavCoordinator(
             baseConstructor: MealzBaseNavCoordinator.Constructor(
-                navigationController: navController,
-                baseViews: baseViews
+                navigationController: navController
             ),
-            recipeDetailsConstructor: RecipeDetailsFeatureConstructor(
+            recipeDetailsConstructor:  RecipeDetailsFeatureConstructor(
                 recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,
                 recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
                 itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions

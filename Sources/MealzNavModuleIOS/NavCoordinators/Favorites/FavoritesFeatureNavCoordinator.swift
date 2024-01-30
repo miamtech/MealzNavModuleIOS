@@ -8,23 +8,31 @@
 import Foundation
 import MealzUIModuleIOS
 import miamCore
+import MiamIOSFramework
 
 @available(iOS 14, *)
-public class FavoritesFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator, FavoritesFeatureNavCoordinatorProtocol {
+public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesFeatureNavCoordinatorProtocol {
+    public var baseViews: BasePageViewParameters
     public var favoritesViewOptions: FavoritesViewOptions
     public var navigateToCatalog: () -> Void
     
+    public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
+    
+    // grid configs
+    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
     init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
         favoritesFeatureConstructor: FavoritesFeatureConstructor
     ) {
+        self.baseViews = favoritesFeatureConstructor.baseViews
         self.favoritesViewOptions = favoritesFeatureConstructor.favoritesViewOptions
         self.navigateToCatalog = favoritesFeatureConstructor.navigateToCatalog
-        super.init(
+        self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
-            recipeDetailsFeatureConstructor: recipeDetailsConstructor
-        )
+            recipeDetailsFeatureConstructor: recipeDetailsConstructor)
+        self.catalogRecipesListGridConfig = favoritesFeatureConstructor.catalogRecipesListGridConfig
+        super.init(constructor: baseConstructor)
     }
     
     public func showFavorites() {
@@ -32,6 +40,7 @@ public class FavoritesFeatureNavCoordinator: RecipeDetailsFeatureNavCoordinator,
             favoritesViewOptions: favoritesViewOptions,
             baseViews: baseViews,
             coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator,
             navigateToTheCatalog: navigateToCatalog
         )
         navigationController.pushViewController(favoritesVC, animated: false)

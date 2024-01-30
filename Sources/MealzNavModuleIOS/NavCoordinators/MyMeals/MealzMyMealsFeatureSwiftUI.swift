@@ -15,7 +15,6 @@ public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
     private let coordinator: MyMealsFeatureNavCoordinator
     
     public init(
-        baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
         navigateToCatalog: @escaping () -> Void    
@@ -24,8 +23,7 @@ public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
         
         self.coordinator = MyMealsFeatureNavCoordinator(
             baseConstructor: MealzBaseNavCoordinator.Constructor(
-                navigationController: navController,
-                baseViews: baseViews
+                navigationController: navController
             ),
             recipeDetailsConstructor: RecipeDetailsFeatureConstructor(
                 recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,

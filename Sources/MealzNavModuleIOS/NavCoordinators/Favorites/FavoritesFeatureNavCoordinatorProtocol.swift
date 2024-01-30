@@ -7,11 +7,16 @@
 
 import SwiftUI
 import MealzUIModuleIOS
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public protocol FavoritesFeatureNavCoordinatorProtocol {
+    var baseViews: BasePageViewParameters { get set }
     var favoritesViewOptions: FavoritesViewOptions { get set }
     var navigateToCatalog: () -> Void { get set }
+    
+    // grid configs
+    var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
     
     func showFavorites()
 }

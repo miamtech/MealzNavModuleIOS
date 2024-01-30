@@ -15,15 +15,18 @@ class MealPlannerResultsViewController: UIViewController {
     private let mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: MealPlannerFeatureNavCoordinator?
+    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     public init(
         mealPlannerResultsViewOptions: MealPlannerResultsViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealPlannerFeatureNavCoordinator?
+        coordinator: MealPlannerFeatureNavCoordinator?,
+        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     ) {
         self.mealPlannerResultsViewOptions = mealPlannerResultsViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
+        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,7 +46,7 @@ class MealPlannerResultsViewController: UIViewController {
                     actions: MealPlannerResultsActions(
                         onShowRecipeDetails: { [weak self] recipeId in
                             guard let strongSelf = self else { return }
-                            strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
+                            strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
                         },
                         onOpenReplaceRecipe: { [weak self] indexOfRecipe in
                             guard let strongSelf = self else { return }
@@ -56,9 +59,7 @@ class MealPlannerResultsViewController: UIViewController {
                     viewOptions: mealPlannerResultsViewOptions
                 ),
             baseViews: baseViews,
-            gridConfig: MealPlannerRecipesListGridConfig(
-                spacing: CGSize(width: 0, height: 0),
-                recipeCardDimensions: CGSize(width: 300, height: 240)))
+            gridConfig: self.coordinator?.mealPlannerRecipesListGridConfig ?? MealPlannerRecipesListGridConfig())
     }
     
     // The hosting controller for your SwiftUI view

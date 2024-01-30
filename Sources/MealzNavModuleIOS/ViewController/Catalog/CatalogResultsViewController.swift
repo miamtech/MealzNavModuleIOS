@@ -11,13 +11,6 @@ import MiamIOSFramework
 import MealzUIModuleIOS
 
 @available(iOS 14, *)
-public var localRecipesListViewConfig = CatalogRecipesListGridConfig(
-    numberOfColumns: 2,
-    spacing: CGSize(width: 6, height: 6),
-    recipeCardDimensions: CGSize(width: 300, height: 340),
-    recipeCardFillMaxWidth: true)
-
-@available(iOS 14, *)
 class CatalogResultsViewController: UIViewController {
     private let categoryId: String?
     private let categoryTitle: String?
@@ -25,6 +18,7 @@ class CatalogResultsViewController: UIViewController {
     private let recipesListViewOptions: CatalogRecipesListViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: CatalogFeatureNavCoordinator?
+    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         categoryId: String? = nil,
@@ -32,7 +26,8 @@ class CatalogResultsViewController: UIViewController {
         catalogViewOptions: CatalogViewOptions,
         recipesListViewOptions: CatalogRecipesListViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: CatalogFeatureNavCoordinator
+        coordinator: CatalogFeatureNavCoordinator,
+        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     ) {
         self.categoryId = categoryId
         self.categoryTitle = categoryTitle
@@ -40,6 +35,7 @@ class CatalogResultsViewController: UIViewController {
         self.recipesListViewOptions = recipesListViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
+        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -63,11 +59,11 @@ class CatalogResultsViewController: UIViewController {
                 actions: CatalogRecipesListActions(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
                     }, onNoResultsRedirect: { [weak self] in },
                     onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
                     }
                 ),
                 viewOptions: recipesListViewOptions
@@ -75,7 +71,7 @@ class CatalogResultsViewController: UIViewController {
             baseViews: baseViews,
             categoryId: categoryId,
             title: categoryTitle,
-            gridConfig: localRecipesListViewConfig
+            gridConfig: self.coordinator?.catalogRecipesListGridConfig ?? CatalogRecipesListGridConfig()
         )
     }
     // The hosting controller for your SwiftUI view

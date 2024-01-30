@@ -10,15 +10,18 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 public struct RecipeDetailsFeatureConstructor {
+    let baseViews: BasePageViewParameters
     let recipeDetailsViewOptions: RecipeDetailsViewOptions
     let recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions
     let itemSelectorViewOptions: ItemSelectorViewOptions
     
     public init(
+        baseViews: BasePageViewParameters = BasePageViewParameters(),
         recipeDetailsViewOptions: RecipeDetailsViewOptions = RecipeDetailsViewOptions(),
         recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions = RecipeDetailsProductViewOptions(),
         itemSelectorViewOptions: ItemSelectorViewOptions = ItemSelectorViewOptions()
     ) {
+        self.baseViews = baseViews
         self.recipeDetailsViewOptions = recipeDetailsViewOptions
         self.recipeDetailsProductViewOptions = recipeDetailsProductViewOptions
         self.itemSelectorViewOptions = itemSelectorViewOptions

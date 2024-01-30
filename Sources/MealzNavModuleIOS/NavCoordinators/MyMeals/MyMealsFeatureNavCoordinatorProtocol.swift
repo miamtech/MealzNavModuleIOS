@@ -10,6 +10,7 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 public protocol MyMealsFeatureNavCoordinatorProtocol {
+    var baseViews: BasePageViewParameters { get set }
     var myMealsViewOptions: MyMealsViewOptions { get set }
     var navigateToCatalog: () -> Void { get set }
     

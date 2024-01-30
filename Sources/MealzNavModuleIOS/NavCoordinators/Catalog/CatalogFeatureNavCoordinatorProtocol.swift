@@ -8,9 +8,11 @@
 import SwiftUI
 import MealzUIModuleIOS
 import miamCore
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public protocol CatalogFeatureNavCoordinatorProtocol {
+    var baseViews: BasePageViewParameters { get set }
     var catalogViewOptions: CatalogViewOptions { get set }
     var recipesListViewOptions: CatalogRecipesListViewOptions { get set }
     var packageRowViewOptions: CatalogPackageRowViewOptions { get set }
@@ -18,6 +20,9 @@ public protocol CatalogFeatureNavCoordinatorProtocol {
     var filtersViewOptions: FiltersViewOptions { get set }
     var preferencesViewOptions: PreferencesViewOptions { get set }
     var preferencesSearchViewOptions: PreferencesSearchViewOptions { get set }
+    
+    // grid configs
+    var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
         
     func showCatalog()
     func showCatalogResults(catalogId: String?, categoryTitle: String?)

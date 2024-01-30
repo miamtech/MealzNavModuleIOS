@@ -11,29 +11,25 @@ import MiamIOSFramework
 import MealzUIModuleIOS
 
 @available(iOS 14, *)
-public var localBasketGridConfig = BasketRecipesGridConfig(
-    recipeSpacing: CGSize(width: 5, height: 5),
-    productSpacing: CGSize(width: 6, height: 6),
-    recipeOverviewDimensions: CGSize(width: 300, height: 150),
-    isExpandable: true)
-
-@available(iOS 14, *)
 class MealPlannerBasketViewController: UIViewController {
     private let mealPlannerBasketViewOptions: MealPlannerBasketViewOptions
     private let basketRecipeViewOptions: BasketRecipeViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: MealPlannerFeatureNavCoordinator?
+    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     public init(
         mealPlannerBasketViewOptions: MealPlannerBasketViewOptions,
         basketRecipeViewOptions: BasketRecipeViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: MealPlannerFeatureNavCoordinator?
+        coordinator: MealPlannerFeatureNavCoordinator?,
+        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     ) {
         self.mealPlannerBasketViewOptions = mealPlannerBasketViewOptions
         self.basketRecipeViewOptions = basketRecipeViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
+        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -62,15 +58,15 @@ class MealPlannerBasketViewController: UIViewController {
                 actions: BasketRecipeActions(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
                     }, onReplaceProduct: { [weak self] ingredientId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId)
+                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId)
                     }),
                 viewOptions: basketRecipeViewOptions
             ),
             baseViews: baseViews,
-            gridConfig: localBasketGridConfig
+            gridConfig: self.coordinator?.basketRecipeGridConfig ?? BasketRecipesGridConfig()
         )
     }
     
