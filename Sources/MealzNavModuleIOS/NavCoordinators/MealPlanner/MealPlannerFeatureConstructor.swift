@@ -7,6 +7,7 @@
 
 import Foundation
 import MealzUIModuleIOS
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public struct MealPlannerFeatureConstructor {
@@ -20,6 +21,11 @@ public struct MealPlannerFeatureConstructor {
     
     let filtersViewOptions: FiltersViewOptions
     
+    // grid configs
+    public var basketRecipeGridConfig: BasketRecipesGridConfig
+    public var mealPlannerRecipesListGridConfig: MealPlannerRecipesListGridConfig
+    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
+    
     public init(
         baseViews: BasePageViewParameters = BasePageViewParameters(),
         mealPlannerFormViewOptions: MealPlannerFormViewOptions = MealPlannerFormViewOptions(),
@@ -28,7 +34,10 @@ public struct MealPlannerFeatureConstructor {
         mealPlannerBasketViewOptions: MealPlannerBasketViewOptions = MealPlannerBasketViewOptions(),
         basketRecipeViewOptions: BasketRecipeViewOptions = BasketRecipeViewOptions(),
         mealPlannerRecapViewOptions: MealPlannerRecapViewOptions = MealPlannerRecapViewOptions(),
-        filtersViewOptions: FiltersViewOptions = FiltersViewOptions()
+        filtersViewOptions: FiltersViewOptions = FiltersViewOptions(),
+        basketRecipeGridConfig: BasketRecipesGridConfig = BasketRecipesGridConfig(),
+        mealPlannerRecipesListGridConfig: MealPlannerRecipesListGridConfig = MealPlannerRecipesListGridConfig(),
+        catalogRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig()
     ) {
         self.baseViews = baseViews
         self.mealPlannerFormViewOptions = mealPlannerFormViewOptions
@@ -39,5 +48,9 @@ public struct MealPlannerFeatureConstructor {
         self.mealPlannerRecapViewOptions = mealPlannerRecapViewOptions
        
         self.filtersViewOptions = filtersViewOptions
+        
+        self.basketRecipeGridConfig = basketRecipeGridConfig
+        self.mealPlannerRecipesListGridConfig = mealPlannerRecipesListGridConfig
+        self.catalogRecipesListGridConfig = catalogRecipesListGridConfig
     }
 }

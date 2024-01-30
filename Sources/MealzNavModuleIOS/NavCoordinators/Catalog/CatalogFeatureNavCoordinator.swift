@@ -8,6 +8,7 @@
 import Foundation
 import MealzUIModuleIOS
 import miamCore
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatureNavCoordinatorProtocol {
@@ -26,6 +27,9 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     
     private let usesPreferences: Bool
+    
+    // grid configs
+    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
     
     init(
         baseConstructor: Constructor,
@@ -54,6 +58,8 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         
         self.usesPreferences = catalogFeatureConstructor.usesPreferences
         self.navigateToCatalog = {}
+        
+        self.catalogRecipesListGridConfig = catalogFeatureConstructor.catalogRecipesListGridConfig
         super.init(constructor: baseConstructor)
     }
     

@@ -106,7 +106,7 @@ public class CatalogViewController: UIViewController {
             ),
             baseViews: baseViews,
             usesPreferences: usesPreferences,
-            gridConfig: localRecipesListViewConfig
+            gridConfig: self.coordinator?.catalogRecipesListGridConfig ?? CatalogRecipesListGridConfig()
         )
     }
     // The hosting controller for your SwiftUI view

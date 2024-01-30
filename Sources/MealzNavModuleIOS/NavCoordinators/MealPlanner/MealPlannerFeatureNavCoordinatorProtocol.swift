@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MealzUIModuleIOS
+import MiamIOSFramework
 import miamCore
 
 @available(iOS 14, *)
@@ -20,6 +21,11 @@ public protocol MealPlannerFeatureNavCoordinatorProtocol {
     var mealPlannerRecapViewOptions: MealPlannerRecapViewOptions { get set }
     
     var filtersViewOptions: FiltersViewOptions { get set }
+    
+    // grid configs
+    var basketRecipeGridConfig: BasketRecipesGridConfig { get set }
+    var mealPlannerRecipesListGridConfig: MealPlannerRecipesListGridConfig { get set }
+    var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
     
     func showMealPlannerForm()
     func showMealPlannerResults()

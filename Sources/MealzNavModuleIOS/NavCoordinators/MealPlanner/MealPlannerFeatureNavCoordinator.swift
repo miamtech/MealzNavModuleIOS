@@ -8,6 +8,7 @@
 import Foundation
 import MealzUIModuleIOS
 import miamCore
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
@@ -20,6 +21,11 @@ public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
     public var mealPlannerRecapViewOptions: MealPlannerRecapViewOptions
     
     public var filtersViewOptions: FiltersViewOptions
+    
+    // grid configs
+    public var basketRecipeGridConfig: BasketRecipesGridConfig
+    public var mealPlannerRecipesListGridConfig: MealPlannerRecipesListGridConfig
+    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
     
     public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     
@@ -40,6 +46,11 @@ public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
         self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
+        
+        self.basketRecipeGridConfig = mealPlannerFeatureConstructor.basketRecipeGridConfig
+        self.mealPlannerRecipesListGridConfig = mealPlannerFeatureConstructor.mealPlannerRecipesListGridConfig
+        self.catalogRecipesListGridConfig = mealPlannerFeatureConstructor.catalogRecipesListGridConfig
+        
         super.init(constructor: baseConstructor)
     }
     

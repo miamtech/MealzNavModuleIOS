@@ -11,13 +11,6 @@ import MiamIOSFramework
 import MealzUIModuleIOS
 
 @available(iOS 14, *)
-public var localBasketGridConfig = BasketRecipesGridConfig(
-    recipeSpacing: CGSize(width: 5, height: 5),
-    productSpacing: CGSize(width: 6, height: 6),
-    recipeOverviewDimensions: CGSize(width: 300, height: 150),
-    isExpandable: true)
-
-@available(iOS 14, *)
 class MealPlannerBasketViewController: UIViewController {
     private let mealPlannerBasketViewOptions: MealPlannerBasketViewOptions
     private let basketRecipeViewOptions: BasketRecipeViewOptions
@@ -73,7 +66,7 @@ class MealPlannerBasketViewController: UIViewController {
                 viewOptions: basketRecipeViewOptions
             ),
             baseViews: baseViews,
-            gridConfig: localBasketGridConfig
+            gridConfig: self.coordinator?.basketRecipeGridConfig ?? BasketRecipesGridConfig()
         )
     }
     
