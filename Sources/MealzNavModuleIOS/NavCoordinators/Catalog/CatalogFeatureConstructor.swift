@@ -7,6 +7,7 @@
 
 import Foundation
 import MealzUIModuleIOS
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public struct CatalogFeatureConstructor {
@@ -21,6 +22,9 @@ public struct CatalogFeatureConstructor {
     
     let useMealPlanner: Bool
     let usesPreferences: Bool
+    
+    // grid configs
+    let catalogRecipesListGridConfig: CatalogRecipesListGridConfig
         
     public init(
         useMealPlanner: Bool = false,
@@ -32,7 +36,8 @@ public struct CatalogFeatureConstructor {
         catalogSearchViewOptions: CatalogSearchViewOptions = CatalogSearchViewOptions(),
         filtersViewOptions: FiltersViewOptions = FiltersViewOptions(),
         preferencesViewOptions: PreferencesViewOptions = PreferencesViewOptions(),
-        preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions()
+        preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions(),
+        catalogRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig()
     ) {
         self.baseViews = baseViews
         self.useMealPlanner = useMealPlanner
@@ -44,5 +49,6 @@ public struct CatalogFeatureConstructor {
         self.filtersViewOptions = filtersViewOptions
         self.preferencesViewOptions = preferencesViewOptions
         self.preferencesSearchViewOptions = preferencesSearchViewOptions
+        self.catalogRecipesListGridConfig = catalogRecipesListGridConfig
     }
 }

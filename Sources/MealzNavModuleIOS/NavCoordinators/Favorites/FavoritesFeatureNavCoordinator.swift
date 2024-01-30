@@ -8,6 +8,7 @@
 import Foundation
 import MealzUIModuleIOS
 import miamCore
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesFeatureNavCoordinatorProtocol {
@@ -17,6 +18,8 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
     
     public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     
+    // grid configs
+    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
     init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
@@ -28,6 +31,7 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
         self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
+        self.catalogRecipesListGridConfig = favoritesFeatureConstructor.catalogRecipesListGridConfig
         super.init(constructor: baseConstructor)
     }
     
@@ -35,7 +39,8 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
         let favoritesVC = FavoritesViewController(
             favoritesViewOptions: favoritesViewOptions,
             baseViews: baseViews,
-            coordinator: recipeDetailsCoordinator,
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator,
             navigateToTheCatalog: navigateToCatalog
         )
         navigationController.pushViewController(favoritesVC, animated: false)

@@ -16,18 +16,21 @@ class FavoritesViewController: UIViewController {
     public let favoritesViewOptions: FavoritesViewOptions
     private let baseViews: BasePageViewParameters
     private let navigateToTheCatalog: () -> Void
-    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
+    weak var coordinator: FavoritesFeatureNavCoordinator?
+    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         favoritesViewOptions: FavoritesViewOptions,
         baseViews: BasePageViewParameters, 
-        coordinator: RecipeDetailsFeatureNavCoordinator?,
+        coordinator: FavoritesFeatureNavCoordinator,
+        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
         navigateToTheCatalog: @escaping () -> Void
     ) {
         self.favoritesViewOptions = favoritesViewOptions
         self.baseViews = baseViews
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
+        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,21 +47,21 @@ class FavoritesViewController: UIViewController {
                 actions: FavoritesActions(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
-                    }, 
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
+                    },
                     onNoResultsRedirect: { [weak self] in
                         guard let strongSelf = self else { return }
                         strongSelf.navigateToTheCatalog()
                     },
                     onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
                     }
                 ),
                 viewOptions: favoritesViewOptions
             ),
             baseViews: baseViews,
-            gridConfig: localRecipesListViewConfig
+            gridConfig: self.coordinator?.catalogRecipesListGridConfig ?? CatalogRecipesListGridConfig()
         )
     }
     // The hosting controller for your SwiftUI view

@@ -59,9 +59,7 @@ class MealPlannerResultsViewController: UIViewController {
                     viewOptions: mealPlannerResultsViewOptions
                 ),
             baseViews: baseViews,
-            gridConfig: MealPlannerRecipesListGridConfig(
-                spacing: CGSize(width: 0, height: 0),
-                recipeCardDimensions: CGSize(width: 300, height: 240)))
+            gridConfig: self.coordinator?.mealPlannerRecipesListGridConfig ?? MealPlannerRecipesListGridConfig())
     }
     
     // The hosting controller for your SwiftUI view

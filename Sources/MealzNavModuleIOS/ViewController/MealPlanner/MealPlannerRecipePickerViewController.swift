@@ -61,7 +61,7 @@ class MealPlannerRecipePickerViewController: UIViewController {
                     viewOptions: mealPlannerRecipePickerViewOptions
                     ),
             baseViews: baseViews,
-            gridConfig: localRecipesListViewConfig,
+            gridConfig: self.coordinator?.catalogRecipesListGridConfig ?? CatalogRecipesListGridConfig(),
             indexOfReplacedRecipe: indexOfRecipe)
             
     }

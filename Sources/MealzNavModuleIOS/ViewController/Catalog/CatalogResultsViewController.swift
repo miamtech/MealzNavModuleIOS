@@ -11,13 +11,6 @@ import MiamIOSFramework
 import MealzUIModuleIOS
 
 @available(iOS 14, *)
-public var localRecipesListViewConfig = CatalogRecipesListGridConfig(
-    numberOfColumns: 2,
-    spacing: CGSize(width: 6, height: 6),
-    recipeCardDimensions: CGSize(width: 300, height: 340),
-    recipeCardFillMaxWidth: true)
-
-@available(iOS 14, *)
 class CatalogResultsViewController: UIViewController {
     private let categoryId: String?
     private let categoryTitle: String?
@@ -78,7 +71,7 @@ class CatalogResultsViewController: UIViewController {
             baseViews: baseViews,
             categoryId: categoryId,
             title: categoryTitle,
-            gridConfig: localRecipesListViewConfig
+            gridConfig: self.coordinator?.catalogRecipesListGridConfig ?? CatalogRecipesListGridConfig()
         )
     }
     // The hosting controller for your SwiftUI view
