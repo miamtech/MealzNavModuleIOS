@@ -22,7 +22,8 @@ public protocol CatalogFeatureNavCoordinatorProtocol {
     var preferencesSearchViewOptions: PreferencesSearchViewOptions { get set }
     
     // grid configs
-    var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
+    var catalogViewGridConfig: CatalogRecipesListGridConfig { get set }
+    var catalogResultsGridConfig: CatalogRecipesListGridConfig { get set }
         
     func showCatalog()
     func showCatalogResults(catalogId: String?, categoryTitle: String?)

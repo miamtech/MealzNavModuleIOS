@@ -29,7 +29,8 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     private let usesPreferences: Bool
     
     // grid configs
-    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
+    public var catalogViewGridConfig: CatalogRecipesListGridConfig
+    public var catalogResultsGridConfig: CatalogRecipesListGridConfig
     
     init(
         baseConstructor: Constructor,
@@ -59,7 +60,8 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         self.usesPreferences = catalogFeatureConstructor.usesPreferences
         self.navigateToCatalog = {}
         
-        self.catalogRecipesListGridConfig = catalogFeatureConstructor.catalogRecipesListGridConfig
+        self.catalogViewGridConfig = catalogFeatureConstructor.catalogViewGridConfig
+        self.catalogResultsGridConfig = catalogFeatureConstructor.catalogResultsGridConfig
         super.init(constructor: baseConstructor)
     }
     
@@ -68,6 +70,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
             catalogViewOptions: catalogViewOptions, 
             packageRowViewOptions: packageRowViewOptions,
             baseViews: baseViews,
+            catalogViewGridConfig: catalogViewGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
             usesPreferences: usesPreferences,
@@ -86,6 +89,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
             catalogViewOptions: catalogViewOptions, 
             recipesListViewOptions: recipesListViewOptions,
             baseViews: baseViews,
+            catalogResultsGridConfig: catalogResultsGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator
         )
@@ -109,6 +113,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
             catalogViewOptions: catalogViewOptions, 
             recipesListViewOptions: recipesListViewOptions,
             baseViews: baseViews,
+            catalogResultsGridConfig: catalogResultsGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator
         )
