@@ -24,20 +24,8 @@ public struct MealzMealPlannerFeatureSwiftUI: UIViewControllerRepresentable {
             baseConstructor: MealzBaseNavCoordinator.Constructor(
                 navigationController: navController
             ),
-            recipeDetailsConstructor:  RecipeDetailsFeatureConstructor(
-                recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,
-                recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
-                itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
-            ),
-            mealPlannerFeatureConstructor: MealPlannerFeatureConstructor(
-                mealPlannerFormViewOptions: mealPlannerFeatureConstructor.mealPlannerFormViewOptions,
-                mealPlannerResultsViewOptions: mealPlannerFeatureConstructor.mealPlannerResultsViewOptions,
-                mealPlannerRecipePickerViewOptions: mealPlannerFeatureConstructor.mealPlannerRecipePickerViewOptions,
-                mealPlannerBasketViewOptions: mealPlannerFeatureConstructor.mealPlannerBasketViewOptions,
-                basketRecipeViewOptions: mealPlannerFeatureConstructor.basketRecipeViewOptions,
-                mealPlannerRecapViewOptions: mealPlannerFeatureConstructor.mealPlannerRecapViewOptions,
-                filtersViewOptions: mealPlannerFeatureConstructor.filtersViewOptions
-            )
+            recipeDetailsConstructor: recipeDetailsConstructor,
+            mealPlannerFeatureConstructor: mealPlannerFeatureConstructor
         )
     }
     

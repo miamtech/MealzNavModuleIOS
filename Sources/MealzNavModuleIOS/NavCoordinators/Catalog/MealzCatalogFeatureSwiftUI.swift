@@ -15,7 +15,6 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
     private let coordinator: CatalogFeatureNavCoordinator
     
     public init(
-        useMealPlanner: Bool = false,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
@@ -25,24 +24,10 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
         let baseConstructor = MealzBaseNavCoordinator.Constructor(
             navigationController: navController
         )
-        let recipeDetailsConstructor = RecipeDetailsFeatureConstructor(
-            recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,
-            recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
-            itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
-        )
         self.coordinator = CatalogFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsConstructor: recipeDetailsConstructor,
-            catalogFeatureConstructor: CatalogFeatureConstructor(
-                useMealPlanner: useMealPlanner,
-                catalogViewOptions: catalogFeatureConstructor.catalogViewOptions,
-                recipesListViewOptions: catalogFeatureConstructor.recipesListViewOptions,
-                packageRowViewOptions: catalogFeatureConstructor.packageRowViewOptions,
-                catalogSearchViewOptions: catalogFeatureConstructor.catalogSearchViewOptions,
-                filtersViewOptions: catalogFeatureConstructor.filtersViewOptions,
-                preferencesViewOptions: catalogFeatureConstructor.preferencesViewOptions,
-                preferencesSearchViewOptions: catalogFeatureConstructor.preferencesSearchViewOptions
-            ),
+            catalogFeatureConstructor: catalogFeatureConstructor,
             myMealsViewOptions: myMealsViewOptions,
             mealPlannerCoordinator: MealPlannerFeatureNavCoordinator(
                 baseConstructor: baseConstructor,
