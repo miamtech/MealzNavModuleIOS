@@ -15,10 +15,12 @@ let package = Package(
             targets: ["MealzNavModuleIOS"]),
     ],
     dependencies: [
-        .package(path: "../MealzUIModuleIOS"),
-        .package(path: "../miam-sdk"),
-//        .package(url: "https://github.com/miamtech/MiamIOSFramework.git", from: "4.0.0-beta"),
-//        .package(url: "https://github.com/miamtech/MealzUIModuleIOS.git", from: "1.0.0-beta1"),
+//        .package(path: "../MealzUIModuleIOS"),
+//        .package(path: "../miam-sdk"),
+//        .package(url: "https://github.com/miamtech/MealzUIModuleIOS", from: "1.0.0-beta2"),
+        .package(url: "https://gitlab.com/miam/kmm-miam-sdk.git", from: "4.0.0-beta1"),
+        .package(url: "https://github.com/miamtech/MealzUIModuleIOS", branch: "main"),
+//        .package(url: "https://github.com/miamtech/miam-sdk.git", branch: "version-4"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -26,8 +28,8 @@ let package = Package(
         .target(
             name: "MealzNavModuleIOS",
             dependencies: [
-                .product(name: "MiamIOSFramework", package: "miam-sdk"),
-                .product(name: "MealzUIModuleIOS", package: "MealzUIModuleIOS")
+                .product(name: "MealzUIModuleIOS", package: "MealzUIModuleIOS"),
+                .product(name: "MiamIOSFramework", package: "kmm-miam-sdk")
             ])
     ]
 )
