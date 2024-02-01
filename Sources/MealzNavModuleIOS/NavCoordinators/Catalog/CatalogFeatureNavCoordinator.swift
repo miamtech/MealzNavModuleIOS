@@ -31,12 +31,14 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     // grid configs
     public var catalogViewGridConfig: CatalogRecipesListGridConfig
     public var catalogResultsGridConfig: CatalogRecipesListGridConfig
+    public var myMealsRecipesListGridConfig: CatalogRecipesListGridConfig
     
     init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
         catalogFeatureConstructor: CatalogFeatureConstructor,
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
+        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
         mealPlannerCoordinator: MealPlannerFeatureNavCoordinator
     ) {
         self.baseViews = catalogFeatureConstructor.baseViews
@@ -62,6 +64,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         
         self.catalogViewGridConfig = catalogFeatureConstructor.catalogViewGridConfig
         self.catalogResultsGridConfig = catalogFeatureConstructor.catalogResultsGridConfig
+        self.myMealsRecipesListGridConfig = myMealsRecipesListGridConfig
         super.init(constructor: baseConstructor)
     }
     
@@ -163,7 +166,9 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         let myMealsVC = MyMealsViewController(
             myMealsViewOptions: myMealsViewOptions,
             baseViews: baseViews,
-            coordinator: recipeDetailsCoordinator,
+            gridConfig: myMealsRecipesListGridConfig,
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator,
             navigateToTheCatalog: self.goBack
         )
         navigationController.pushViewController(myMealsVC, animated: true)

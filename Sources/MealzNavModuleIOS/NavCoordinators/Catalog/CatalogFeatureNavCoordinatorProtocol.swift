@@ -24,6 +24,7 @@ public protocol CatalogFeatureNavCoordinatorProtocol {
     // grid configs
     var catalogViewGridConfig: CatalogRecipesListGridConfig { get set }
     var catalogResultsGridConfig: CatalogRecipesListGridConfig { get set }
+    var myMealsRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
         
     func showCatalog()
     func showCatalogResults(catalogId: String?, categoryTitle: String?)
