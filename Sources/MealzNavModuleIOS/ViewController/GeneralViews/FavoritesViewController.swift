@@ -15,6 +15,7 @@ import miamCore
 class FavoritesViewController: UIViewController {
     public let favoritesViewOptions: FavoritesViewOptions
     private let baseViews: BasePageViewParameters
+    private let gridConfig: CatalogRecipesListGridConfig
     private let navigateToTheCatalog: () -> Void
     weak var coordinator: FavoritesFeatureNavCoordinator?
     weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
@@ -22,12 +23,14 @@ class FavoritesViewController: UIViewController {
     init(
         favoritesViewOptions: FavoritesViewOptions,
         baseViews: BasePageViewParameters, 
+        gridConfig: CatalogRecipesListGridConfig,
         coordinator: FavoritesFeatureNavCoordinator,
         recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
         navigateToTheCatalog: @escaping () -> Void
     ) {
         self.favoritesViewOptions = favoritesViewOptions
         self.baseViews = baseViews
+        self.gridConfig = gridConfig
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
         self.recipeDetailsCoordinator = recipeDetailsCoordinator
@@ -61,7 +64,7 @@ class FavoritesViewController: UIViewController {
                 viewOptions: favoritesViewOptions
             ),
             baseViews: baseViews,
-            gridConfig: self.coordinator?.catalogRecipesListGridConfig ?? CatalogRecipesListGridConfig()
+            gridConfig: gridConfig
         )
     }
     // The hosting controller for your SwiftUI view

@@ -39,6 +39,7 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
         let favoritesVC = FavoritesViewController(
             favoritesViewOptions: favoritesViewOptions,
             baseViews: baseViews,
+            gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
             navigateToTheCatalog: navigateToCatalog
