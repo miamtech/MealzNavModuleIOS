@@ -16,8 +16,7 @@ public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
     
     public init(
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
-        navigateToCatalog: @escaping () -> Void    
+        myMealsViewOptions: MyMealsFeatureConstructor
     ) {
         let navController = UINavigationController()
         
@@ -25,14 +24,8 @@ public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
             baseConstructor: MealzBaseNavCoordinator.Constructor(
                 navigationController: navController
             ),
-            recipeDetailsConstructor: RecipeDetailsFeatureConstructor(
-                recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,
-                recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
-                itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
-            ),
-            myMealsViewOptions: MyMealsFeatureConstructor(
-                myMealsViewOptions: myMealsViewOptions,
-                navigateToCatalog: navigateToCatalog)
+            recipeDetailsConstructor: recipeDetailsConstructor,
+            myMealsViewOptions: myMealsViewOptions
         )
     }
     

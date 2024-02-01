@@ -15,11 +15,11 @@ let package = Package(
             targets: ["MealzNavModuleIOS"]),
     ],
     dependencies: [
-//        .package(path: "../MealzUIModuleIOS"),
-//        .package(path: "../miam-sdk"),
+        .package(path: "../MealzUIModuleIOS"),
+        .package(path: "../miam-sdk"),
 //        .package(url: "https://github.com/miamtech/MealzUIModuleIOS", from: "1.0.0-beta2"),
-        .package(url: "https://gitlab.com/miam/kmm-miam-sdk.git", from: "4.0.0-beta1"),
-        .package(url: "https://github.com/miamtech/MealzUIModuleIOS", branch: "main"),
+//        .package(url: "https://gitlab.com/miam/kmm-miam-sdk.git", from: "4.0.0-beta1"),
+//        .package(url: "https://github.com/miamtech/MealzUIModuleIOS", branch: "main"),
 //        .package(url: "https://github.com/miamtech/miam-sdk.git", branch: "version-4"),
     ],
     targets: [
@@ -29,7 +29,8 @@ let package = Package(
             name: "MealzNavModuleIOS",
             dependencies: [
                 .product(name: "MealzUIModuleIOS", package: "MealzUIModuleIOS"),
-                .product(name: "MiamIOSFramework", package: "kmm-miam-sdk")
+//                .product(name: "MiamIOSFramework", package: "kmm-miam-sdk")
+                .product(name: "MiamIOSFramework", package: "miam-sdk")
             ])
     ]
 )

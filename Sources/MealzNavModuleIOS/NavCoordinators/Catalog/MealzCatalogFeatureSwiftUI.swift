@@ -9,41 +9,29 @@ import UIKit
 import SwiftUI
 import MealzUIModuleIOS
 import miamCore
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
     private let coordinator: CatalogFeatureNavCoordinator
     
     public init(
-        useMealPlanner: Bool = false,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
+        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         let navController = UINavigationController()
         let baseConstructor = MealzBaseNavCoordinator.Constructor(
             navigationController: navController
         )
-        let recipeDetailsConstructor = RecipeDetailsFeatureConstructor(
-            recipeDetailsViewOptions: recipeDetailsConstructor.recipeDetailsViewOptions,
-            recipeDetailsProductViewOptions: recipeDetailsConstructor.recipeDetailsProductViewOptions,
-            itemSelectorViewOptions: recipeDetailsConstructor.itemSelectorViewOptions
-        )
         self.coordinator = CatalogFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsConstructor: recipeDetailsConstructor,
-            catalogFeatureConstructor: CatalogFeatureConstructor(
-                useMealPlanner: useMealPlanner,
-                catalogViewOptions: catalogFeatureConstructor.catalogViewOptions,
-                recipesListViewOptions: catalogFeatureConstructor.recipesListViewOptions,
-                packageRowViewOptions: catalogFeatureConstructor.packageRowViewOptions,
-                catalogSearchViewOptions: catalogFeatureConstructor.catalogSearchViewOptions,
-                filtersViewOptions: catalogFeatureConstructor.filtersViewOptions,
-                preferencesViewOptions: catalogFeatureConstructor.preferencesViewOptions,
-                preferencesSearchViewOptions: catalogFeatureConstructor.preferencesSearchViewOptions
-            ),
+            catalogFeatureConstructor: catalogFeatureConstructor,
             myMealsViewOptions: myMealsViewOptions,
+            myMealsRecipesListGridConfig: myMealsRecipesListGridConfig,
             mealPlannerCoordinator: MealPlannerFeatureNavCoordinator(
                 baseConstructor: baseConstructor,
                 recipeDetailsConstructor: recipeDetailsConstructor,
