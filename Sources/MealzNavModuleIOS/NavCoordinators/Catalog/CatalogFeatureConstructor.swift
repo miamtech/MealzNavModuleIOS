@@ -24,7 +24,8 @@ public struct CatalogFeatureConstructor {
     let usesPreferences: Bool
     
     // grid configs
-    let catalogRecipesListGridConfig: CatalogRecipesListGridConfig
+    let catalogViewGridConfig: CatalogRecipesListGridConfig
+    let catalogResultsGridConfig: CatalogRecipesListGridConfig
         
     public init(
         useMealPlanner: Bool = false,
@@ -37,7 +38,8 @@ public struct CatalogFeatureConstructor {
         filtersViewOptions: FiltersViewOptions = FiltersViewOptions(),
         preferencesViewOptions: PreferencesViewOptions = PreferencesViewOptions(),
         preferencesSearchViewOptions: PreferencesSearchViewOptions = PreferencesSearchViewOptions(),
-        catalogRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig()
+        catalogViewGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
+        catalogResultsGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig()
     ) {
         self.baseViews = baseViews
         self.useMealPlanner = useMealPlanner
@@ -49,6 +51,7 @@ public struct CatalogFeatureConstructor {
         self.filtersViewOptions = filtersViewOptions
         self.preferencesViewOptions = preferencesViewOptions
         self.preferencesSearchViewOptions = preferencesSearchViewOptions
-        self.catalogRecipesListGridConfig = catalogRecipesListGridConfig
+        self.catalogViewGridConfig = catalogViewGridConfig
+        self.catalogResultsGridConfig = catalogResultsGridConfig
     }
 }

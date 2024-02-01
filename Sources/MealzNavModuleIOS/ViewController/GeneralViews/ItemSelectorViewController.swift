@@ -50,7 +50,8 @@ class ItemSelectorViewController: UIViewController {
                             guard let strongSelf = self else { return }
                             strongSelf.coordinator?.goBack()
                         }
-                    }, onSeeProductDetails: { _ in })
+                    }, onSeeProductDetails: { _ in }),
+                viewOptions: itemSelectorViewOptions
             ),
             baseViews: baseViews,
             ingredientId: ingredientId)

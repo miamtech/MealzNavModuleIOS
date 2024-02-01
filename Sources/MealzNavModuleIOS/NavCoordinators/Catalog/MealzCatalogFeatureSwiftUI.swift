@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 import MealzUIModuleIOS
 import miamCore
+import MiamIOSFramework
 
 @available(iOS 14, *)
 public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
@@ -18,6 +19,7 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
+        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         let navController = UINavigationController()
@@ -29,6 +31,7 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
             recipeDetailsConstructor: recipeDetailsConstructor,
             catalogFeatureConstructor: catalogFeatureConstructor,
             myMealsViewOptions: myMealsViewOptions,
+            myMealsRecipesListGridConfig: myMealsRecipesListGridConfig,
             mealPlannerCoordinator: MealPlannerFeatureNavCoordinator(
                 baseConstructor: baseConstructor,
                 recipeDetailsConstructor: recipeDetailsConstructor,
