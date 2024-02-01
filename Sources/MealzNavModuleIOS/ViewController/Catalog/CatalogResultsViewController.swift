@@ -17,6 +17,7 @@ class CatalogResultsViewController: UIViewController {
     private let catalogViewOptions: CatalogViewOptions
     private let recipesListViewOptions: CatalogRecipesListViewOptions
     private let baseViews: BasePageViewParameters
+    private let catalogResultsGridConfig: CatalogRecipesListGridConfig
     weak var coordinator: CatalogFeatureNavCoordinator?
     weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
@@ -26,6 +27,7 @@ class CatalogResultsViewController: UIViewController {
         catalogViewOptions: CatalogViewOptions,
         recipesListViewOptions: CatalogRecipesListViewOptions,
         baseViews: BasePageViewParameters,
+        catalogResultsGridConfig: CatalogRecipesListGridConfig,
         coordinator: CatalogFeatureNavCoordinator,
         recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     ) {
@@ -34,6 +36,7 @@ class CatalogResultsViewController: UIViewController {
         self.catalogViewOptions = catalogViewOptions
         self.recipesListViewOptions = recipesListViewOptions
         self.baseViews = baseViews
+        self.catalogResultsGridConfig = catalogResultsGridConfig
         self.coordinator = coordinator
         self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
@@ -71,7 +74,7 @@ class CatalogResultsViewController: UIViewController {
             baseViews: baseViews,
             categoryId: categoryId,
             title: categoryTitle,
-            gridConfig: self.coordinator?.catalogRecipesListGridConfig ?? CatalogRecipesListGridConfig()
+            gridConfig: catalogResultsGridConfig
         )
     }
     // The hosting controller for your SwiftUI view

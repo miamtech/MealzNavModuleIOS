@@ -12,29 +12,28 @@ import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-var myMealsBasketViewConfig = BasketRecipesGridConfig(
-    recipeSpacing: CGSize(width: 5, height: 5),
-    productSpacing: CGSize(width: 6, height: 6),
-    recipeOverviewDimensions: CGSize(width: 300, height: 180),
-    isExpandable: true)
-
-@available(iOS 14, *)
 class MyMealsViewController: UIViewController {
     private let myMealsViewOptions: MyMealsViewOptions
     private let baseViews: BasePageViewParameters
+    private let gridConfig: CatalogRecipesListGridConfig
     private let navigateToTheCatalog: () -> Void
-    weak var coordinator: RecipeDetailsFeatureNavCoordinator?
+    weak var coordinator: MealzBaseNavCoordinator?
+    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         myMealsViewOptions: MyMealsViewOptions,
         baseViews: BasePageViewParameters,
-        coordinator: RecipeDetailsFeatureNavCoordinator? = nil,
+        gridConfig: CatalogRecipesListGridConfig,
+        coordinator: MealzBaseNavCoordinator,
+        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
         navigateToTheCatalog: @escaping () -> Void
     ) {
         self.baseViews = baseViews
         self.myMealsViewOptions = myMealsViewOptions
+        self.gridConfig = gridConfig
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
+        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,18 +48,18 @@ class MyMealsViewController: UIViewController {
         return MyMeals.init(
             params: MyMealsParameters(
                 actions: MyMealsActions(
-                onNoResultsRedirect: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigateToTheCatalog()
-                }, onShowRecipeDetails: { [weak self] recipeId in
-                    guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.showRecipeDetails(recipeId: recipeId)
-                }
-            ),
-                viewOptions: myMealsViewOptions
+                    onNoResultsRedirect: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.navigateToTheCatalog()
+                    }, onShowRecipeDetails: { [weak self] recipeId in
+                        guard let strongSelf = self else { return }
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
+                    }
                 ),
+                viewOptions: myMealsViewOptions
+            ),
             baseViews: baseViews,
-            gridConfig: myMealsBasketViewConfig
+            gridConfig: gridConfig
         )
     }
     // The hosting controller for your SwiftUI view
@@ -68,7 +67,7 @@ class MyMealsViewController: UIViewController {
         MyMealsParameters,
         BasePageViewParameters
     >>?
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "My Meals"

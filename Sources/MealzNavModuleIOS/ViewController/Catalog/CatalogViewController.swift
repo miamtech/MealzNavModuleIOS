@@ -44,6 +44,7 @@ public class CatalogViewController: UIViewController {
     private let packageRowViewOptions: CatalogPackageRowViewOptions
     private let baseViews: BasePageViewParameters
     private let usesPreferences: Bool
+    private let catalogViewGridConfig: CatalogRecipesListGridConfig
     private let navigateToMealPlanner: (() -> Void)?
     weak var coordinator: CatalogFeatureNavCoordinator?
     weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
@@ -52,6 +53,7 @@ public class CatalogViewController: UIViewController {
         catalogViewOptions: CatalogViewOptions,
         packageRowViewOptions: CatalogPackageRowViewOptions,
         baseViews: BasePageViewParameters,
+        catalogViewGridConfig: CatalogRecipesListGridConfig,
         coordinator: CatalogFeatureNavCoordinator,
         recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
         usesPreferences: Bool = true,
@@ -60,6 +62,7 @@ public class CatalogViewController: UIViewController {
         self.catalogViewOptions = catalogViewOptions
         self.packageRowViewOptions = packageRowViewOptions
         self.baseViews = baseViews
+        self.catalogViewGridConfig = catalogViewGridConfig
         self.navigateToMealPlanner = navigateToMealPlanner
         self.usesPreferences = usesPreferences
         self.coordinator = coordinator
@@ -106,7 +109,7 @@ public class CatalogViewController: UIViewController {
             ),
             baseViews: baseViews,
             usesPreferences: usesPreferences,
-            gridConfig: self.coordinator?.catalogRecipesListGridConfig ?? CatalogRecipesListGridConfig()
+            gridConfig: catalogViewGridConfig
         )
     }
     // The hosting controller for your SwiftUI view
