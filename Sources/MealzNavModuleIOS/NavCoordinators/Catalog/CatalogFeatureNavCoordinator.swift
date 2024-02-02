@@ -33,7 +33,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     public var catalogResultsGridConfig: CatalogRecipesListGridConfig
     public var myMealsRecipesListGridConfig: CatalogRecipesListGridConfig
     
-    init(
+    public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
         catalogFeatureConstructor: CatalogFeatureConstructor,
