@@ -20,7 +20,7 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
     
     // grid configs
     public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
-    init(
+    public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
         favoritesFeatureConstructor: FavoritesFeatureConstructor

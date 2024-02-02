@@ -21,7 +21,7 @@ public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatu
     // grid configs
     public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
     
-    init(
+    public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
         myMealsViewOptions: MyMealsFeatureConstructor

@@ -18,7 +18,7 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
     public var recipeDetailsProductViewOptions: RecipeDetailsProductViewOptions
     public var itemSelectorViewOptions: ItemSelectorViewOptions
 
-    init(
+    public init(
         baseConstructor: Constructor,
         recipeDetailsFeatureConstructor: RecipeDetailsFeatureConstructor
     ) {
