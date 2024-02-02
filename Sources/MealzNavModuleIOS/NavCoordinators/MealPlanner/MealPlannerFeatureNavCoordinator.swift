@@ -31,8 +31,8 @@ public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
     
     public init(
         baseConstructor: Constructor,
-        recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
-        mealPlannerFeatureConstructor: MealPlannerFeatureConstructor
+        recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
+        mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         self.baseViews = mealPlannerFeatureConstructor.baseViews
         self.mealPlannerFormViewOptions = mealPlannerFeatureConstructor.mealPlannerFormViewOptions

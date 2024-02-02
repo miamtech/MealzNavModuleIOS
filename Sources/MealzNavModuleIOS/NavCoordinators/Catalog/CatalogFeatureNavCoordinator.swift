@@ -35,11 +35,11 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     
     public init(
         baseConstructor: Constructor,
-        recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
-        catalogFeatureConstructor: CatalogFeatureConstructor,
+        recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
+        catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
         myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
-        mealPlannerCoordinator: MealPlannerFeatureNavCoordinator
+        mealPlannerCoordinator: MealPlannerFeatureNavCoordinator? = nil
     ) {
         self.baseViews = catalogFeatureConstructor.baseViews
         self.catalogViewOptions = catalogFeatureConstructor.catalogViewOptions
@@ -52,7 +52,13 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         self.myMealsViewOptions = myMealsViewOptions
 
         if catalogFeatureConstructor.useMealPlanner {
-            self.mealPlannerCoordinator = mealPlannerCoordinator
+            if let mealPlannerCoordinator {
+                self.mealPlannerCoordinator = mealPlannerCoordinator
+            } else {
+                self.mealPlannerCoordinator = MealPlannerFeatureNavCoordinator(
+                    baseConstructor: baseConstructor)
+            }
+            
         } else { self.mealPlannerCoordinator = nil }
         
         self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(

@@ -20,7 +20,7 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
 
     public init(
         baseConstructor: Constructor,
-        recipeDetailsFeatureConstructor: RecipeDetailsFeatureConstructor
+        recipeDetailsFeatureConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor()
     ) {
         self.baseViews = recipeDetailsFeatureConstructor.baseViews
         self.recipeDetailsViewOptions = recipeDetailsFeatureConstructor.recipeDetailsViewOptions
