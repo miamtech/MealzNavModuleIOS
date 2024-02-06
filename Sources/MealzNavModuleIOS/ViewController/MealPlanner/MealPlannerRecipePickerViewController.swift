@@ -36,7 +36,6 @@ class MealPlannerRecipePickerViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    deinit { print("deinit: MealPlannerRecipePickerViewController") }
     // Your SwiftUI View
     var swiftUIView: MealPlannerRecipePicker<
         MealPlannerRecipePickerParameters,

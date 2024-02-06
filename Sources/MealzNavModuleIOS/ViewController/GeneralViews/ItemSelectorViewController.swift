@@ -33,9 +33,7 @@ class ItemSelectorViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit { print("deinit: ItemSelectorViewController")}
-    
+        
     // Your SwiftUI View
     var swiftUIView: ItemSelector<
         ItemSelectorParameters,

@@ -30,7 +30,6 @@ class PreferencesViewController: UIViewController {
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    deinit { print("deinit: PreferencesViewController") }
     // Your SwiftUI View
     var swiftUIView: Preferences<
         PreferencesParameters,

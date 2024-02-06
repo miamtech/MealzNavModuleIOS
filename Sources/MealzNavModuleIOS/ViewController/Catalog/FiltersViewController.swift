@@ -32,7 +32,6 @@ class FiltersViewController: UIViewController {
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    deinit { print("deinit: FiltersViewController")}
     // Your SwiftUI View
     var swiftUIView: Filters<
         FiltersParameters> {
