@@ -36,7 +36,6 @@ class MealPlannerRecipePickerViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    deinit { print("deinit: MealPlannerRecipePickerViewController") }
     // Your SwiftUI View
     var swiftUIView: MealPlannerRecipePicker<
         MealPlannerRecipePickerParameters,
@@ -50,7 +49,7 @@ class MealPlannerRecipePickerViewController: UIViewController {
                         guard let strongSelf = self else { return }
                         strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
                     },
-                    onSelectRecipeForMealPlanner: { [weak self] _ in
+                    onSelectRecipeForMealPlanner: { [weak self] in
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.goBack()
                 },

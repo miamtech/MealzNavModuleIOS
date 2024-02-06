@@ -34,7 +34,6 @@ class MealPlannerResultsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit { print("deinit: MealPlannerResultsViewController") }
     // Your SwiftUI View
     var swiftUIView: MealPlannerResults<
         MealPlannerResultsParameters,

@@ -30,7 +30,6 @@ class PreferencesSearchViewController: UIViewController {
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    deinit { print("deinit: PreferencesSearchViewController") }
     // Your SwiftUI View
     var swiftUIView: PreferencesSearch<
         PreferencesSearchParameters,

@@ -39,7 +39,6 @@ class FavoritesViewController: UIViewController {
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    deinit { print("deinit: FavoritesViewController") }
     // Your SwiftUI View
     var swiftUIView: Favorites<
         FavoritesParameters,
