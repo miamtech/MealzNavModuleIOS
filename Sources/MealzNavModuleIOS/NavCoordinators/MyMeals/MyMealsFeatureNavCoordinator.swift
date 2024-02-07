@@ -24,12 +24,12 @@ public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatu
     public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        myMealsViewOptions: MyMealsFeatureConstructor
+        myMealsContructor: MyMealsFeatureConstructor
     ) {
-        self.baseViews = myMealsViewOptions.baseViews
-        self.myMealsViewOptions = myMealsViewOptions.myMealsViewOptions
-        self.navigateToCatalog = myMealsViewOptions.navigateToCatalog
-        self.catalogRecipesListGridConfig = myMealsViewOptions.catalogRecipesListGridConfig
+        self.baseViews = myMealsContructor.baseViews
+        self.myMealsViewOptions = myMealsContructor.myMealsViewOptions
+        self.navigateToCatalog = myMealsContructor.navigateToCatalog
+        self.catalogRecipesListGridConfig = myMealsContructor.catalogRecipesListGridConfig
         self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
