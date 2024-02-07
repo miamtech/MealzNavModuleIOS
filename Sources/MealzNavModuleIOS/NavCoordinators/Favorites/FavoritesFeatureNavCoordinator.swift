@@ -22,7 +22,7 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
     public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
     public init(
         baseConstructor: Constructor,
-        recipeDetailsConstructor: RecipeDetailsFeatureConstructor,
+        recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         favoritesFeatureConstructor: FavoritesFeatureConstructor
     ) {
         self.baseViews = favoritesFeatureConstructor.baseViews
