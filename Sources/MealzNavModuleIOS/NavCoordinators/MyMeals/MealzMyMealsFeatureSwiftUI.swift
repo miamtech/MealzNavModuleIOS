@@ -16,7 +16,7 @@ public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
     
     public init(
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        myMealsViewOptions: MyMealsFeatureConstructor
+        myMealsContructor: MyMealsFeatureConstructor
     ) {
         let navController = UINavigationController()
         
@@ -25,7 +25,7 @@ public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
                 navigationController: navController
             ),
             recipeDetailsConstructor: recipeDetailsConstructor,
-            myMealsViewOptions: myMealsViewOptions
+            myMealsContructor: myMealsContructor
         )
     }
     
