@@ -100,7 +100,7 @@ public class CatalogViewController: UIViewController {
                         strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
                     }, onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showMyMeals()
+                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
                     }
                 ),
                 viewOptions: packageRowViewOptions
