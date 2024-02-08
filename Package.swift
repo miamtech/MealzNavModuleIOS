@@ -18,7 +18,7 @@ let package = Package(
         // .package(path: "../MealzUIModuleIOS"),
         // .package(path: "../miam-sdk"),
 //        .package(url: "https://github.com/miamtech/MealzUIModuleIOS", from: "1.0.0-beta2"),
-       .package(url: "https://gitlab.com/miam/kmm-miam-sdk.git", from: "4.0.0-beta1"),
+       .package(url: "https://gitlab.com/miam/kmm-miam-sdk.git", from: "4.0.0-beta3"),
        .package(url: "https://github.com/miamtech/MealzUIModuleIOS", branch: "main"),
 //        .package(url: "https://github.com/miamtech/miam-sdk.git", branch: "version-4"),
     ],
