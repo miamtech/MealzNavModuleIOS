@@ -23,7 +23,9 @@ class StandaloneRecipeCardViewController: UIViewController {
     weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
-        recipe: Recipe,
+        recipe: Recipe? = nil,
+        recipeId: String? = nil,
+        criteria: SuggestionsCriteria? = nil,
         recipeCard: TypeSafeCatalogRecipeCard,
         recipeCardLoading: TypeSafeRecipeCardLoading,
         recipeCardDimensions: CGSize,
@@ -31,50 +33,13 @@ class StandaloneRecipeCardViewController: UIViewController {
         recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     ) {
         self.recipe = recipe
-        self.recipeId = recipe.id
-        self.criteria = nil
-        
-        self.recipeCard = recipeCard
-        self.recipeCardLoading = recipeCardLoading
-        self.recipeCardDimensions = recipeCardDimensions
-        self.coordinator = coordinator
-        self.recipeDetailsCoordinator = recipeDetailsCoordinator
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    init(
-        criteria: SuggestionsCriteria,
-        recipeCard: TypeSafeCatalogRecipeCard,
-        recipeCardLoading: TypeSafeRecipeCardLoading,
-        recipeCardDimensions: CGSize,
-        coordinator: StandaloneRecipeCardNavCoordinator,
-        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
-    ) {
-        self.recipe = nil
-        self.recipeId = nil
+        if let recipe {
+            self.recipeId = recipe.id
+        } else { self.recipeId = recipeId}
         self.criteria = criteria
-        
-        self.recipeCard = recipeCard
-        self.recipeCardLoading = recipeCardLoading
-        self.recipeCardDimensions = recipeCardDimensions
-        self.coordinator = coordinator
-        self.recipeDetailsCoordinator = recipeDetailsCoordinator
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    init(
-        recipeId: String,
-        recipeCard: TypeSafeCatalogRecipeCard,
-        recipeCardLoading: TypeSafeRecipeCardLoading,
-        recipeCardDimensions: CGSize,
-        coordinator: StandaloneRecipeCardNavCoordinator,
-        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
-    ) {
-        self.recipe = nil
-        self.recipeId = recipeId
-        self.criteria = nil
+        if recipeId == nil && recipe == nil && criteria == nil {
+            LogHandler.companion.error("You must pass in a recipeID, recipe, or criteria for the recipeCard")
+        }
         
         self.recipeCard = recipeCard
         self.recipeCardLoading = recipeCardLoading
