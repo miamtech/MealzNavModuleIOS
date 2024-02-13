@@ -29,6 +29,15 @@ public class MealzBaseNavCoordinator: BaseNavCoordinatorProtocol {
     }
     
     public func goBack() {
-        navigationController.popViewController(animated: true)
+        // Check if the view controller is part of a navigation stack
+        if navigationController.viewControllers.count > 1 {
+            // If the view controller is not the root of the navigation stack,
+            // pop it from the stack.
+            navigationController.popViewController(animated: true)
+        } else {
+            // If the view controller is presented modally (or not part of a navigation stack),
+            // dismiss it.
+            navigationController.dismiss(animated: true, completion: nil)
+        }
     }
 }

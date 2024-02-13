@@ -44,6 +44,22 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
         navigationController.pushViewController(detailVC, animated: true)
     }
     
+    // for using a modal (used on Recipe Card)
+    public func presentRecipeDetails(
+        recipeId: String,
+        isForMealPlanner: Bool = false
+    ) {
+        let detailVC = RecipeDetailsViewController(
+            recipeId,
+            isForMealPlanner: isForMealPlanner,
+            recipeDetailsViewOptions: recipeDetailsViewOptions,
+            recipeDetailsProductViewOptions: recipeDetailsProductViewOptions,
+            baseViews: baseViews,
+            coordinator: self
+        )
+        navigationController.present(detailVC, animated: true)
+    }
+    
     public func showItemSelector(
         ingredientId: String
     ) {
