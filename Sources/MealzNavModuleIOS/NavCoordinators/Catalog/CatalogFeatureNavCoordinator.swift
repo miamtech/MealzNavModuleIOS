@@ -74,23 +74,9 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         super.init(constructor: baseConstructor)
     }
     
-    public func showCatalog() {
-        let catalogVC = CatalogViewController(
-            catalogViewOptions: catalogViewOptions, 
-            packageRowViewOptions: packageRowViewOptions,
-            baseViews: baseViews,
-            catalogViewGridConfig: catalogViewGridConfig,
-            coordinator: self,
-            recipeDetailsCoordinator: recipeDetailsCoordinator,
-            usesPreferences: usesPreferences,
-            navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
-        )
-        navigationController.pushViewController(catalogVC, animated: false)
-    }
-    
     public func showCatalog(
-        catalogId: String,
-        categoryTitle: String
+        catalogId: String? = nil,
+        categoryTitle: String? = nil
     ) {
         let catalogVC = CatalogViewController(
             catalogViewOptions: catalogViewOptions,
@@ -100,6 +86,8 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
             usesPreferences: usesPreferences,
+            catalogId: catalogId,
+            categoryTitle: categoryTitle,
             navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
         )
         navigationController.pushViewController(catalogVC, animated: false)
