@@ -49,7 +49,7 @@ class MealPlannerRecipePickerViewController: UIViewController {
                         guard let strongSelf = self else { return }
                         strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
                     },
-                    onSelectRecipeForMealPlanner: { [weak self] _ in
+                    onSelectRecipeForMealPlanner: { [weak self] in
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.goBack()
                 },
