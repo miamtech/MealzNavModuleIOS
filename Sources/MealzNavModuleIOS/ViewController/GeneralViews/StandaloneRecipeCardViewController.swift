@@ -20,7 +20,6 @@ class StandaloneRecipeCardViewController: UIViewController {
     public let recipe: Recipe?
     public let recipeId: String?
     weak var coordinator: StandaloneRecipeCardNavCoordinator?
-    weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
     init(
         recipe: Recipe? = nil,
@@ -29,8 +28,7 @@ class StandaloneRecipeCardViewController: UIViewController {
         recipeCard: TypeSafeCatalogRecipeCard,
         recipeCardLoading: TypeSafeRecipeCardLoading,
         recipeCardDimensions: CGSize,
-        coordinator: StandaloneRecipeCardNavCoordinator,
-        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
+        coordinator: StandaloneRecipeCardNavCoordinator
     ) {
         self.recipe = recipe
         if let recipe {
@@ -45,7 +43,6 @@ class StandaloneRecipeCardViewController: UIViewController {
         self.recipeCardLoading = recipeCardLoading
         self.recipeCardDimensions = recipeCardDimensions
         self.coordinator = coordinator
-        self.recipeDetailsCoordinator = recipeDetailsCoordinator
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -57,10 +54,10 @@ class StandaloneRecipeCardViewController: UIViewController {
         TypeSafeCatalogRecipeCard,
         TypeSafeRecipeCardLoading
     > {
-        // callback bc all CTAs show recipeDetails
+       
         let onShowRecipeDetails: (String) -> Void = { [weak self] recipeId in
             guard let strongSelf = self else { return }
-            strongSelf.recipeDetailsCoordinator?.presentRecipeDetails(recipeId: recipeId)
+            strongSelf.coordinator?.presentRecipeDetails(recipeId: recipeId)
         }
         if let recipe {
             return CatalogRecipeCard(

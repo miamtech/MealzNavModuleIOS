@@ -9,6 +9,7 @@ import Foundation
 import MealzUIModuleIOS
 import miamCore
 import MiamIOSFramework
+import UIKit
 
 @available(iOS 14, *)
 public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, StandaloneRecipeCardNavCoordinatorProtocol {
@@ -16,19 +17,19 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
     public var recipeCardLoading: TypeSafeRecipeCardLoading
     public var recipeCardDimensions: CGSize
     
-    public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
+    private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit
     
     public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         recipeCardConstructor: StandaloneRecipeCardConstructor = StandaloneRecipeCardConstructor()
     ) {
+        let recipeDetailsNavController = UINavigationController()
         self.recipeCard = recipeCardConstructor.recipeCard
         self.recipeCardLoading = recipeCardConstructor.recipeCardLoading
         self.recipeCardDimensions = recipeCardConstructor.recipeCardDimensions
-        self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
-            baseConstructor: baseConstructor,
-            recipeDetailsFeatureConstructor: recipeDetailsConstructor)
+        self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
+            recipeDetailsConstructor: recipeDetailsConstructor)
         super.init(constructor: baseConstructor)
     }
     
@@ -40,8 +41,7 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
             recipeCard: recipeCard,
             recipeCardLoading: recipeCardLoading,
             recipeCardDimensions: recipeCardDimensions,
-            coordinator: self,
-            recipeDetailsCoordinator: recipeDetailsCoordinator
+            coordinator: self
         )
         navigationController.pushViewController(recipeCardVC, animated: false)
     }
@@ -54,8 +54,7 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
             recipeCard: recipeCard,
             recipeCardLoading: recipeCardLoading,
             recipeCardDimensions: recipeCardDimensions,
-            coordinator: self,
-            recipeDetailsCoordinator: recipeDetailsCoordinator
+            coordinator: self
         )
         navigationController.pushViewController(recipeCardVC, animated: false)
     }
@@ -68,9 +67,17 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
             recipeCard: recipeCard,
             recipeCardLoading: recipeCardLoading,
             recipeCardDimensions: recipeCardDimensions,
-            coordinator: self,
-            recipeDetailsCoordinator: recipeDetailsCoordinator
+            coordinator: self
         )
         navigationController.pushViewController(recipeCardVC, animated: false)
+    }
+    
+    // for using a modal (used on Recipe Card)
+    public func presentRecipeDetails(
+        recipeId: String,
+        isForMealPlanner: Bool = false
+    ) {
+        navigationController.present(recipeDetailsView, animated: true)
+        recipeDetailsView.showRecipeDetails(recipeId: recipeId)
     }
 }
