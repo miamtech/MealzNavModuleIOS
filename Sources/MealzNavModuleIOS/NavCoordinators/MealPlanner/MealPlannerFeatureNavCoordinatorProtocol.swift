@@ -27,6 +27,8 @@ public protocol MealPlannerFeatureNavCoordinatorProtocol {
     var mealPlannerRecipesListGridConfig: MealPlannerRecipesListGridConfig { get set }
     var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
     
+    func setMealPlannerForm()
+    
     func showMealPlannerForm()
     func showMealPlannerResults()
     func showMealPlannerRecipePicker(indexOfRecipe: Int)

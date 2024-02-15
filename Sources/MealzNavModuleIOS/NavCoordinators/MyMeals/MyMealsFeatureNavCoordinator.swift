@@ -34,9 +34,10 @@ public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatu
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
         super.init(constructor: baseConstructor)
+        setMyMeals()
     }
     
-    public func showMyMeals() {
+    public func setMyMeals() {
         let myMealsVC = MyMealsViewController(
             myMealsViewOptions: myMealsViewOptions,
             baseViews: baseViews,
@@ -45,6 +46,6 @@ public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatu
             recipeDetailsCoordinator: recipeDetailsCoordinator,
             navigateToTheCatalog: navigateToCatalog
         )
-        navigationController.pushViewController(myMealsVC, animated: false)
+        navigationController.viewControllers = [myMealsVC]
     }
 }

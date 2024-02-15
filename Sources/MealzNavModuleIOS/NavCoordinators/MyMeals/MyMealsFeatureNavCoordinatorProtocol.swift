@@ -18,5 +18,5 @@ public protocol MyMealsFeatureNavCoordinatorProtocol {
     // grid configs
     var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
     
-    func showMyMeals()
+    func setMyMeals()
 }

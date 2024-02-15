@@ -72,9 +72,10 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         self.catalogResultsGridConfig = catalogFeatureConstructor.catalogResultsGridConfig
         self.myMealsRecipesListGridConfig = myMealsRecipesListGridConfig
         super.init(constructor: baseConstructor)
+        setCatalog()
     }
     
-    public func showCatalog() {
+    public func setCatalog() {
         let catalogVC = CatalogViewController(
             catalogViewOptions: catalogViewOptions, 
             packageRowViewOptions: packageRowViewOptions,
@@ -85,7 +86,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
             usesPreferences: usesPreferences,
             navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
         )
-        navigationController.pushViewController(catalogVC, animated: false)
+        navigationController.viewControllers = [catalogVC]
     }
     
     public func showCatalogResultsFromSideView(

@@ -11,7 +11,7 @@ import miamCore
 import MiamIOSFramework
 
 @available(iOS 14, *)
-public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
+public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator, MealPlannerFeatureNavCoordinatorProtocol {
     public var baseViews: BasePageViewParameters
     public var mealPlannerFormViewOptions: MealPlannerFormViewOptions
     public var mealPlannerResultsViewOptions: MealPlannerResultsViewOptions
@@ -52,6 +52,15 @@ public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
         self.catalogRecipesListGridConfig = mealPlannerFeatureConstructor.catalogRecipesListGridConfig
         
         super.init(constructor: baseConstructor)
+        setMealPlannerForm()
+    }
+    
+    public func setMealPlannerForm() {
+        let formVC = MealPlannerFormViewController(
+            mealPlannerFormViewOptions: mealPlannerFormViewOptions,
+            baseViews: baseViews,
+            coordinator: self)
+        navigationController.viewControllers = [formVC]
     }
     
     public func showMealPlannerForm() {

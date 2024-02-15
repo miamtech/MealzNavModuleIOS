@@ -33,9 +33,10 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
         self.catalogRecipesListGridConfig = favoritesFeatureConstructor.catalogRecipesListGridConfig
         super.init(constructor: baseConstructor)
+        setFavorites()
     }
     
-    public func showFavorites() {
+    public func setFavorites() {
         let favoritesVC = FavoritesViewController(
             favoritesViewOptions: favoritesViewOptions,
             baseViews: baseViews,
@@ -44,6 +45,6 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
             recipeDetailsCoordinator: recipeDetailsCoordinator,
             navigateToTheCatalog: navigateToCatalog
         )
-        navigationController.pushViewController(favoritesVC, animated: false)
+        navigationController.viewControllers = [favoritesVC]
     }
 }

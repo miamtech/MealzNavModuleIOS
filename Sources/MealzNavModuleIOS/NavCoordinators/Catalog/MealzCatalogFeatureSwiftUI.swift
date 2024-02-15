@@ -41,7 +41,7 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        coordinator.showCatalog()
+//        coordinator.showCatalog()
         return coordinator.navigationController
     }
     
