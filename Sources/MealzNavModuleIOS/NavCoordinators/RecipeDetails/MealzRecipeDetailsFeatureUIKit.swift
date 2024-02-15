@@ -12,7 +12,14 @@ import UIKit
 public class MealzRecipeDetailsFeatureUIKit: UINavigationController {
     
     private var recipeDetailsConstructor: RecipeDetailsFeatureConstructor
-    private var rootCoordinator: RecipeDetailsFeatureNavCoordinator?
+    private lazy var coordinator: RecipeDetailsFeatureNavCoordinator = {
+        return RecipeDetailsFeatureNavCoordinator(
+            baseConstructor: MealzBaseNavCoordinator.Constructor(
+                navigationController: self
+            ),
+            recipeDetailsFeatureConstructor: recipeDetailsConstructor
+        )
+    }()
     
     public init(recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor()) {
         self.recipeDetailsConstructor = recipeDetailsConstructor
@@ -20,20 +27,8 @@ public class MealzRecipeDetailsFeatureUIKit: UINavigationController {
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-            let coordinator = RecipeDetailsFeatureNavCoordinator(
-                baseConstructor: MealzBaseNavCoordinator.Constructor(
-                    navigationController: self
-                ),
-                recipeDetailsFeatureConstructor: recipeDetailsConstructor
-            )
-            
-            self.rootCoordinator = coordinator
-    }
     
     func showRecipeDetails(recipeId: String) {
-        self.rootCoordinator?.setRecipeDetails(recipeId: recipeId)
+        self.coordinator.setRecipeDetails(recipeId: recipeId)
     }
 }
