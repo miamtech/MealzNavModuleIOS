@@ -40,7 +40,7 @@ public class MealzCatalogFeatureUIKit: UINavigationController {
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
-        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
+        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = myMealsDefaultRecipesListGridConfig,
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         self.recipeDetailsConstructor = recipeDetailsConstructor
