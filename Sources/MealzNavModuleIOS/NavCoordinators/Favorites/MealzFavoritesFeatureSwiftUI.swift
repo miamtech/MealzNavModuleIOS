@@ -27,10 +27,10 @@ public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
             recipeDetailsConstructor: recipeDetailsConstructor,
             favoritesFeatureConstructor: favoritesFeatureConstructor
         )
+        coordinator.setFavorites()
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        coordinator.showFavorites()
         return coordinator.navigationController
     }
     

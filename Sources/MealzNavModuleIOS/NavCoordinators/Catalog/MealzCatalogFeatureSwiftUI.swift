@@ -38,10 +38,15 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
                 mealPlannerFeatureConstructor: mealPlannerFeatureConstructor
             )
         )
+        self.coordinator.setCatalog()
+    }
+    
+    public func openCatalogResults(catalogId: String?, categoryTitle: String?) {
+        self.coordinator.setCatalog() // reset the stack
+        self.coordinator.showCatalogResults(catalogId: catalogId, categoryTitle: categoryTitle)
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        coordinator.showCatalog()
         return coordinator.navigationController
     }
     

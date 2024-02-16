@@ -35,6 +35,19 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
         super.init(constructor: baseConstructor)
     }
     
+    // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone
+    internal func setFavorites() {
+        let favoritesVC = FavoritesViewController(
+            favoritesViewOptions: favoritesViewOptions,
+            baseViews: baseViews,
+            gridConfig: catalogRecipesListGridConfig,
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator,
+            navigateToTheCatalog: navigateToCatalog
+        )
+        navigationController.viewControllers = [favoritesVC]
+    }
+    
     public func showFavorites() {
         let favoritesVC = FavoritesViewController(
             favoritesViewOptions: favoritesViewOptions,

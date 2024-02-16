@@ -36,6 +36,19 @@ public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatu
         super.init(constructor: baseConstructor)
     }
     
+    // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone
+    internal func setMyMeals() {
+        let myMealsVC = MyMealsViewController(
+            myMealsViewOptions: myMealsViewOptions,
+            baseViews: baseViews,
+            gridConfig: catalogRecipesListGridConfig,
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator,
+            navigateToTheCatalog: navigateToCatalog
+        )
+        navigationController.viewControllers = [myMealsVC]
+    }
+    
     public func showMyMeals() {
         let myMealsVC = MyMealsViewController(
             myMealsViewOptions: myMealsViewOptions,

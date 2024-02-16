@@ -27,10 +27,10 @@ public struct MealzMealPlannerFeatureSwiftUI: UIViewControllerRepresentable {
             recipeDetailsConstructor: recipeDetailsConstructor,
             mealPlannerFeatureConstructor: mealPlannerFeatureConstructor
         )
+        self.coordinator.setMealPlannerForm()
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        coordinator.showMealPlannerForm()
         return coordinator.navigationController
     }
     
