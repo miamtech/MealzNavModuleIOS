@@ -54,6 +54,15 @@ public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
         super.init(constructor: baseConstructor)
     }
     
+    // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone
+    internal func setMealPlannerForm() {
+        let formVC = MealPlannerFormViewController(
+            mealPlannerFormViewOptions: mealPlannerFormViewOptions,
+            baseViews: baseViews,
+            coordinator: self)
+        navigationController.viewControllers = [formVC]
+    }
+    
     public func showMealPlannerForm() {
         let formVC = MealPlannerFormViewController(
             mealPlannerFormViewOptions: mealPlannerFormViewOptions,

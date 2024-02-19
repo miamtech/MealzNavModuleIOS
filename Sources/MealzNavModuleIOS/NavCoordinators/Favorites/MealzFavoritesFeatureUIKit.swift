@@ -29,6 +29,7 @@ public class MealzFavoritesFeatureUIKit: UINavigationController {
         self.recipeDetailsConstructor = recipeDetailsConstructor
         self.favoritesFeatureConstructor = favoritesFeatureConstructor
         super.init(nibName: nil, bundle: nil)
+        self.coordinator.setFavorites()
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

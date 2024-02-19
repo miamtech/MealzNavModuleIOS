@@ -41,7 +41,7 @@ public class MealzCatalogFeatureUIKit: UINavigationController {
         catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
         myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
-        mealPlannerFeatureConstructor: MealPlannerFeatureConstructor
+        mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         self.recipeDetailsConstructor = recipeDetailsConstructor
         self.catalogFeatureConstructor = catalogFeatureConstructor
@@ -49,7 +49,13 @@ public class MealzCatalogFeatureUIKit: UINavigationController {
         self.myMealsRecipesListGridConfig = myMealsRecipesListGridConfig
         self.mealPlannerFeatureConstructor = mealPlannerFeatureConstructor
         super.init(nibName: nil, bundle: nil)
+        self.coordinator.setCatalog()
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    public func openCatalogResults(catalogId: String?, categoryTitle: String?) {
+        self.coordinator.setCatalog() // reset the stack (so we don't have 10 results pages)
+        self.coordinator.showCatalogResults(catalogId: catalogId, categoryTitle: categoryTitle)
+    }
 }

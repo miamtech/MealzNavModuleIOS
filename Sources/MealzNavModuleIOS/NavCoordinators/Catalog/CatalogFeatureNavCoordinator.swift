@@ -74,6 +74,21 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         super.init(constructor: baseConstructor)
     }
     
+    // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone
+    internal func setCatalog() {
+        let catalogVC = CatalogViewController(
+            catalogViewOptions: catalogViewOptions,
+            packageRowViewOptions: packageRowViewOptions,
+            baseViews: baseViews,
+            catalogViewGridConfig: catalogViewGridConfig,
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator,
+            usesPreferences: usesPreferences,
+            navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
+        )
+        navigationController.viewControllers = [catalogVC]
+    }
+    
     public func showCatalog() {
         let catalogVC = CatalogViewController(
             catalogViewOptions: catalogViewOptions, 

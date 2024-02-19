@@ -29,6 +29,7 @@ public class MealzMealPlannerFeatureUIKit: UINavigationController {
         self.recipeDetailsConstructor = recipeDetailsConstructor
         self.mealPlannerFeatureConstructor = mealPlannerFeatureConstructor
         super.init(nibName: nil, bundle: nil)
+        self.coordinator.setMealPlannerForm()
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
