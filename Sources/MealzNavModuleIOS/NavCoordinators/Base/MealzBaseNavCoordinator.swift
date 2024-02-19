@@ -21,7 +21,7 @@ public class MealzBaseNavCoordinator: BaseNavCoordinatorProtocol {
             self.navigationController = navigationController
         }
     }
-
+    
     public init(
         constructor: Constructor
     ) {
@@ -29,6 +29,17 @@ public class MealzBaseNavCoordinator: BaseNavCoordinatorProtocol {
     }
     
     public func goBack() {
-        navigationController.popViewController(animated: true)
+        if navigationController.viewControllers.count > 1 {
+            // if currecnt navigation Controller have more than 1 viewcontroller, just pop
+            navigationController.popViewController(animated: true)
+        } else if (navigationController.presentingViewController != nil) { 
+            // navigation was presented
+            navigationController.dismiss(animated: true)
+        } else{
+            if navigationController.navigationController != nil { 
+                // current navigation was push in an other navigationcontroller
+                navigationController.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 }
