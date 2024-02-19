@@ -88,16 +88,21 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         )
         navigationController.viewControllers = [catalogVC]
     }
-    
-    public func showCatalog() {
+
+      public func showCatalog(
+        catalogId: String? = nil,
+        categoryTitle: String? = nil
+    ) {
         let catalogVC = CatalogViewController(
-            catalogViewOptions: catalogViewOptions, 
+            catalogViewOptions: catalogViewOptions,
             packageRowViewOptions: packageRowViewOptions,
             baseViews: baseViews,
             catalogViewGridConfig: catalogViewGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
             usesPreferences: usesPreferences,
+            catalogId: catalogId,
+            categoryTitle: categoryTitle,
             navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
         )
         navigationController.pushViewController(catalogVC, animated: false)
