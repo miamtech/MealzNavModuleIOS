@@ -74,7 +74,22 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         super.init(constructor: baseConstructor)
     }
     
-    public func showCatalog(
+    // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone
+    internal func setCatalog() {
+        let catalogVC = CatalogViewController(
+            catalogViewOptions: catalogViewOptions,
+            packageRowViewOptions: packageRowViewOptions,
+            baseViews: baseViews,
+            catalogViewGridConfig: catalogViewGridConfig,
+            coordinator: self,
+            recipeDetailsCoordinator: recipeDetailsCoordinator,
+            usesPreferences: usesPreferences,
+            navigateToMealPlanner: self.mealPlannerCoordinator?.showMealPlannerForm
+        )
+        navigationController.viewControllers = [catalogVC]
+    }
+
+      public func showCatalog(
         catalogId: String? = nil,
         categoryTitle: String? = nil
     ) {
@@ -154,7 +169,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     }
     
     public func showFilters(filterInstance: FilterInstance) {
-        let filtersVC = FiltersViewController(
+        let filtersVC = MealzFiltersViewController(
             filterInstance,
             filtersViewOptions: filtersViewOptions,
             coordinator: self,

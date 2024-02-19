@@ -23,7 +23,7 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
-        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
+        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = myMealsDefaultRecipesListGridConfig,
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         self.catalogId = catalogId
@@ -44,13 +44,15 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
                 mealPlannerFeatureConstructor: mealPlannerFeatureConstructor
             )
         )
+        self.coordinator.setCatalog()
+    }
+    
+    public func openCatalogResults(catalogId: String?, categoryTitle: String?) {
+        self.coordinator.setCatalog() // reset the stack
+        self.coordinator.showCatalogResults(catalogId: catalogId, categoryTitle: categoryTitle)
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {
-        coordinator.showCatalog(catalogId: catalogId, categoryTitle: categoryTitle)
-        if let catalogId, let categoryTitle { // open results page if they have id & title
-            coordinator.showCatalogResults(catalogId: catalogId, categoryTitle: categoryTitle)
-        }
         return coordinator.navigationController
     }
     

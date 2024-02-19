@@ -11,7 +11,7 @@ import MealzUIModuleIOS
 import miamCore
 
 @available(iOS 14, *)
-class FiltersViewController: UIViewController {
+class MealzFiltersViewController: UIViewController {
     private let filterInstance: FilterInstance
     private let filtersViewOptions: FiltersViewOptions
     weak var coordinator: MealzBaseNavCoordinator?

@@ -44,6 +44,21 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
         navigationController.pushViewController(detailVC, animated: true)
     }
     
+    public func setRecipeDetails(
+        recipeId: String,
+        isForMealPlanner: Bool = false
+    ) {
+        let detailVC = RecipeDetailsViewController(
+            recipeId,
+            isForMealPlanner: isForMealPlanner,
+            recipeDetailsViewOptions: recipeDetailsViewOptions,
+            recipeDetailsProductViewOptions: recipeDetailsProductViewOptions,
+            baseViews: baseViews,
+            coordinator: self
+        )
+        navigationController.viewControllers = [detailVC]
+    }
+    
     public func showItemSelector(
         ingredientId: String
     ) {
