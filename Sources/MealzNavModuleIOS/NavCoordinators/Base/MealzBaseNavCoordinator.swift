@@ -21,7 +21,7 @@ public class MealzBaseNavCoordinator: BaseNavCoordinatorProtocol {
             self.navigationController = navigationController
         }
     }
-
+    
     public init(
         constructor: Constructor
     ) {
@@ -29,15 +29,17 @@ public class MealzBaseNavCoordinator: BaseNavCoordinatorProtocol {
     }
     
     public func goBack() {
-        // Check if the view controller is part of a navigation stack
         if navigationController.viewControllers.count > 1 {
-            // If the view controller is not the root of the navigation stack,
-            // pop it from the stack.
+            // if currecnt navigation Controller have more than 1 viewcontroller, just pop
             navigationController.popViewController(animated: true)
-        } else {
-            // If the view controller is presented modally (or not part of a navigation stack),
-            // dismiss it.
-            navigationController.dismiss(animated: true, completion: nil)
+        } else if (navigationController.presentingViewController != nil) { 
+            // navigation was presented
+            navigationController.dismiss(animated: true)
+        } else{
+            if navigationController.navigationController != nil { 
+                // current navigation was push in an other navigationcontroller
+                navigationController.navigationController?.popViewController(animated: true)
+            }
         }
     }
 }
