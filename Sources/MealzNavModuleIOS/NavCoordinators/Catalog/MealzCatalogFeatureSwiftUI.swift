@@ -19,7 +19,7 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         catalogFeatureConstructor: CatalogFeatureConstructor = CatalogFeatureConstructor(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
-        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = CatalogRecipesListGridConfig(),
+        myMealsRecipesListGridConfig: CatalogRecipesListGridConfig = myMealsDefaultRecipesListGridConfig,
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
         let navController = UINavigationController()

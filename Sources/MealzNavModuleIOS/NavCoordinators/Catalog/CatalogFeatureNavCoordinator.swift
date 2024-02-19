@@ -164,7 +164,7 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     }
     
     public func showFilters(filterInstance: FilterInstance) {
-        let filtersVC = FiltersViewController(
+        let filtersVC = MealzFiltersViewController(
             filterInstance,
             filtersViewOptions: filtersViewOptions,
             coordinator: self,
