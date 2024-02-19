@@ -44,7 +44,9 @@ class CatalogSearchViewController: UIViewController {
                 actions: CatalogSearchActions(
                     onApplied: { [weak self] in
                         guard let strongSelf = self else { return }
-                        strongSelf.coordinator?.showCatalogResultsFromSideView()
+                        strongSelf.coordinator?.showCatalogResultsFromSideView(
+                            title: NSLocalizedString("SEARCH.RESULTS.TITLE", bundle: .mealzNavBundle, comment: "Title for the catalog screen")
+                        )
                     }
                 ),
                 viewOptions: catalogSearchViewOptions

@@ -109,10 +109,13 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     }
     
     public func showCatalogResultsFromSideView(
+        title: String?,
         catalogId: String? = nil,
         categoryTitle: String? = nil
     ) {
+        let resultsTitle = title ?? NSLocalizedString("CATALOG.RESULTS.TITLE", bundle: .mealzNavBundle, comment: "Title for the catalog screen")
         let resultsVC = CatalogResultsViewController(
+            title: resultsTitle,
             categoryId: catalogId,
             categoryTitle: categoryTitle,
             catalogViewOptions: catalogViewOptions, 
@@ -133,10 +136,13 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     }
     
     public func showCatalogResults(
+        title: String? = nil,
         catalogId: String? = nil,
         categoryTitle: String? = nil
     ) {
+        let resultsTitle = title ?? NSLocalizedString("CATALOG.RESULTS.TITLE", bundle: .mealzNavBundle, comment: "Title for the catalog screen")
         let resultsVC = CatalogResultsViewController(
+            title: resultsTitle,
             categoryId: catalogId,
             categoryTitle: categoryTitle,
             catalogViewOptions: catalogViewOptions, 
@@ -173,7 +179,9 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
             filterInstance,
             filtersViewOptions: filtersViewOptions,
             coordinator: self,
-            nextNavigationEvent: { self.showCatalogResultsFromSideView() }
+            nextNavigationEvent: { self.showCatalogResultsFromSideView(
+                title: NSLocalizedString("FILTERS.RESULTS.TITLE", bundle: .mealzNavBundle, comment: "Title for the catalog screen")
+            ) }
         )
         navigationController.pushViewController(filtersVC, animated: true)
     }

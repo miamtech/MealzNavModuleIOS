@@ -7,6 +7,7 @@
 
 "CATALOG.TITLE" = "Idées de repas";
 "CATALOG.RESULTS.TITLE" = "Collection";
+"FILTERS.RESULTS.TITLE" = "Collection";
 "SEARCH.TITLE" = "Recherche";
 "SEARCH.RESULTS.TITLE" = "Résultats";
 "RECIPE.DETAILS.TITLE" = "Détails de la recette";

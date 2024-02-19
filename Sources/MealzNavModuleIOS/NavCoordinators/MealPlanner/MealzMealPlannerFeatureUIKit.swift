@@ -23,6 +23,7 @@ public class MealzMealPlannerFeatureUIKit: UINavigationController {
     private let mealPlannerFeatureConstructor: MealPlannerFeatureConstructor
     
     public init(
+        hideTitles: Bool = false,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         mealPlannerFeatureConstructor: MealPlannerFeatureConstructor = MealPlannerFeatureConstructor()
     ) {
@@ -30,6 +31,8 @@ public class MealzMealPlannerFeatureUIKit: UINavigationController {
         self.mealPlannerFeatureConstructor = mealPlannerFeatureConstructor
         super.init(nibName: nil, bundle: nil)
         self.coordinator.setMealPlannerForm()
+        // Hide the navigation bar
+        self.isNavigationBarHidden = hideTitles
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

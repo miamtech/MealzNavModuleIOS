@@ -21,9 +21,14 @@ public class MealzRecipeDetailsFeatureUIKit: UINavigationController {
         )
     }()
     
-    public init(recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor()) {
+    public init(
+        hideTitles: Bool = false,
+        recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor()
+    ) {
         self.recipeDetailsConstructor = recipeDetailsConstructor
         super.init(nibName: nil, bundle: nil)
+        // Hide the navigation bar
+        self.isNavigationBarHidden = hideTitles
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
