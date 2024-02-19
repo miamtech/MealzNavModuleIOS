@@ -50,6 +50,8 @@ public class MealzCatalogFeatureUIKit: UINavigationController {
         self.mealPlannerFeatureConstructor = mealPlannerFeatureConstructor
         super.init(nibName: nil, bundle: nil)
         self.coordinator.setCatalog()
+        // Hide the navigation bar
+        self.isNavigationBarHidden = true
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

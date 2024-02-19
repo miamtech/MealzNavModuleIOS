@@ -1,0 +1,20 @@
+//
+//  Localizable.strings
+//
+//
+//  Created by miam x didi on 19/02/2024.
+//
+
+"CATALOG.TITLE" = "Idées de repas";
+"CATALOG.RESULTS.TITLE" = "Collection";
+"SEARCH.TITLE" = "Recherche";
+"SEARCH.RESULTS.TITLE" = "Résultats";
+"RECIPE.DETAILS.TITLE" = "Détails de la recette";
+"MEAL.PLANNER.TITLE" = "Remplacement";
+"MY.MEALS.TITLE" = "Mon Espace Repas";
+"FAVORITES.TITLE" = "Mes Favoris";
+"FILTERS.TITLE" = "Filtres";
+"PREFERENCES.TITLE" = "Préférences";
+"ITEM.SELECTOR.TITLE" = "Remplacer";
+
+"RETURN.BUTTON" = "Retour";
