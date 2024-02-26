@@ -15,11 +15,13 @@ public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
     private let coordinator: MyMealsFeatureNavCoordinator
     
     public init(
+        hideTitles: Bool = false,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         myMealsContructor: MyMealsFeatureConstructor
     ) {
         let navController = UINavigationController()
-        
+        // Hide the navigation bar
+        navController.isNavigationBarHidden = hideTitles
         self.coordinator = MyMealsFeatureNavCoordinator(
             baseConstructor: MealzBaseNavCoordinator.Constructor(
                 navigationController: navController

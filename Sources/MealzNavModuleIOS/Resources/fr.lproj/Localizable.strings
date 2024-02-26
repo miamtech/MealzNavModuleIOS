@@ -1,0 +1,21 @@
+//
+//  Localizable.strings
+//
+//
+//  Created by miam x didi on 19/02/2024.
+//
+
+"catalog_title" = "Idées de repas";
+"catalog_results_title" = "Collection";
+"filters_results_title" = "Collection";
+"search_title" = "Recherche";
+"search_results_title" = "Résultats";
+"recipe_details_title" = "Détails de la recette";
+"meal_planner_title" = "Remplacement";
+"my_meals_title" = "Mon Espace Repas";
+"favorites_title" = "Mes Favoris";
+"filters_title" = "Filtres";
+"preferences_title" = "Préférences";
+"item_selector_title" = "Remplacer";
+
+"return_button" = "Retour";

@@ -23,6 +23,7 @@ public class MealzFavoritesFeatureUIKit: UINavigationController {
     private let favoritesFeatureConstructor: FavoritesFeatureConstructor
     
     public init(
+        hideTitles: Bool = false,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         favoritesFeatureConstructor: FavoritesFeatureConstructor
     ) {
@@ -30,6 +31,8 @@ public class MealzFavoritesFeatureUIKit: UINavigationController {
         self.favoritesFeatureConstructor = favoritesFeatureConstructor
         super.init(nibName: nil, bundle: nil)
         self.coordinator.setFavorites()
+        // Hide the navigation bar
+        self.isNavigationBarHidden = hideTitles
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

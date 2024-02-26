@@ -77,6 +77,7 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
         recipeId: String,
         isForMealPlanner: Bool = false
     ) {
+        recipeDetailsView.modalPresentationStyle = .fullScreen
         navigationController.present(recipeDetailsView, animated: true)
         recipeDetailsView.showRecipeDetails(recipeId: recipeId)
     }

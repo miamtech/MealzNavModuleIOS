@@ -15,6 +15,7 @@ public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
     private let coordinator: FavoritesFeatureNavCoordinator
     
     public init(
+        hideTitles: Bool = false,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         favoritesFeatureConstructor: FavoritesFeatureConstructor
     ) {
@@ -28,6 +29,8 @@ public struct MealzFavoritesFeatureSwiftUI: UIViewControllerRepresentable {
             favoritesFeatureConstructor: favoritesFeatureConstructor
         )
         coordinator.setFavorites()
+        // Hide the navigation bar
+        navController.isNavigationBarHidden = hideTitles
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {

@@ -18,6 +18,7 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
     private let categoryTitle: String?
     
     public init(
+        hideTitles: Bool = false,
         catalogId: String? = nil,
         categoryTitle: String? = nil,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
@@ -32,6 +33,7 @@ public struct MealzCatalogFeatureSwiftUI: UIViewControllerRepresentable {
         let baseConstructor = MealzBaseNavCoordinator.Constructor(
             navigationController: navController
         )
+        navController.isNavigationBarHidden = hideTitles
         self.coordinator = CatalogFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsConstructor: recipeDetailsConstructor,

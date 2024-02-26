@@ -66,6 +66,7 @@ public struct MealzStandaloneRecipeCardSwiftUI: UIViewControllerRepresentable {
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor
     ) -> StandaloneRecipeCardNavCoordinator {
         let navController = UINavigationController()
+        navController.isNavigationBarHidden = true
         return StandaloneRecipeCardNavCoordinator(
             baseConstructor: MealzBaseNavCoordinator.Constructor(
                 navigationController: navController
