@@ -9,9 +9,8 @@ import Foundation
 
 extension Bundle {
     static var mealzNavBundle: Bundle = {
-        // Method to find the bundle for a class that is part of your Swift package
+        #if SWIFT_PACKAGE
         let bundleName = "MealzNavModuleIOS_MealzNavModuleIOS"
-
         let candidates = [
             // Bundle should be present here when the package is linked into an App.
             Bundle.main.resourceURL,
@@ -20,7 +19,15 @@ extension Bundle {
             // For command-line tools.
             Bundle.main.bundleURL,
         ]
-        
+        #else
+        // When the module is being built with CocoaPods (or potentially other methods)
+        let bundleName = "MealzNavModuleIOS"
+        let candidates = [
+            // CocoaPods typically places resources in the main bundle directly.
+            Bundle.main.resourceURL,
+        ]
+        #endif
+
         for candidate in candidates {
             let bundlePath = candidate?.appendingPathComponent(bundleName + ".bundle")
             if let bundle = bundlePath.flatMap(Bundle.init(url:)) {
