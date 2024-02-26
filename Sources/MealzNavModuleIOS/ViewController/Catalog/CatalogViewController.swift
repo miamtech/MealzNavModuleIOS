@@ -127,8 +127,8 @@ public class CatalogViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = NSLocalizedString("CATALOG.TITLE", bundle: .mealzNavBundle, comment: "Title for the CATALOG screen")
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("RETURN.BUTTON", bundle: .mealzNavBundle, comment: "Return Button"), style: .plain, target: nil, action: nil)
+        navigationItem.title = NSLocalizedString("catalog_title", bundle: .mealzNavBundle, comment: "Title for the CATALOG screen")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("return_button", bundle: .mealzNavBundle, comment: "Return Button"), style: .plain, target: nil, action: nil)
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)
         guard let hostingController = hostingController, let hcView = hostingController.view

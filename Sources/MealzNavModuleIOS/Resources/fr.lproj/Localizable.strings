@@ -5,17 +5,17 @@
 //  Created by miam x didi on 19/02/2024.
 //
 
-"CATALOG.TITLE" = "Idées de repas";
-"CATALOG.RESULTS.TITLE" = "Collection";
-"FILTERS.RESULTS.TITLE" = "Collection";
-"SEARCH.TITLE" = "Recherche";
-"SEARCH.RESULTS.TITLE" = "Résultats";
-"RECIPE.DETAILS.TITLE" = "Détails de la recette";
-"MEAL.PLANNER.TITLE" = "Remplacement";
-"MY.MEALS.TITLE" = "Mon Espace Repas";
-"FAVORITES.TITLE" = "Mes Favoris";
-"FILTERS.TITLE" = "Filtres";
-"PREFERENCES.TITLE" = "Préférences";
-"ITEM.SELECTOR.TITLE" = "Remplacer";
+"catalog_title" = "Idées de repas";
+"catalog_results_title" = "Collection";
+"filters_results_title" = "Collection";
+"search_title" = "Recherche";
+"search_results_title" = "Résultats";
+"recipe_details_title" = "Détails de la recette";
+"meal_planner_title" = "Remplacement";
+"my_meals_title" = "Mon Espace Repas";
+"favorites_title" = "Mes Favoris";
+"filters_title" = "Filtres";
+"preferences_title" = "Préférences";
+"item_selector_title" = "Remplacer";
 
-"RETURN.BUTTON" = "Retour";
+"return_button" = "Retour";

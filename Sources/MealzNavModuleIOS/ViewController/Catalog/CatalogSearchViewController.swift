@@ -45,7 +45,7 @@ class CatalogSearchViewController: UIViewController {
                     onApplied: { [weak self] in
                         guard let strongSelf = self else { return }
                         strongSelf.coordinator?.showCatalogResultsFromSideView(
-                            title: NSLocalizedString("SEARCH.RESULTS.TITLE", bundle: .mealzNavBundle, comment: "Title for the catalog screen")
+                            title: NSLocalizedString("search_results_title", bundle: .mealzNavBundle, comment: "Title for the catalog screen")
                         )
                     }
                 ),
@@ -63,8 +63,8 @@ class CatalogSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = NSLocalizedString("SEARCH.TITLE", bundle: .mealzNavBundle, comment: "Title for the SEARCH screen")
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("RETURN.BUTTON", bundle: .mealzNavBundle, comment: "Return Button"), style: .plain, target: nil, action: nil)
+        navigationItem.title = NSLocalizedString("search_title", bundle: .mealzNavBundle, comment: "Title for the SEARCH screen")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("return_button", bundle: .mealzNavBundle, comment: "Return Button"), style: .plain, target: nil, action: nil)
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)
         guard let hostingController = hostingController, let hcView = hostingController.view
