@@ -19,12 +19,14 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
     
     private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit
     
+    public var viewController: UIViewController?
+    
     public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         recipeCardConstructor: StandaloneRecipeCardConstructor = StandaloneRecipeCardConstructor()
     ) {
-        let recipeDetailsNavController = UINavigationController()
+//        let recipeDetailsNavController = UINavigationController()
         self.recipeCard = recipeCardConstructor.recipeCard
         self.recipeCardLoading = recipeCardConstructor.recipeCardLoading
         self.recipeCardDimensions = recipeCardConstructor.recipeCardDimensions
@@ -78,7 +80,7 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
         isForMealPlanner: Bool = false
     ) {
         recipeDetailsView.modalPresentationStyle = .fullScreen
-        navigationController.present(recipeDetailsView, animated: true)
+        viewController?.present(recipeDetailsView, animated: true)
         recipeDetailsView.showRecipeDetails(recipeId: recipeId)
     }
 }

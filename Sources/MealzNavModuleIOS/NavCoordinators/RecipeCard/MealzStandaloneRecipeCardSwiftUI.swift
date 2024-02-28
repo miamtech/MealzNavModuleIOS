@@ -76,7 +76,7 @@ public struct MealzStandaloneRecipeCardSwiftUI: UIViewControllerRepresentable {
         )
     }
     
-    public func makeUIViewController(context: Context) -> UINavigationController {
+    public func makeUIViewController(context: Context) -> UIViewController {
         if let criteria {
             coordinator.showRecipeCard(criteria: criteria)
         } else if let recipe {
@@ -84,10 +84,14 @@ public struct MealzStandaloneRecipeCardSwiftUI: UIViewControllerRepresentable {
         } else if let recipeId {
             coordinator.showRecipeCard(recipeId: recipeId)
         }
-        return coordinator.navigationController
+        
+        if let recipeCardViewController = coordinator.navigationController.viewControllers.first {
+            return recipeCardViewController
+        }
+        return UIViewController() //Use to prevent crash in case where recipecard cannot be created
     }
     
-    public func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+    public func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         // make sure it has correct size
         uiViewController.preferredContentSize = CGSize(width: recipeDimensions.width, height: recipeDimensions.height)
     }

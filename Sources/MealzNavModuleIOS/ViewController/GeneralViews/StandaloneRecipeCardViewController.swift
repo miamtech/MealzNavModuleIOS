@@ -19,7 +19,7 @@ class StandaloneRecipeCardViewController: UIViewController {
     public let criteria: SuggestionsCriteria?
     public let recipe: Recipe?
     public let recipeId: String?
-    weak var coordinator: StandaloneRecipeCardNavCoordinator?
+    var coordinator: StandaloneRecipeCardNavCoordinator?
     
     init(
         recipe: Recipe? = nil,
@@ -43,8 +43,9 @@ class StandaloneRecipeCardViewController: UIViewController {
         self.recipeCardLoading = recipeCardLoading
         self.recipeCardDimensions = recipeCardDimensions
         self.coordinator = coordinator
-        
         super.init(nibName: nil, bundle: nil)
+        self.coordinator?.viewController = self
+     
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -112,5 +113,6 @@ class StandaloneRecipeCardViewController: UIViewController {
             hcView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         hostingController.didMove(toParent: self)
+        hcView.backgroundColor = .clear
     }
 }
