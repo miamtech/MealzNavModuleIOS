@@ -33,6 +33,7 @@ public class MealzMyMealsFeatureUIKit: UINavigationController {
         self.coordinator.setMyMeals()
         // Hide the navigation bar
         self.isNavigationBarHidden = hideTitles
+        self.view.backgroundColor = UIColor.white 
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
