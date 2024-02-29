@@ -17,6 +17,7 @@ class FavoritesViewController: UIViewController {
     private let baseViews: BasePageViewParameters
     private let gridConfig: CatalogRecipesListGridConfig
     private let navigateToTheCatalog: () -> Void
+    private let showRecipeDetails: (String) -> Void
     weak var coordinator: FavoritesFeatureNavCoordinator?
     weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
@@ -25,15 +26,15 @@ class FavoritesViewController: UIViewController {
         baseViews: BasePageViewParameters, 
         gridConfig: CatalogRecipesListGridConfig,
         coordinator: FavoritesFeatureNavCoordinator,
-        recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
-        navigateToTheCatalog: @escaping () -> Void
+        navigateToTheCatalog: @escaping () -> Void,
+        showRecipeDetails: @escaping (String) -> Void
     ) {
         self.favoritesViewOptions = favoritesViewOptions
         self.baseViews = baseViews
         self.gridConfig = gridConfig
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
-        self.recipeDetailsCoordinator = recipeDetailsCoordinator
+        self.showRecipeDetails = showRecipeDetails
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,7 +50,7 @@ class FavoritesViewController: UIViewController {
                 actions: FavoritesActions(
                     onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
+                        strongSelf.showRecipeDetails(recipeId)
                     },
                     onNoResultsRedirect: { [weak self] in
                         guard let strongSelf = self else { return }
@@ -57,7 +58,7 @@ class FavoritesViewController: UIViewController {
                     },
                     onRecipeCallToActionTapped: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
-                        strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
+                        strongSelf.showRecipeDetails(recipeId)
                     }
                 ),
                 viewOptions: favoritesViewOptions
