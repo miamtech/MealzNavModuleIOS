@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "MealzNavModuleIOS",
+    defaultLocalization: "fr",
     platforms: [
         .iOS(.v12),
       ],
