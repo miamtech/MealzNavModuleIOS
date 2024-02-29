@@ -84,7 +84,6 @@ public struct MealzStandaloneRecipeCardSwiftUI: UIViewControllerRepresentable {
         } else if let recipeId {
             coordinator.showRecipeCard(recipeId: recipeId)
         }
-        
         if let recipeCardViewController = coordinator.navigationController.viewControllers.first {
             return recipeCardViewController
         }
