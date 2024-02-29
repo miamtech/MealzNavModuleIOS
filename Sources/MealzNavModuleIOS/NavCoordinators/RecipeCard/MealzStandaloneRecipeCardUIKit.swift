@@ -65,6 +65,7 @@ public class MealzStandaloneRecipeCardUIKit: UINavigationController {
         super.viewDidLoad()
         // Hide the navigation bar
         self.isNavigationBarHidden = true
+        self.preferredContentSize = CGSize(width: recipeDimensions.width, height: recipeDimensions.height)
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
