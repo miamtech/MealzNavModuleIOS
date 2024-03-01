@@ -79,8 +79,14 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
         recipeId: String,
         isForMealPlanner: Bool = false
     ) {
-        recipeDetailsView.modalPresentationStyle = .fullScreen
         viewController?.present(recipeDetailsView, animated: true)
         recipeDetailsView.showRecipeDetails(recipeId: recipeId)
+        let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeTapped))
+        recipeDetailsView.navigationBar.topItem?.rightBarButtonItem = closeButton
+    }
+    
+    @objc func closeTapped() {
+        // Dismiss the navigation controller
+        viewController?.dismiss(animated: true, completion: nil)
     }
 }

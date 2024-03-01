@@ -9,6 +9,7 @@ import Foundation
 import MealzUIModuleIOS
 import miamCore
 import MiamIOSFramework
+import UIKit
 
 @available(iOS 14, *)
 public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesFeatureNavCoordinatorProtocol {
@@ -16,7 +17,7 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
     public var favoritesViewOptions: FavoritesViewOptions
     public var navigateToCatalog: () -> Void
     
-    public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
+    private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit
     
     // grid configs
     public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
@@ -28,10 +29,12 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
         self.baseViews = favoritesFeatureConstructor.baseViews
         self.favoritesViewOptions = favoritesFeatureConstructor.favoritesViewOptions
         self.navigateToCatalog = favoritesFeatureConstructor.navigateToCatalog
-        self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
+        let recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
         self.catalogRecipesListGridConfig = favoritesFeatureConstructor.catalogRecipesListGridConfig
+        self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
+            recipeDetailsConstructor: recipeDetailsConstructor)
         super.init(constructor: baseConstructor)
     }
     
@@ -42,8 +45,8 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
             baseViews: baseViews,
             gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
-            recipeDetailsCoordinator: recipeDetailsCoordinator,
-            navigateToTheCatalog: navigateToCatalog
+            navigateToTheCatalog: navigateToCatalog,
+            showRecipeDetails: presentRecipeDetails
         )
         navigationController.viewControllers = [favoritesVC]
     }
@@ -54,9 +57,24 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
             baseViews: baseViews,
             gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
-            recipeDetailsCoordinator: recipeDetailsCoordinator,
-            navigateToTheCatalog: navigateToCatalog
+            navigateToTheCatalog: navigateToCatalog,
+            showRecipeDetails: presentRecipeDetails
         )
         navigationController.pushViewController(favoritesVC, animated: false)
+    }
+    
+    // for using a modal (used on Recipe Card)
+    public func presentRecipeDetails(
+        recipeId: String
+    ) {
+        navigationController.present(recipeDetailsView, animated: true)
+        recipeDetailsView.showRecipeDetails(recipeId: recipeId)
+        let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeTapped))
+        recipeDetailsView.navigationBar.topItem?.rightBarButtonItem = closeButton
+    }
+    
+    @objc func closeTapped() {
+        // Dismiss the navigation controller
+        navigationController.dismiss(animated: true, completion: nil)
     }
 }
