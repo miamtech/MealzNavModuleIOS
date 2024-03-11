@@ -27,7 +27,7 @@ public protocol CatalogFeatureNavCoordinatorProtocol {
     var myMealsRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
         
     func showCatalog(catalogId: String?, categoryTitle: String?)
-    func showCatalogResults(title: String?, catalogId: String?, categoryTitle: String?)
+    func showCatalogResults(title: String?, catalogId: String?, categoryTitle: String?, isFavorite: Bool)
     func showPreferences()
     func showPreferencesSearch()
     func showFilters(filterInstance: FilterInstance)

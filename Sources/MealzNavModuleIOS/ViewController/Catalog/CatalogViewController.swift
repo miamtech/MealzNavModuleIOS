@@ -26,7 +26,7 @@ public func sharedCatalogActions(
             coordinator?.showCatalogSearch(filterInstance: filterInstance)
         },
         onFavoritesTapped: {
-            coordinator?.showCatalogResults()
+            coordinator?.showCatalogResults(isFavorite: true)
         },
         onPreferencesTapped: {
             coordinator?.showPreferences()

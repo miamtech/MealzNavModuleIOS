@@ -118,7 +118,8 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
             title: resultsTitle,
             categoryId: catalogId,
             categoryTitle: categoryTitle,
-            catalogViewOptions: catalogViewOptions, 
+            isFavorite: false,
+            catalogViewOptions: catalogViewOptions,
             recipesListViewOptions: recipesListViewOptions,
             baseViews: baseViews,
             catalogResultsGridConfig: catalogResultsGridConfig,
@@ -138,14 +139,16 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
     public func showCatalogResults(
         title: String? = nil,
         catalogId: String? = nil,
-        categoryTitle: String? = nil
+        categoryTitle: String? = nil,
+        isFavorite: Bool = false
     ) {
         let resultsTitle = title ?? NSLocalizedString("catalog_results_title", bundle: .mealzNavBundle, comment: "Title for the catalog screen")
         let resultsVC = CatalogResultsViewController(
             title: resultsTitle,
             categoryId: catalogId,
             categoryTitle: categoryTitle,
-            catalogViewOptions: catalogViewOptions, 
+            isFavorite: isFavorite,
+            catalogViewOptions: catalogViewOptions,
             recipesListViewOptions: recipesListViewOptions,
             baseViews: baseViews,
             catalogResultsGridConfig: catalogResultsGridConfig,

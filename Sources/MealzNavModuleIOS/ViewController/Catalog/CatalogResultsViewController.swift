@@ -14,6 +14,7 @@ import MealzUIModuleIOS
 class CatalogResultsViewController: UIViewController {
     private let categoryId: String?
     private let categoryTitle: String?
+    private let isFavorite: Bool
     private let catalogViewOptions: CatalogViewOptions
     private let recipesListViewOptions: CatalogRecipesListViewOptions
     private let baseViews: BasePageViewParameters
@@ -25,6 +26,7 @@ class CatalogResultsViewController: UIViewController {
         title: String = NSLocalizedString("catalog_results_title", bundle: .mealzNavBundle, comment: "Title for the catalog screen"),
         categoryId: String? = nil,
         categoryTitle: String? = nil,
+        isFavorite: Bool,
         catalogViewOptions: CatalogViewOptions,
         recipesListViewOptions: CatalogRecipesListViewOptions,
         baseViews: BasePageViewParameters,
@@ -35,6 +37,7 @@ class CatalogResultsViewController: UIViewController {
         self.categoryId = categoryId
         self.categoryTitle = categoryTitle
         self.catalogViewOptions = catalogViewOptions
+        self.isFavorite = isFavorite
         self.recipesListViewOptions = recipesListViewOptions
         self.baseViews = baseViews
         self.catalogResultsGridConfig = catalogResultsGridConfig
@@ -74,8 +77,9 @@ class CatalogResultsViewController: UIViewController {
             ),
             baseViews: baseViews,
             categoryId: categoryId,
-            title: categoryTitle,
-            gridConfig: catalogResultsGridConfig
+                title: categoryTitle,
+            gridConfig: catalogResultsGridConfig,
+            isFavorite: isFavorite
         )
     }
     // The hosting controller for your SwiftUI view
