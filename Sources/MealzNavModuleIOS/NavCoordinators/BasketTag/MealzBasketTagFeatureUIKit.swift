@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import miamCore
+import mealzcore
 import SwiftUI
 
 @available(iOS 14, *)
