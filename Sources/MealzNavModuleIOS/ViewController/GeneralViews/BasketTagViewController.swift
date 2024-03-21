@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 import MealzIOSFramework
 import MealzUIModuleIOS
-import mealzore
+import mealzcore
 
 @available(iOS 14, *)
 class BasketTagViewController: UIViewController {
