@@ -7,7 +7,7 @@
 
 import UIKit
 import MealzUIModuleIOS
-import MiamIOSFramework
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public class MealzCatalogFeatureUIKit: UINavigationController {

@@ -7,8 +7,8 @@
 
 import SwiftUI
 import MealzUIModuleIOS
-import miamCore
-import MiamIOSFramework
+import mealzcore
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public protocol CatalogFeatureNavCoordinatorProtocol {
