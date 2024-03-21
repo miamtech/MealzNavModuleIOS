@@ -6,9 +6,9 @@
 //
 import UIKit
 import SwiftUI
-import MiamIOSFramework
+import MealzIOSFramework
 import MealzUIModuleIOS
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 class MealzFiltersViewController: UIViewController {

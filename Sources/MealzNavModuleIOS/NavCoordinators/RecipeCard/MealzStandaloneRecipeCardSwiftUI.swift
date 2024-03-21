@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 import MealzUIModuleIOS
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 public struct MealzStandaloneRecipeCardSwiftUI: UIViewControllerRepresentable {

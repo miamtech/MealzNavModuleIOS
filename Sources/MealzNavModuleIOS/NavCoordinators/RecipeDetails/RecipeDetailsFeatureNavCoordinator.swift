@@ -9,7 +9,7 @@
 import Foundation
 import MealzUIModuleIOS
 import UIKit
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, RecipeDetailsNavCoordinatorProtocol {

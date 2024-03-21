@@ -7,7 +7,7 @@
 
 import Foundation
 import MealzUIModuleIOS
-import MiamIOSFramework
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public let myMealsDefaultRecipesListGridConfig = CatalogRecipesListGridConfig(numberOfColumns: 1, recipeCardDimensions: CGSize(width: 300, height: 180))

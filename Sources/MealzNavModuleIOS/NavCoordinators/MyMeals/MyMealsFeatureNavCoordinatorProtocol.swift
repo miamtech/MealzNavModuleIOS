@@ -7,7 +7,7 @@
 
 import SwiftUI
 import MealzUIModuleIOS
-import MiamIOSFramework
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public protocol MyMealsFeatureNavCoordinatorProtocol {

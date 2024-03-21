@@ -7,9 +7,9 @@
 
 import UIKit
 import SwiftUI
-import MiamIOSFramework
+import MealzIOSFramework
 import MealzUIModuleIOS
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 // simple function to share navigation between CatalogView & CatalogResultsView
