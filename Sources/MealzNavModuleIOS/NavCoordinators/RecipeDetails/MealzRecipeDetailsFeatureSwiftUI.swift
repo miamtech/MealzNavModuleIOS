@@ -28,7 +28,7 @@ public struct MealzRecipeDetailsFeatureSwiftUI: UIViewControllerRepresentable {
             baseConstructor: MealzBaseNavCoordinator.Constructor(
                 navigationController: navController
             ),
-            recipeDetailsConstructor: recipeDetailsConstructor
+            recipeDetailsFeatureConstructor: recipeDetailsConstructor
         )
         coordinator.setRecipeDetails(recipeId: recipeId)
     }
