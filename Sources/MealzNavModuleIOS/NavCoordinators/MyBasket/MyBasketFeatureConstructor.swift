@@ -23,14 +23,14 @@ public struct MyBasketFeatureConstructor {
     public init(
         myBasketViewOptions: MyBasketViewOptions = MyBasketViewOptions(),
         myBasketBaseViews: BasePageViewParameters = BasePageViewParameters(),
-        nestedMyMealsViewOptions: NestedMyMealsViewOptions = NestedMyMealsViewOptions(),
+        myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(nestedOptions: NestedMyMealsViewOptions()),
         myMealsBaseViews: BasePageViewParameters = BasePageViewParameters(),
         catalogRecipesListGridConfig: CatalogRecipesListGridConfig = myMealsDefaultRecipesListGridConfig,
         navigateToCatalog: @escaping () -> Void
     ) {
         self.myBasketViewOptions = myBasketViewOptions
         self.myBasketBaseViews = myBasketBaseViews
-        self.myMealsViewOptions = MyMealsViewOptions(nestedOptions: nestedMyMealsViewOptions)
+        self.myMealsViewOptions = myMealsViewOptions
         self.myMealsBaseViews = myMealsBaseViews
         self.catalogRecipesListGridConfig = catalogRecipesListGridConfig
         self.navigateToCatalog = navigateToCatalog
