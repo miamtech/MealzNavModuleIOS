@@ -129,12 +129,7 @@ public class CatalogViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = NSLocalizedString("catalog_title", bundle: .mealzNavBundle, comment: "Title for the CATALOG screen")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: Localization.catalog.resultsTitle.localised, style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem?.setTitleTextAttributes(
-            [
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .regular),
-                NSAttributedString.Key.foregroundColor : UIColor.white
-            ],
-            for: .normal)
+        navigationItem.backBarButtonItem?.tintColor =  UIColor(Color.mealzColor(.backButton))
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)
         guard let hostingController = hostingController, let hcView = hostingController.view
