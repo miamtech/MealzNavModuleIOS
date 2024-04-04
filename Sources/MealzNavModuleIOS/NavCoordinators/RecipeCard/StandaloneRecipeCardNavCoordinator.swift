@@ -17,7 +17,8 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
     public var recipeCardLoading: TypeSafeRecipeCardLoading
     public var recipeCardDimensions: CGSize
     
-    private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit
+    private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit? = nil
+    private let recipeDetailsConstructor: RecipeDetailsFeatureConstructor
     
     public var viewController: UIViewController?
     
@@ -26,12 +27,10 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
         recipeCardConstructor: StandaloneRecipeCardConstructor = StandaloneRecipeCardConstructor()
     ) {
-//        let recipeDetailsNavController = UINavigationController()
         self.recipeCard = recipeCardConstructor.recipeCard
         self.recipeCardLoading = recipeCardConstructor.recipeCardLoading
         self.recipeCardDimensions = recipeCardConstructor.recipeCardDimensions
-        self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
-            recipeDetailsConstructor: recipeDetailsConstructor)
+        self.recipeDetailsConstructor = recipeDetailsConstructor
         super.init(constructor: baseConstructor)
     }
     
@@ -79,10 +78,13 @@ public class StandaloneRecipeCardNavCoordinator: MealzBaseNavCoordinator, Standa
         recipeId: String,
         isForMealPlanner: Bool = false
     ) {
-        viewController?.present(recipeDetailsView, animated: true)
-        recipeDetailsView.showRecipeDetails(recipeId: recipeId)
-        let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeTapped))
-        recipeDetailsView.navigationBar.topItem?.rightBarButtonItem = closeButton
+        self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
+            recipeId: recipeId, recipeDetailsConstructor: self.recipeDetailsConstructor)
+        if let recipeDetailsView {
+            viewController?.present(recipeDetailsView, animated: true)
+            let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeTapped))
+            recipeDetailsView.navigationBar.topItem?.rightBarButtonItem = closeButton
+        }
     }
     
     @objc func closeTapped() {
