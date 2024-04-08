@@ -53,7 +53,7 @@ class MyBasketViewController: UIViewController {
     > {
         return MyBasket.init(
             myBasketParams: MyBasketParameters(
-                viewOptions: MyBasketViewOptions()
+                viewOptions: myBasketViewOptions
             ),
             myBasketBaseViews: myBasketBaseViews,
             myMealsParams: MyMealsParameters(
