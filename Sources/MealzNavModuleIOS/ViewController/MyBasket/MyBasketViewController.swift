@@ -53,6 +53,7 @@ class MyBasketViewController: UIViewController {
     > {
         return MyBasket.init(
             myBasketParams: MyBasketParameters(
+                actions: MyBasketActions(onSubmitOrder: {}), 
                 viewOptions: myBasketViewOptions
             ),
             myBasketBaseViews: myBasketBaseViews,
