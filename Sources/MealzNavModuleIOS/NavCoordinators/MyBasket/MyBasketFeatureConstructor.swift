@@ -15,6 +15,8 @@ public struct MyBasketFeatureConstructor {
     let myBasketBaseViews: BasePageViewParameters
     let myMealsViewOptions: MyMealsViewOptions
     let myMealsBaseViews: BasePageViewParameters
+    let myProductsViewOptions: MyProductsViewOptions
+    let myProductsBaseViews: BasePageViewParameters
     let navigateToCatalog: () -> Void
     
     // grid configs
@@ -25,6 +27,8 @@ public struct MyBasketFeatureConstructor {
         myBasketBaseViews: BasePageViewParameters = BasePageViewParameters(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(nestedOptions: NestedMyMealsViewOptions()),
         myMealsBaseViews: BasePageViewParameters = BasePageViewParameters(),
+        myProductsViewOptions: MyProductsViewOptions = MyProductsViewOptions(),
+        myProductsBaseViews: BasePageViewParameters = BasePageViewParameters(),
         catalogRecipesListGridConfig: CatalogRecipesListGridConfig = myMealsDefaultRecipesListGridConfig,
         navigateToCatalog: @escaping () -> Void
     ) {
@@ -32,6 +36,8 @@ public struct MyBasketFeatureConstructor {
         self.myBasketBaseViews = myBasketBaseViews
         self.myMealsViewOptions = myMealsViewOptions
         self.myMealsBaseViews = myMealsBaseViews
+        self.myProductsViewOptions = myProductsViewOptions
+        self.myProductsBaseViews = myProductsBaseViews
         self.catalogRecipesListGridConfig = catalogRecipesListGridConfig
         self.navigateToCatalog = navigateToCatalog
     }

@@ -16,6 +16,8 @@ public class MyBasketFeatureNavCoordinator: MealzBaseNavCoordinator, MyBasketFea
     public var myBasketBaseViews: BasePageViewParameters
     public var myMealsViewOptions: MyMealsViewOptions
     public var myMealsBaseViews: BasePageViewParameters
+    public var myProductsViewOptions: MyProductsViewOptions
+    public var myProductsBaseViews: BasePageViewParameters
     public var navigateToCatalog: () -> Void
 
     public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
@@ -32,6 +34,8 @@ public class MyBasketFeatureNavCoordinator: MealzBaseNavCoordinator, MyBasketFea
         self.myBasketBaseViews = myBasketContructor.myBasketBaseViews
         self.myMealsViewOptions = myBasketContructor.myMealsViewOptions
         self.myMealsBaseViews = myBasketContructor.myMealsBaseViews
+        self.myProductsViewOptions = myBasketContructor.myProductsViewOptions
+        self.myProductsBaseViews = myBasketContructor.myProductsBaseViews
         self.navigateToCatalog = myBasketContructor.navigateToCatalog
         self.catalogRecipesListGridConfig = myBasketContructor.catalogRecipesListGridConfig
         self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
@@ -47,6 +51,8 @@ public class MyBasketFeatureNavCoordinator: MealzBaseNavCoordinator, MyBasketFea
             myBasketBaseViews: myBasketBaseViews,
             myMealsViewOptions: myMealsViewOptions,
             myMealsBaseViews: myMealsBaseViews,
+            myProductsViewOptions: myProductsViewOptions,
+            myProductsBaseViews: myProductsBaseViews,
             gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
@@ -61,6 +67,8 @@ public class MyBasketFeatureNavCoordinator: MealzBaseNavCoordinator, MyBasketFea
             myBasketBaseViews: myBasketBaseViews,
             myMealsViewOptions: myMealsViewOptions,
             myMealsBaseViews: myMealsBaseViews,
+            myProductsViewOptions: myProductsViewOptions,
+            myProductsBaseViews: myProductsBaseViews,
             gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
