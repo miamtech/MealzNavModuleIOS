@@ -80,10 +80,16 @@ class MyBasketViewController: UIViewController {
             myMealsBaseViews: myMealsBaseViews,
             myProductsParams: MyProductsParameters(
                 viewOptions: myProductsViewOptions,
-                onNoResultsRedirect: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.navigateToTheCatalog()
-                }
+                actions: MyProductsActions(
+                    onNoResultsRedirect: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.navigateToTheCatalog()
+                    },
+                    openItemSelector: { [weak self] ingredientId in
+                        guard let strongSelf = self else { return }
+                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId ?? "")
+                    }
+                )
             ),
             myProductsBaseViews: myProductsBaseViews,
             gridConfig: gridConfig
