@@ -38,9 +38,9 @@ let package = Package(
             )
         } else {
             dependencies.append(contentsOf: [
-                .package(url: "https://github.com/miamtech/releaseMealz", from: "1.0.0-beta3"),
-                .package(url: "https://github.com/miamtech/MealzIOSFrameworkSPM", exact: "1.0.0-beta4"),
-                .package(url: "https://github.com/miamtech/MealzUIModuleIOS", from: "1.0.2-beta3")
+                .package(url: "https://github.com/miamtech/releaseMealz", from: "1.0.0-beta4"),
+                .package(url: "https://github.com/miamtech/MealzIOSFrameworkSPM", exact: "1.0.0-beta5"),
+                .package(url: "https://github.com/miamtech/MealzUIModuleIOS", from: "2.0.0-beta")
             ]
             )
         }
