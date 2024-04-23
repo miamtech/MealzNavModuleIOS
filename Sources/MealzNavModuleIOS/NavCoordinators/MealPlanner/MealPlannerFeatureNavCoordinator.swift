@@ -9,6 +9,7 @@ import Foundation
 import MealzUIModuleIOS
 import mealzcore
 import MealzIOSFramework
+import UIKit
 
 @available(iOS 14, *)
 public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
