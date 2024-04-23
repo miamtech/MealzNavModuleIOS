@@ -61,6 +61,7 @@ public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
             baseViews: baseViews,
             coordinator: self)
         navigationController.viewControllers = [formVC]
+        navigationController.navigationBar.tintColor = UIColor.white
     }
     
     public func showMealPlannerForm() {

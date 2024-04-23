@@ -93,6 +93,7 @@ class CatalogResultsViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("return_button", bundle: .mealzNavBundle, comment: "Return Button"), style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor =  UIColor(Color.mealzColor(.backButton))
         // Initialize the hosting controller with your SwiftUI view
         hostingController = UIHostingController(rootView: swiftUIView)
         guard let hostingController = hostingController, let hcView = hostingController.view

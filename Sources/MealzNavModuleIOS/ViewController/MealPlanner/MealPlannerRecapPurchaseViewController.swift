@@ -63,4 +63,10 @@ class MealPlannerRecapPurchaseViewController: UIViewController {
         ])
         hostingController.didMove(toParent: self)
     }
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            navigationController?.dismiss(animated: true)
+        }
+    }
 }
