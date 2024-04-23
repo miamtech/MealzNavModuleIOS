@@ -15,8 +15,10 @@ import mealzcore
 class MyBasketViewController: UIViewController {
     private let myBasketViewOptions: MyBasketViewOptions
     private let myMealsViewOptions: MyMealsViewOptions
+    private let myProductsViewOptions: MyProductsViewOptions
     private let myBasketBaseViews: BasePageViewParameters
     private let myMealsBaseViews: BasePageViewParameters
+    private let myProductsBaseViews: BasePageViewParameters
     private let gridConfig: CatalogRecipesListGridConfig
     private let navigateToTheCatalog: () -> Void
     weak var coordinator: MealzBaseNavCoordinator?
@@ -27,6 +29,8 @@ class MyBasketViewController: UIViewController {
         myBasketBaseViews: BasePageViewParameters,
         myMealsViewOptions: MyMealsViewOptions,
         myMealsBaseViews: BasePageViewParameters,
+        myProductsViewOptions: MyProductsViewOptions,
+        myProductsBaseViews: BasePageViewParameters,
         gridConfig: CatalogRecipesListGridConfig,
         coordinator: MealzBaseNavCoordinator,
         recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
@@ -36,6 +40,8 @@ class MyBasketViewController: UIViewController {
         self.myBasketBaseViews = myBasketBaseViews
         self.myMealsViewOptions = myMealsViewOptions
         self.myMealsBaseViews = myMealsBaseViews
+        self.myProductsViewOptions = myProductsViewOptions
+        self.myProductsBaseViews = myProductsBaseViews
         self.gridConfig = gridConfig
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
@@ -49,10 +55,13 @@ class MyBasketViewController: UIViewController {
         MyBasketParameters,
         BasePageViewParameters,
         MyMealsParameters,
+        BasePageViewParameters,
+        MyProductsParameters,
         BasePageViewParameters
     > {
         return MyBasket.init(
             myBasketParams: MyBasketParameters(
+                actions: MyBasketActions(onSubmitOrder: {}), 
                 viewOptions: myBasketViewOptions
             ),
             myBasketBaseViews: myBasketBaseViews,
@@ -69,6 +78,20 @@ class MyBasketViewController: UIViewController {
                 viewOptions: myMealsViewOptions
             ),
             myMealsBaseViews: myMealsBaseViews,
+            myProductsParams: MyProductsParameters(
+                viewOptions: myProductsViewOptions,
+                actions: MyProductsActions(
+                    onNoResultsRedirect: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.navigateToTheCatalog()
+                    },
+                    openItemSelector: { [weak self] ingredientId in
+                        guard let strongSelf = self else { return }
+                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId ?? "")
+                    }
+                )
+            ),
+            myProductsBaseViews: myProductsBaseViews,
             gridConfig: gridConfig
         )
     }
@@ -78,6 +101,8 @@ class MyBasketViewController: UIViewController {
         MyBasketParameters,
         BasePageViewParameters,
         MyMealsParameters,
+        BasePageViewParameters,
+        MyProductsParameters,
         BasePageViewParameters
     >>?
 
