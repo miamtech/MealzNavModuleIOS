@@ -87,7 +87,7 @@ class MyBasketViewController: UIViewController {
                     },
                     openItemSelector: { [weak self] ingredientId in
                         guard let strongSelf = self else { return }
-                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId ?? "")
+                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId)
                     }
                 )
             ),

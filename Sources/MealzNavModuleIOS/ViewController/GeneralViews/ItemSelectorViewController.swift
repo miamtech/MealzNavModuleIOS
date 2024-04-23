@@ -12,13 +12,13 @@ import MealzUIModuleIOS
 
 @available(iOS 14, *)
 class ItemSelectorViewController: UIViewController {
-    private let ingredientId: String
+    private let ingredientId: String?
     private let itemSelectorViewOptions: ItemSelectorViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
-        ingredientId: String,
+        ingredientId: String?,
         itemSelectorViewOptions: ItemSelectorViewOptions,
         baseViews: BasePageViewParameters,
         coordinator: MealzBaseNavCoordinator?
