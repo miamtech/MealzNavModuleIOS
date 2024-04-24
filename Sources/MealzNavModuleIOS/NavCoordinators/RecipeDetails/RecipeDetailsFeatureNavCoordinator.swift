@@ -60,7 +60,7 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
     }
     
     public func showItemSelector(
-        ingredientId: String
+        ingredientId: String?
     ) {
         let itemSelectorVC = ItemSelectorViewController(
             ingredientId: ingredientId,
