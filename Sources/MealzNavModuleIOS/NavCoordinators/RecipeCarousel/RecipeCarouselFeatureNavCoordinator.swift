@@ -7,8 +7,8 @@
 
 import Foundation
 import MealzUIModuleIOS
-import miamCore
-import MiamIOSFramework
+import mealzcore
+import MealzIOSFramework
 import UIKit
 
 @available(iOS 14, *)
@@ -16,7 +16,8 @@ public class RecipeCarouselFeatureNavCoordinator: MealzBaseNavCoordinator, Recip
     public var baseViews: BasePageViewParameters
     public var recipeCarouselViewOptions: RecipeCarouselViewOptions
     
-    private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit
+    private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit? = nil
+    private let recipeDetailsConstructor: RecipeDetailsFeatureConstructor
     
     public var viewController: UIViewController?
     
@@ -33,8 +34,7 @@ public class RecipeCarouselFeatureNavCoordinator: MealzBaseNavCoordinator, Recip
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
         self.recipesCarouselGridConfig = recipeCarouselFeatureConstructor.recipesCarouselGridConfig
-        self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
-            recipeDetailsConstructor: recipeDetailsConstructor)
+        self.recipeDetailsConstructor = recipeDetailsConstructor
         super.init(constructor: baseConstructor)
     }
     
@@ -66,10 +66,13 @@ public class RecipeCarouselFeatureNavCoordinator: MealzBaseNavCoordinator, Recip
     public func presentRecipeDetails(
         recipeId: String
     ) {
-        navigationController.present(recipeDetailsView, animated: true)
-        recipeDetailsView.showRecipeDetails(recipeId: recipeId)
-        let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeTapped))
-        recipeDetailsView.navigationBar.topItem?.rightBarButtonItem = closeButton
+        self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
+            recipeId: recipeId, recipeDetailsConstructor: self.recipeDetailsConstructor)
+        if let recipeDetailsView {
+            navigationController.present(recipeDetailsView, animated: true)
+            let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeTapped))
+            recipeDetailsView.navigationBar.topItem?.rightBarButtonItem = closeButton
+        }
     }
     
     @objc func closeTapped() {

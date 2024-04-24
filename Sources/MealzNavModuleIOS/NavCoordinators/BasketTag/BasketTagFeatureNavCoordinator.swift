@@ -17,7 +17,8 @@ public class BasketTagFeatureNavCoordinator: MealzBaseNavCoordinator, BasketTagF
     public var baseViews: BaseComponentViewParameters
     public var basketTagViewOptions: BasketTagViewOptions
     
-    private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit
+    private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit? = nil
+    private let recipeDetailsConstructor: RecipeDetailsFeatureConstructor
     
     public var viewController: UIViewController?
 
@@ -31,8 +32,7 @@ public class BasketTagFeatureNavCoordinator: MealzBaseNavCoordinator, BasketTagF
         let recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
-        self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
-            recipeDetailsConstructor: recipeDetailsConstructor)
+        self.recipeDetailsConstructor = recipeDetailsConstructor
         super.init(constructor: baseConstructor)
     }
     
@@ -51,10 +51,13 @@ public class BasketTagFeatureNavCoordinator: MealzBaseNavCoordinator, BasketTagF
     public func presentRecipeDetails(
         recipeId: String
     ) {
-        navigationController.present(recipeDetailsView, animated: true)
-        recipeDetailsView.showRecipeDetails(recipeId: recipeId)
-        let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeTapped))
-        recipeDetailsView.navigationBar.topItem?.rightBarButtonItem = closeButton
+        self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
+            recipeId: recipeId, recipeDetailsConstructor: self.recipeDetailsConstructor)
+        if let recipeDetailsView {
+            navigationController.present(recipeDetailsView, animated: true)
+            let closeButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeTapped))
+            recipeDetailsView.navigationBar.topItem?.rightBarButtonItem = closeButton
+        }
     }
     
     @objc func closeTapped() {
