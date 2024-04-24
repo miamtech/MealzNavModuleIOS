@@ -38,8 +38,8 @@ public struct MealzBasketTagFeatureSwiftUI: UIViewControllerRepresentable {
     
     public func makeUIViewController(context: Context) -> UIViewController {
         coordinator.setBasketTag(retailerProductId: retailerProductId, scrollAlignment: scrollAlignment)
-        if let recipeCarpuselViewController = coordinator.navigationController.viewControllers.first {
-            return recipeCarpuselViewController
+        if let recipeCarouselViewController = coordinator.navigationController.viewControllers.first {
+            return recipeCarouselViewController
         }
         return UIViewController() //Use to prevent crash in case where recipecard cannot be created
     }
