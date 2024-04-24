@@ -7,8 +7,8 @@
 
 import Foundation
 import MealzUIModuleIOS
-import miamCore
-import MiamIOSFramework
+import mealzcore
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
@@ -61,6 +61,7 @@ public class MealPlannerFeatureNavCoordinator: MealzBaseNavCoordinator {
             baseViews: baseViews,
             coordinator: self)
         navigationController.viewControllers = [formVC]
+        navigationController.navigationBar.tintColor = UIColor.white
     }
     
     public func showMealPlannerForm() {

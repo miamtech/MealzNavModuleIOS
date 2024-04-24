@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftUI
-import MiamIOSFramework
+import MealzIOSFramework
 import MealzUIModuleIOS
 
 @available(iOS 14, *)
@@ -62,5 +62,11 @@ class MealPlannerRecapPurchaseViewController: UIViewController {
             hcView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         hostingController.didMove(toParent: self)
+    }
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            navigationController?.dismiss(animated: true)
+        }
     }
 }

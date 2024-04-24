@@ -1,8 +1,8 @@
 //
-//  MealzFavoritesFeatureSwiftUI.swift
+//  MealzMyBasketFeatureSwiftUI.swift
 //
 //
-//  Created by Diarmuid McGonagle on 18/01/2024.
+//  Created by Antonin Francois on 28/03/2024.
 //
 
 import UIKit
@@ -11,25 +11,25 @@ import MealzUIModuleIOS
 import mealzcore
 
 @available(iOS 14, *)
-public struct MealzMyMealsFeatureSwiftUI: UIViewControllerRepresentable {
-    private let coordinator: MyMealsFeatureNavCoordinator
-    
+public struct MealzMyBasketFeatureSwiftUI: UIViewControllerRepresentable {
+    private let coordinator: MyBasketFeatureNavCoordinator
+
     public init(
         hideTitles: Bool = false,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        myMealsContructor: MyMealsFeatureConstructor
+        myBasketContructor: MyBasketFeatureConstructor
     ) {
         let navController = UINavigationController()
         // Hide the navigation bar
         navController.isNavigationBarHidden = hideTitles
-        self.coordinator = MyMealsFeatureNavCoordinator(
+        self.coordinator = MyBasketFeatureNavCoordinator(
             baseConstructor: MealzBaseNavCoordinator.Constructor(
                 navigationController: navController
             ),
             recipeDetailsConstructor: recipeDetailsConstructor,
-            myMealsContructor: myMealsContructor
+            myBasketContructor: myBasketContructor
         )
-        self.coordinator.setMyMeals()
+        self.coordinator.setMyBasket()
     }
     
     public func makeUIViewController(context: Context) -> UINavigationController {

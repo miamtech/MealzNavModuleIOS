@@ -7,8 +7,8 @@
 
 import Foundation
 import MealzUIModuleIOS
-import miamCore
-import MiamIOSFramework
+import mealzcore
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatureNavCoordinatorProtocol {
@@ -72,6 +72,8 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         self.catalogResultsGridConfig = catalogFeatureConstructor.catalogResultsGridConfig
         self.myMealsRecipesListGridConfig = myMealsRecipesListGridConfig
         super.init(constructor: baseConstructor)
+        
+        navigationController.navigationBar.tintColor = UIColor.white
     }
     
     // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone

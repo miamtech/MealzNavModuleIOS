@@ -1,8 +1,8 @@
 //
-//  MyMealsViewController.swift
-//  SampleMiamUIKitIntegration
+//  MyBasketViewController.swift
+//  
 //
-//  Created by didi on 02/10/2023.
+//  Created by Antonin Francois on 28/03/2024.
 //
 
 import UIKit
@@ -12,39 +12,60 @@ import MealzUIModuleIOS
 import mealzcore
 
 @available(iOS 14, *)
-class MyMealsViewController: UIViewController {
+class MyBasketViewController: UIViewController {
+    private let myBasketViewOptions: MyBasketViewOptions
     private let myMealsViewOptions: MyMealsViewOptions
-    private let baseViews: BasePageViewParameters
+    private let myProductsViewOptions: MyProductsViewOptions
+    private let myBasketBaseViews: BasePageViewParameters
+    private let myMealsBaseViews: BasePageViewParameters
+    private let myProductsBaseViews: BasePageViewParameters
     private let gridConfig: CatalogRecipesListGridConfig
     private let navigateToTheCatalog: () -> Void
     weak var coordinator: MealzBaseNavCoordinator?
     weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
-    
+
     init(
+        myBasketViewOptions: MyBasketViewOptions,
+        myBasketBaseViews: BasePageViewParameters,
         myMealsViewOptions: MyMealsViewOptions,
-        baseViews: BasePageViewParameters,
+        myMealsBaseViews: BasePageViewParameters,
+        myProductsViewOptions: MyProductsViewOptions,
+        myProductsBaseViews: BasePageViewParameters,
         gridConfig: CatalogRecipesListGridConfig,
         coordinator: MealzBaseNavCoordinator,
         recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
         navigateToTheCatalog: @escaping () -> Void
     ) {
-        self.baseViews = baseViews
+        self.myBasketViewOptions = myBasketViewOptions
+        self.myBasketBaseViews = myBasketBaseViews
         self.myMealsViewOptions = myMealsViewOptions
+        self.myMealsBaseViews = myMealsBaseViews
+        self.myProductsViewOptions = myProductsViewOptions
+        self.myProductsBaseViews = myProductsBaseViews
         self.gridConfig = gridConfig
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
         self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     // Your SwiftUI View
-    var swiftUIView: MyMeals<
+    var swiftUIView: MyBasket<
+        MyBasketParameters,
+        BasePageViewParameters,
         MyMealsParameters,
+        BasePageViewParameters,
+        MyProductsParameters,
         BasePageViewParameters
     > {
-        return MyMeals.init(
-            params: MyMealsParameters(
+        return MyBasket.init(
+            myBasketParams: MyBasketParameters(
+                actions: MyBasketActions(onSubmitOrder: {}), 
+                viewOptions: myBasketViewOptions
+            ),
+            myBasketBaseViews: myBasketBaseViews,
+            myMealsParams: MyMealsParameters(
                 actions: MyMealsActions(
                     onNoResultsRedirect: { [weak self] in
                         guard let strongSelf = self else { return }
@@ -56,16 +77,35 @@ class MyMealsViewController: UIViewController {
                 ),
                 viewOptions: myMealsViewOptions
             ),
-            baseViews: baseViews,
+            myMealsBaseViews: myMealsBaseViews,
+            myProductsParams: MyProductsParameters(
+                viewOptions: myProductsViewOptions,
+                actions: MyProductsActions(
+                    onNoResultsRedirect: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        strongSelf.navigateToTheCatalog()
+                    },
+                    openItemSelector: { [weak self] ingredientId in
+                        guard let strongSelf = self else { return }
+                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId ?? "")
+                    }
+                )
+            ),
+            myProductsBaseViews: myProductsBaseViews,
             gridConfig: gridConfig
         )
     }
+
     // The hosting controller for your SwiftUI view
-    private var hostingController: UIHostingController<MyMeals<
+    private var hostingController: UIHostingController<MyBasket<
+        MyBasketParameters,
+        BasePageViewParameters,
         MyMealsParameters,
+        BasePageViewParameters,
+        MyProductsParameters,
         BasePageViewParameters
     >>?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = NSLocalizedString("my_meals_title", bundle: .mealzNavBundle, comment: "Title for the MY.MEALS screen")

@@ -7,7 +7,7 @@
 
 import Foundation
 import MealzUIModuleIOS
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 public protocol RecipeDetailsNavCoordinatorProtocol {

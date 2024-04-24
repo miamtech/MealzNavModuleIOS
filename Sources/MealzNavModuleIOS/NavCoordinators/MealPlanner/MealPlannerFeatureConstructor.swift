@@ -7,7 +7,7 @@
 
 import Foundation
 import MealzUIModuleIOS
-import MiamIOSFramework
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public struct MealPlannerFeatureConstructor {
