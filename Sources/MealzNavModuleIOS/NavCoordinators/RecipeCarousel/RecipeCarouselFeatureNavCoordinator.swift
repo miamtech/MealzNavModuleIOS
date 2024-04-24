@@ -1,8 +1,8 @@
 //
-//  FavoritesFeatureNavCoordinator.swift
+//  RecipeCarouselFeatureNavCoordinator.swift
 //
 //
-//  Created by Diarmuid McGonagle on 18/01/2024.
+//  Created by Diarmuid McGonagle on 11/03/2024.
 //
 
 import Foundation
@@ -12,44 +12,55 @@ import MealzIOSFramework
 import UIKit
 
 @available(iOS 14, *)
-public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesFeatureNavCoordinatorProtocol {
+public class RecipeCarouselFeatureNavCoordinator: MealzBaseNavCoordinator, RecipeCarouselFeatureNavCoordinatorProtocol {
     public var baseViews: BasePageViewParameters
-    public var favoritesViewOptions: FavoritesViewOptions
-    public var navigateToCatalog: () -> Void
+    public var recipeCarouselViewOptions: RecipeCarouselViewOptions
     
     private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit? = nil
     private let recipeDetailsConstructor: RecipeDetailsFeatureConstructor
     
+    public var viewController: UIViewController?
+    
     // grid configs
-    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
+    public var recipesCarouselGridConfig: RecipesCarouselGridConfig
     public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        favoritesFeatureConstructor: FavoritesFeatureConstructor
+        recipeCarouselFeatureConstructor: RecipeCarouselFeatureConstructor
     ) {
-        self.baseViews = favoritesFeatureConstructor.baseViews
-        self.favoritesViewOptions = favoritesFeatureConstructor.favoritesViewOptions
-        self.navigateToCatalog = favoritesFeatureConstructor.navigateToCatalog
+        self.baseViews = recipeCarouselFeatureConstructor.baseViews
+        self.recipeCarouselViewOptions = recipeCarouselFeatureConstructor.recipeCarouselViewOptions
         let recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
-        self.catalogRecipesListGridConfig = favoritesFeatureConstructor.catalogRecipesListGridConfig
+        self.recipesCarouselGridConfig = recipeCarouselFeatureConstructor.recipesCarouselGridConfig
         self.recipeDetailsConstructor = recipeDetailsConstructor
         super.init(constructor: baseConstructor)
     }
     
-    // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone
-    public func setFavorites() {
-        let favoritesVC = FavoritesViewController(
-            favoritesViewOptions: favoritesViewOptions,
+    public func setRecipeCarousel(productId: String, numberOfResults: Int) {
+        let recipeCarouselVC = RecipeCarouselViewController(
+            productId: productId,
+            numberOfResults: numberOfResults,
+            recipeCarouselViewOptions: recipeCarouselViewOptions,
             baseViews: baseViews,
-            gridConfig: catalogRecipesListGridConfig,
-            coordinator: self,
-            navigateToTheCatalog: navigateToCatalog,
-            showRecipeDetails: presentRecipeDetails
+            gridConfig: recipesCarouselGridConfig,
+            coordinator: self
         )
-        navigationController.viewControllers = [favoritesVC]
+        navigationController.viewControllers = [recipeCarouselVC]
     }
+
+    public func setRecipeCarousel(criteria: SuggestionsCriteria, numberOfResults: Int) {
+    let recipeCarouselVC = RecipeCarouselViewController(
+        criteria: criteria,
+        numberOfResults: numberOfResults,
+        recipeCarouselViewOptions: recipeCarouselViewOptions,
+        baseViews: baseViews,
+        gridConfig: recipesCarouselGridConfig,
+        coordinator: self
+    )
+    navigationController.viewControllers = [recipeCarouselVC]
+}
     
     // for using a modal (used on Recipe Card)
     public func presentRecipeDetails(

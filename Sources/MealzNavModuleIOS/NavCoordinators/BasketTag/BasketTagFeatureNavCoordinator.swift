@@ -1,8 +1,8 @@
 //
-//  FavoritesFeatureNavCoordinator.swift
+//  BasketTagFeatureNavCoordinator.swift
 //
 //
-//  Created by Diarmuid McGonagle on 18/01/2024.
+//  Created by Diarmuid McGonagle on 12/03/2024.
 //
 
 import Foundation
@@ -10,45 +10,41 @@ import MealzUIModuleIOS
 import mealzcore
 import MealzIOSFramework
 import UIKit
+import SwiftUI
 
 @available(iOS 14, *)
-public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesFeatureNavCoordinatorProtocol {
-    public var baseViews: BasePageViewParameters
-    public var favoritesViewOptions: FavoritesViewOptions
-    public var navigateToCatalog: () -> Void
+public class BasketTagFeatureNavCoordinator: MealzBaseNavCoordinator, BasketTagFeatureNavCoordinatorProtocol {
+    public var baseViews: BaseComponentViewParameters
+    public var basketTagViewOptions: BasketTagViewOptions
     
     private var recipeDetailsView: MealzRecipeDetailsFeatureUIKit? = nil
     private let recipeDetailsConstructor: RecipeDetailsFeatureConstructor
     
-    // grid configs
-    public var catalogRecipesListGridConfig: CatalogRecipesListGridConfig
+    public var viewController: UIViewController?
+
     public init(
         baseConstructor: Constructor,
         recipeDetailsConstructor: RecipeDetailsFeatureConstructor = RecipeDetailsFeatureConstructor(),
-        favoritesFeatureConstructor: FavoritesFeatureConstructor
+        basketTagFeatureConstructor: BasketTagFeatureConstructor = BasketTagFeatureConstructor()
     ) {
-        self.baseViews = favoritesFeatureConstructor.baseViews
-        self.favoritesViewOptions = favoritesFeatureConstructor.favoritesViewOptions
-        self.navigateToCatalog = favoritesFeatureConstructor.navigateToCatalog
+        self.baseViews = basketTagFeatureConstructor.baseViews
+        self.basketTagViewOptions = basketTagFeatureConstructor.basketTagViewOptions
         let recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
             recipeDetailsFeatureConstructor: recipeDetailsConstructor)
-        self.catalogRecipesListGridConfig = favoritesFeatureConstructor.catalogRecipesListGridConfig
         self.recipeDetailsConstructor = recipeDetailsConstructor
         super.init(constructor: baseConstructor)
     }
     
-    // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone
-    public func setFavorites() {
-        let favoritesVC = FavoritesViewController(
-            favoritesViewOptions: favoritesViewOptions,
+    public func setBasketTag(retailerProductId: String, scrollAlignment: Axis.Set) {
+        let basketTagVC = BasketTagViewController(
+            retailerProductId: retailerProductId,
+            basketTagViewOptions: basketTagViewOptions,
             baseViews: baseViews,
-            gridConfig: catalogRecipesListGridConfig,
-            coordinator: self,
-            navigateToTheCatalog: navigateToCatalog,
-            showRecipeDetails: presentRecipeDetails
+            scrollAlignment: scrollAlignment,
+            coordinator: self
         )
-        navigationController.viewControllers = [favoritesVC]
+        navigationController.viewControllers = [basketTagVC]
     }
     
     // for using a modal (used on Recipe Card)

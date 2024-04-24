@@ -18,5 +18,5 @@ public protocol FavoritesFeatureNavCoordinatorProtocol {
     // grid configs
     var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
     
-    func showFavorites()
+    func setFavorites()
 }
