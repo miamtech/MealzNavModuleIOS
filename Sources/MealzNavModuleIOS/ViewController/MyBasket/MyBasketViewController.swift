@@ -85,9 +85,9 @@ class MyBasketViewController: UIViewController {
                         guard let strongSelf = self else { return }
                         strongSelf.navigateToTheCatalog()
                     },
-                    openItemSelector: { [weak self] ingredientId in
+                    openItemSelector: { [weak self] basketEntryId in
                         guard let strongSelf = self else { return }
-                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId)
+                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: nil, basketEntryId: basketEntryId)
                     }
                 )
             ),

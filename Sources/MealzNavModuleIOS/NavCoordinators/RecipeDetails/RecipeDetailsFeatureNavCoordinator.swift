@@ -60,10 +60,12 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
     }
     
     public func showItemSelector(
-        ingredientId: String?
+        ingredientId: String?,
+        basketEntryId: String?
     ) {
         let itemSelectorVC = ItemSelectorViewController(
             ingredientId: ingredientId,
+            basketEntryId: basketEntryId,
             itemSelectorViewOptions: itemSelectorViewOptions,
             baseViews: baseViews,
             coordinator: self
