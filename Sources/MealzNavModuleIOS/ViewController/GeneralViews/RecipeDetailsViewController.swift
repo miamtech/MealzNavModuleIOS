@@ -64,7 +64,7 @@ class RecipeDetailsViewController: UIViewController {
                 },
                 onReplaceProduct: { [weak self] ingredientId in
                     guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId)
+                    strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId, basketEntryId: nil)
                 }
                 ),
                 viewOptions: recipeDetailsViewOptions
