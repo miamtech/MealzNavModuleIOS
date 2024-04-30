@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftUI
-import MiamIOSFramework
+import MealzIOSFramework
 import MealzUIModuleIOS
 
 @available(iOS 14, *)
@@ -60,7 +60,7 @@ class MealPlannerBasketViewController: UIViewController {
                         strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId, isForMealPlanner: true)
                     }, onReplaceProduct: { [weak self] ingredientId in
                         guard let strongSelf = self else { return }
-                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId)
+                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: ingredientId, basketEntryId: nil)
                     }),
                 viewOptions: basketRecipeViewOptions
             ),

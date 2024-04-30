@@ -7,9 +7,9 @@
 
 import UIKit
 import SwiftUI
-import MiamIOSFramework
+import MealzIOSFramework
 import MealzUIModuleIOS
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 class MyMealsViewController: UIViewController {
@@ -17,6 +17,7 @@ class MyMealsViewController: UIViewController {
     private let baseViews: BasePageViewParameters
     private let gridConfig: CatalogRecipesListGridConfig
     private let navigateToTheCatalog: () -> Void
+    private let navigateToItemSelector: (() -> Void)?
     weak var coordinator: MealzBaseNavCoordinator?
     weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
     
@@ -26,12 +27,14 @@ class MyMealsViewController: UIViewController {
         gridConfig: CatalogRecipesListGridConfig,
         coordinator: MealzBaseNavCoordinator,
         recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
-        navigateToTheCatalog: @escaping () -> Void
+        navigateToTheCatalog: @escaping () -> Void,
+        navigateToItemSelector: (() -> Void)? = nil
     ) {
         self.baseViews = baseViews
         self.myMealsViewOptions = myMealsViewOptions
         self.gridConfig = gridConfig
         self.navigateToTheCatalog = navigateToTheCatalog
+        self.navigateToItemSelector = navigateToItemSelector
         self.coordinator = coordinator
         self.recipeDetailsCoordinator = recipeDetailsCoordinator
         super.init(nibName: nil, bundle: nil)
@@ -52,6 +55,11 @@ class MyMealsViewController: UIViewController {
                     }, onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
                         strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
+                    }, openItemSelector: { [weak self] id in
+                        guard let strongSelf = self else { return }
+                        if let open = strongSelf.navigateToItemSelector {
+                            open()
+                        }
                     }
                 ),
                 viewOptions: myMealsViewOptions

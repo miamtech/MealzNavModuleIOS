@@ -7,9 +7,9 @@
 
 import UIKit
 import SwiftUI
-import MiamIOSFramework
+import MealzIOSFramework
 import MealzUIModuleIOS
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 class RecipeDetailsViewController: UIViewController {
@@ -64,7 +64,7 @@ class RecipeDetailsViewController: UIViewController {
                 },
                 onReplaceProduct: { [weak self] ingredientId in
                     guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId)
+                    strongSelf.coordinator?.showItemSelector(ingredientId: ingredientId, basketEntryId: nil)
                 }
                 ),
                 viewOptions: recipeDetailsViewOptions

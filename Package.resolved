@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "kmm-miam-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.com/miam/kmm-miam-sdk.git",
+      "state" : {
+        "revision" : "4d0cef531969c34185938fb38f49517b761066ad",
+        "version" : "4.0.0"
+      }
+    },
+    {
+      "identity" : "mealziosframeworkspm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/miamtech/MealzIOSFrameworkSPM",
+      "state" : {
+        "revision" : "416cbc46dfb274d455586f2b6a50530e5673ebc1",
+        "version" : "1.0.0-beta1"
+      }
+    },
+    {
+      "identity" : "mealzuimoduleios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/miamtech/MealzUIModuleIOS",
+      "state" : {
+        "revision" : "37adb5d23176b33051e5d9db8e86275b5a1334a9",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "releasemealz",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/miamtech/releaseMealz",
+      "state" : {
+        "revision" : "44854faf6d8ee51c5e07995dea089115bd023ee5",
+        "version" : "1.0.0-beta3"
+      }
+    }
+  ],
+  "version" : 2
+}

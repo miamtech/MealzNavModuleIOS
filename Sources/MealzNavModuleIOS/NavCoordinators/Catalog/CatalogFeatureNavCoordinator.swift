@@ -7,8 +7,9 @@
 
 import Foundation
 import MealzUIModuleIOS
-import miamCore
-import MiamIOSFramework
+import mealzcore
+import MealzIOSFramework
+import UIKit
 
 @available(iOS 14, *)
 public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatureNavCoordinatorProtocol {
@@ -144,7 +145,9 @@ public class CatalogFeatureNavCoordinator: MealzBaseNavCoordinator, CatalogFeatu
         categoryTitle: String? = nil,
         isFavorite: Bool = false
     ) {
-        let resultsTitle = title ?? NSLocalizedString("catalog_results_title", bundle: .mealzNavBundle, comment: "Title for the catalog screen")
+        let resultsTitle = title ?? (isFavorite ?
+                                     NSLocalizedString("favorites_title", bundle: .mealzNavBundle, comment: "Favorites Title")
+                                     : NSLocalizedString("catalog_results_title", bundle: .mealzNavBundle, comment: "Catalog Results Title"))
         let resultsVC = CatalogResultsViewController(
             title: resultsTitle,
             categoryId: catalogId,

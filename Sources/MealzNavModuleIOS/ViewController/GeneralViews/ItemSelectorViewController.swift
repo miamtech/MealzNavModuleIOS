@@ -7,23 +7,26 @@
 
 import UIKit
 import SwiftUI
-import MiamIOSFramework
+import MealzIOSFramework
 import MealzUIModuleIOS
 
 @available(iOS 14, *)
 class ItemSelectorViewController: UIViewController {
-    private let ingredientId: String
+    private let ingredientId: String?
+    private let basketEntryId: String?
     private let itemSelectorViewOptions: ItemSelectorViewOptions
     private let baseViews: BasePageViewParameters
     weak var coordinator: MealzBaseNavCoordinator?
     
     init(
-        ingredientId: String,
+        ingredientId: String?,
+        basketEntryId: String?,
         itemSelectorViewOptions: ItemSelectorViewOptions,
         baseViews: BasePageViewParameters,
         coordinator: MealzBaseNavCoordinator?
     ) {
         self.ingredientId = ingredientId
+        self.basketEntryId = basketEntryId
         self.itemSelectorViewOptions = itemSelectorViewOptions
         self.baseViews = baseViews
         self.coordinator = coordinator
@@ -52,7 +55,8 @@ class ItemSelectorViewController: UIViewController {
                 viewOptions: itemSelectorViewOptions
             ),
             baseViews: baseViews,
-            ingredientId: ingredientId)
+            ingredientId: ingredientId,
+            basketEntryId: basketEntryId)
     }
     // The hosting controller for your SwiftUI view
     private var hostingController: UIHostingController<ItemSelector<

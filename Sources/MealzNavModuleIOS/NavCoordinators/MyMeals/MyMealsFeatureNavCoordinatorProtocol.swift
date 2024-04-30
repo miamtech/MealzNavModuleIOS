@@ -7,13 +7,14 @@
 
 import SwiftUI
 import MealzUIModuleIOS
-import MiamIOSFramework
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public protocol MyMealsFeatureNavCoordinatorProtocol {
     var baseViews: BasePageViewParameters { get set }
     var myMealsViewOptions: MyMealsViewOptions { get set }
     var navigateToCatalog: () -> Void { get set }
+    var navigateToItemSelector: (() -> Void)? { get set }
     
     // grid configs
     var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }

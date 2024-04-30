@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftUI
-import MiamIOSFramework
+import MealzIOSFramework
 import MealzUIModuleIOS
 
 @available(iOS 14, *)

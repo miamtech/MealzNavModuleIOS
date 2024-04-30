@@ -7,7 +7,7 @@
 
 import SwiftUI
 import MealzUIModuleIOS
-import MiamIOSFramework
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public protocol FavoritesFeatureNavCoordinatorProtocol {
@@ -18,5 +18,5 @@ public protocol FavoritesFeatureNavCoordinatorProtocol {
     // grid configs
     var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }
     
-    func showFavorites()
+    func setFavorites()
 }

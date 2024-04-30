@@ -7,7 +7,7 @@
 
 import Foundation
 import MealzUIModuleIOS
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 public protocol RecipeDetailsNavCoordinatorProtocol {
@@ -17,7 +17,7 @@ public protocol RecipeDetailsNavCoordinatorProtocol {
     var itemSelectorViewOptions: ItemSelectorViewOptions { get set }
     
     func showRecipeDetails(recipeId: String, isForMealPlanner: Bool)
-    func showItemSelector(ingredientId: String)
+    func showItemSelector(ingredientId: String?, basketEntryId: String?)
     func showSponsorDetails(sponsor: Sponsor)
 }
 

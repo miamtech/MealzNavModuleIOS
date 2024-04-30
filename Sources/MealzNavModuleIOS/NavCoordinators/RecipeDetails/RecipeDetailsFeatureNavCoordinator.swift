@@ -9,7 +9,7 @@
 import Foundation
 import MealzUIModuleIOS
 import UIKit
-import miamCore
+import mealzcore
 
 @available(iOS 14, *)
 public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, RecipeDetailsNavCoordinatorProtocol {
@@ -60,10 +60,12 @@ public class RecipeDetailsFeatureNavCoordinator: MealzBaseNavCoordinator, Recipe
     }
     
     public func showItemSelector(
-        ingredientId: String
+        ingredientId: String?,
+        basketEntryId: String?
     ) {
         let itemSelectorVC = ItemSelectorViewController(
             ingredientId: ingredientId,
+            basketEntryId: basketEntryId,
             itemSelectorViewOptions: itemSelectorViewOptions,
             baseViews: baseViews,
             coordinator: self

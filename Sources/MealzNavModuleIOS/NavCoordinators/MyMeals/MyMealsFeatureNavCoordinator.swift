@@ -7,14 +7,15 @@
 
 import Foundation
 import MealzUIModuleIOS
-import miamCore
-import MiamIOSFramework
+import mealzcore
+import MealzIOSFramework
 
 @available(iOS 14, *)
 public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatureNavCoordinatorProtocol {
     public var baseViews: BasePageViewParameters
     public var myMealsViewOptions: MyMealsViewOptions
     public var navigateToCatalog: () -> Void
+    public var navigateToItemSelector: (() -> Void)?
     
     public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
     
@@ -29,6 +30,7 @@ public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatu
         self.baseViews = myMealsContructor.baseViews
         self.myMealsViewOptions = myMealsContructor.myMealsViewOptions
         self.navigateToCatalog = myMealsContructor.navigateToCatalog
+        self.navigateToItemSelector = myMealsContructor.navigateToItemSelector
         self.catalogRecipesListGridConfig = myMealsContructor.catalogRecipesListGridConfig
         self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
@@ -44,7 +46,8 @@ public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatu
             gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
-            navigateToTheCatalog: navigateToCatalog
+            navigateToTheCatalog: navigateToCatalog,
+            navigateToItemSelector: navigateToItemSelector
         )
         navigationController.viewControllers = [myMealsVC]
     }
@@ -56,7 +59,8 @@ public class MyMealsFeatureNavCoordinator: MealzBaseNavCoordinator, MyMealsFeatu
             gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
-            navigateToTheCatalog: navigateToCatalog
+            navigateToTheCatalog: navigateToCatalog,
+            navigateToItemSelector: navigateToItemSelector
         )
         navigationController.pushViewController(myMealsVC, animated: false)
     }
