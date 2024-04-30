@@ -14,6 +14,7 @@ public protocol MyMealsFeatureNavCoordinatorProtocol {
     var baseViews: BasePageViewParameters { get set }
     var myMealsViewOptions: MyMealsViewOptions { get set }
     var navigateToCatalog: () -> Void { get set }
+    var navigateToItemSelector: (() -> Void)? { get set }
     
     // grid configs
     var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }

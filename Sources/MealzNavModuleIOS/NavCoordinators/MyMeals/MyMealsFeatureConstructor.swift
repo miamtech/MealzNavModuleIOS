@@ -17,6 +17,7 @@ public struct MyMealsFeatureConstructor {
     let baseViews: BasePageViewParameters
     let myMealsViewOptions: MyMealsViewOptions
     let navigateToCatalog: () -> Void
+    let navigateToItemSelector: (() -> Void)?
     
     // grid configs
     let catalogRecipesListGridConfig: CatalogRecipesListGridConfig
@@ -25,11 +26,13 @@ public struct MyMealsFeatureConstructor {
         baseViews: BasePageViewParameters = BasePageViewParameters(),
         myMealsViewOptions: MyMealsViewOptions = MyMealsViewOptions(),
         catalogRecipesListGridConfig: CatalogRecipesListGridConfig = myMealsDefaultRecipesListGridConfig,
-        navigateToCatalog: @escaping () -> Void
+        navigateToCatalog: @escaping () -> Void,
+        navigateToItemSelector: (() -> Void)? = nil
     ) {
         self.baseViews = baseViews
         self.myMealsViewOptions = myMealsViewOptions
         self.catalogRecipesListGridConfig = catalogRecipesListGridConfig
         self.navigateToCatalog = navigateToCatalog
+        self.navigateToItemSelector = navigateToItemSelector
     }
 }

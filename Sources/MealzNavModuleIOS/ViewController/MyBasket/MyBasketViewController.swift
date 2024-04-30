@@ -73,6 +73,9 @@ class MyBasketViewController: UIViewController {
                     }, onShowRecipeDetails: { [weak self] recipeId in
                         guard let strongSelf = self else { return }
                         strongSelf.recipeDetailsCoordinator?.showRecipeDetails(recipeId: recipeId)
+                    }, openItemSelector: { [weak self] id in
+                        guard let strongSelf = self else { return }
+                        strongSelf.recipeDetailsCoordinator?.showItemSelector(ingredientId: nil, basketEntryId: id)
                     }
                 ),
                 viewOptions: myMealsViewOptions
