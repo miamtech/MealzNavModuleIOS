@@ -21,6 +21,7 @@ class MyBasketViewController: UIViewController {
     private let myProductsBaseViews: BasePageViewParameters
     private let gridConfig: CatalogRecipesListGridConfig
     private let navigateToTheCatalog: () -> Void
+    private let navigateToCheckout: (String?) -> Void
     weak var coordinator: MealzBaseNavCoordinator?
     weak var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator?
 
@@ -34,7 +35,8 @@ class MyBasketViewController: UIViewController {
         gridConfig: CatalogRecipesListGridConfig,
         coordinator: MealzBaseNavCoordinator,
         recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator,
-        navigateToTheCatalog: @escaping () -> Void
+        navigateToTheCatalog: @escaping () -> Void,
+        navigateToCheckout: @escaping (String?) -> Void
     ) {
         self.myBasketViewOptions = myBasketViewOptions
         self.myBasketBaseViews = myBasketBaseViews
@@ -46,6 +48,7 @@ class MyBasketViewController: UIViewController {
         self.navigateToTheCatalog = navigateToTheCatalog
         self.coordinator = coordinator
         self.recipeDetailsCoordinator = recipeDetailsCoordinator
+        self.navigateToCheckout = navigateToCheckout
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -61,7 +64,10 @@ class MyBasketViewController: UIViewController {
     > {
         return MyBasket.init(
             myBasketParams: MyBasketParameters(
-                actions: MyBasketActions(onSubmitOrder: {}), 
+                actions: MyBasketActions(onSubmitOrder: { [weak self] url in
+                    guard let strongSelf = self else { return }
+                    strongSelf.navigateToCheckout(url)
+                }),
                 viewOptions: myBasketViewOptions
             ),
             myBasketBaseViews: myBasketBaseViews,
