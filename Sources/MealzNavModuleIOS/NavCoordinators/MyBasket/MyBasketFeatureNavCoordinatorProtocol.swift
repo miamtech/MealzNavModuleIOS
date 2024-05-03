@@ -16,6 +16,7 @@ public protocol MyBasketFeatureNavCoordinatorProtocol {
     var myMealsViewOptions: MyMealsViewOptions { get set }
     var myMealsBaseViews: BasePageViewParameters { get set }
     var navigateToCatalog: () -> Void { get set }
+    var navigateToCheckout: (String?) -> Void { get set }
 
     // grid configs
     var catalogRecipesListGridConfig: CatalogRecipesListGridConfig { get set }

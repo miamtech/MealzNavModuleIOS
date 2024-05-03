@@ -19,6 +19,7 @@ public class MyBasketFeatureNavCoordinator: MealzBaseNavCoordinator, MyBasketFea
     public var myProductsViewOptions: MyProductsViewOptions
     public var myProductsBaseViews: BasePageViewParameters
     public var navigateToCatalog: () -> Void
+    public var navigateToCheckout: (String?) -> Void
 
     public var recipeDetailsCoordinator: RecipeDetailsFeatureNavCoordinator
 
@@ -37,6 +38,7 @@ public class MyBasketFeatureNavCoordinator: MealzBaseNavCoordinator, MyBasketFea
         self.myProductsViewOptions = myBasketContructor.myProductsViewOptions
         self.myProductsBaseViews = myBasketContructor.myProductsBaseViews
         self.navigateToCatalog = myBasketContructor.navigateToCatalog
+        self.navigateToCheckout = myBasketContructor.navigateToCheckout
         self.catalogRecipesListGridConfig = myBasketContructor.catalogRecipesListGridConfig
         self.recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
@@ -56,7 +58,8 @@ public class MyBasketFeatureNavCoordinator: MealzBaseNavCoordinator, MyBasketFea
             gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
-            navigateToTheCatalog: navigateToCatalog
+            navigateToTheCatalog: navigateToCatalog,
+            navigateToCheckout : navigateToCheckout
         )
         navigationController.viewControllers = [myBasketVC]
     }
@@ -72,7 +75,8 @@ public class MyBasketFeatureNavCoordinator: MealzBaseNavCoordinator, MyBasketFea
             gridConfig: catalogRecipesListGridConfig,
             coordinator: self,
             recipeDetailsCoordinator: recipeDetailsCoordinator,
-            navigateToTheCatalog: navigateToCatalog
+            navigateToTheCatalog: navigateToCatalog,
+            navigateToCheckout: navigateToCheckout
         )
         navigationController.pushViewController(myBasketVC, animated: false)
     }
