@@ -31,7 +31,8 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
         self.navigateToCatalog = favoritesFeatureConstructor.navigateToCatalog
         let recipeDetailsCoordinator = RecipeDetailsFeatureNavCoordinator(
             baseConstructor: baseConstructor,
-            recipeDetailsFeatureConstructor: recipeDetailsConstructor)
+            recipeDetailsFeatureConstructor: recipeDetailsConstructor
+        )
         self.catalogRecipesListGridConfig = favoritesFeatureConstructor.catalogRecipesListGridConfig
         self.recipeDetailsView = MealzRecipeDetailsFeatureUIKit(
             recipeDetailsConstructor: recipeDetailsConstructor)
@@ -39,7 +40,7 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
     }
     
     // only used when navigation controller is from a Mealz UIKit or SwiftUI standalone
-    internal func setFavorites() {
+    func setFavorites() {
         let favoritesVC = FavoritesViewController(
             favoritesViewOptions: favoritesViewOptions,
             baseViews: baseViews,
@@ -48,6 +49,8 @@ public class FavoritesFeatureNavCoordinator: MealzBaseNavCoordinator, FavoritesF
             navigateToTheCatalog: navigateToCatalog,
             showRecipeDetails: presentRecipeDetails
         )
+        favoritesVC.extendedLayoutIncludesOpaqueBars = true
+
         navigationController.viewControllers = [favoritesVC]
     }
     
